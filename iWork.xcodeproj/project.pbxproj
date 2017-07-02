@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */; };
-		E94F4ECF1F088E8E001DB22F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ECE1F088E8E001DB22F /* ViewController.swift */; };
 		E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED01F088E8E001DB22F /* Main.storyboard */; };
 		E94F4ED51F088E8E001DB22F /* iWork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */; };
 		E94F4ED71F088E8E001DB22F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED61F088E8E001DB22F /* Assets.xcassets */; };
 		E94F4EDA1F088E8E001DB22F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */; };
 		E94F4EE51F088E8E001DB22F /* iWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EE41F088E8E001DB22F /* iWorkTests.swift */; };
 		E94F4EF01F088E8E001DB22F /* iWorkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EEF1F088E8E001DB22F /* iWorkUITests.swift */; };
+		E94F4EFE1F089AAD001DB22F /* TaskManagerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */; };
+		E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EFF1F08A4EC001DB22F /* Directory.swift */; };
+		E94F4F021F08A994001DB22F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F011F08A994001DB22F /* Categories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +39,6 @@
 /* Begin PBXFileReference section */
 		E94F4EC91F088E8E001DB22F /* iWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E94F4ECE1F088E8E001DB22F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E94F4ED11F088E8E001DB22F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E94F4ED41F088E8E001DB22F /* iWork.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iWork.xcdatamodel; sourceTree = "<group>"; };
 		E94F4ED61F088E8E001DB22F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +50,9 @@
 		E94F4EEB1F088E8E001DB22F /* iWorkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iWorkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4EEF1F088E8E001DB22F /* iWorkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iWorkUITests.swift; sourceTree = "<group>"; };
 		E94F4EF11F088E8E001DB22F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskManagerTableViewController.swift; sourceTree = "<group>"; };
+		E94F4EFF1F08A4EC001DB22F /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
+		E94F4F011F08A994001DB22F /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +104,14 @@
 			isa = PBXGroup;
 			children = (
 				E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */,
-				E94F4ECE1F088E8E001DB22F /* ViewController.swift */,
+				E94F4F011F08A994001DB22F /* Categories.swift */,
+				E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */,
 				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
 				E94F4ED61F088E8E001DB22F /* Assets.xcassets */,
 				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
 				E94F4EDB1F088E8E001DB22F /* Info.plist */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
+				E94F4EFF1F08A4EC001DB22F /* Directory.swift */,
 			);
 			path = iWork;
 			sourceTree = "<group>";
@@ -266,8 +272,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94F4ED51F088E8E001DB22F /* iWork.xcdatamodeld in Sources */,
-				E94F4ECF1F088E8E001DB22F /* ViewController.swift in Sources */,
+				E94F4EFE1F089AAD001DB22F /* TaskManagerTableViewController.swift in Sources */,
+				E94F4F021F08A994001DB22F /* Categories.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
+				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +528,7 @@
 				E94F4EF61F088E8E001DB22F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E94F4EF71F088E8E001DB22F /* Build configuration list for PBXNativeTarget "iWorkTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +537,7 @@
 				E94F4EF91F088E8E001DB22F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E94F4EFA1F088E8E001DB22F /* Build configuration list for PBXNativeTarget "iWorkUITests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +546,7 @@
 				E94F4EFC1F088E8E001DB22F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
