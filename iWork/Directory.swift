@@ -15,6 +15,8 @@ extension Directory {
         switch self.info! {
         case is Folder:
             return "I am a Folder"
+        case is Project:
+            return "I am a Project"
         case is Task:
             return "I am a Task"
         default:
@@ -57,7 +59,7 @@ extension Directory {
     }
     
     var isDirectory: Bool {
-        return (self.info! is Folder)
+        return (self.info! is Folder || self.info! is Project)
     }
     
     /**

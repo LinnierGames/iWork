@@ -17,6 +17,14 @@
 		E94F4EFE1F089AAD001DB22F /* TaskManagerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */; };
 		E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EFF1F08A4EC001DB22F /* Directory.swift */; };
 		E94F4F021F08A994001DB22F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F011F08A994001DB22F /* Categories.swift */; };
+		E94F4F041F08B0DA001DB22F /* OrganizeTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */; };
+		E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */; };
+		E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */; };
+		E94F4F0A1F08B0F2001DB22F /* MoveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */; };
+		E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0C1F08B130001DB22F /* Constants.swift */; };
+		E94F4F101F08B177001DB22F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
+		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
+		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +61,14 @@
 		E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskManagerTableViewController.swift; sourceTree = "<group>"; };
 		E94F4EFF1F08A4EC001DB22F /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
 		E94F4F011F08A994001DB22F /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeTableTableViewController.swift; sourceTree = "<group>"; };
+		E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
+		E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveNavigationController.swift; sourceTree = "<group>"; };
+		E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTableViewController.swift; sourceTree = "<group>"; };
+		E94F4F0C1F08B130001DB22F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E94F4F0F1F08B177001DB22F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		E94F4F111F08B244001DB22F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,13 +121,10 @@
 			children = (
 				E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */,
 				E94F4F011F08A994001DB22F /* Categories.swift */,
-				E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */,
+				E94F4F0C1F08B130001DB22F /* Constants.swift */,
+				E94F4F0B1F08B0F7001DB22F /* Task Manager */,
 				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
-				E94F4ED61F088E8E001DB22F /* Assets.xcassets */,
-				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
-				E94F4EDB1F088E8E001DB22F /* Info.plist */,
-				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
-				E94F4EFF1F08A4EC001DB22F /* Directory.swift */,
+				E94F4F0E1F08B167001DB22F /* Supporting Files */,
 			);
 			path = iWork;
 			sourceTree = "<group>";
@@ -132,6 +145,33 @@
 				E94F4EF11F088E8E001DB22F /* Info.plist */,
 			);
 			path = iWorkUITests;
+			sourceTree = "<group>";
+		};
+		E94F4F0B1F08B0F7001DB22F /* Task Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */,
+				E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */,
+				E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */,
+				E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */,
+				E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */,
+			);
+			name = "Task Manager";
+			sourceTree = "<group>";
+		};
+		E94F4F0E1F08B167001DB22F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E94F4ED61F088E8E001DB22F /* Assets.xcassets */,
+				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
+				E94F4EDB1F088E8E001DB22F /* Info.plist */,
+				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
+				E94F4EFF1F08A4EC001DB22F /* Directory.swift */,
+				E94F4F111F08B244001DB22F /* Folder.swift */,
+				E99349921F09B78000A27473 /* Project.swift */,
+				E94F4F0F1F08B177001DB22F /* Task.swift */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,10 +312,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94F4ED51F088E8E001DB22F /* iWork.xcdatamodeld in Sources */,
+				E94F4F041F08B0DA001DB22F /* OrganizeTableTableViewController.swift in Sources */,
 				E94F4EFE1F089AAD001DB22F /* TaskManagerTableViewController.swift in Sources */,
 				E94F4F021F08A994001DB22F /* Categories.swift in Sources */,
+				E94F4F101F08B177001DB22F /* Task.swift in Sources */,
+				E99349931F09B78000A27473 /* Project.swift in Sources */,
+				E94F4F0A1F08B0F2001DB22F /* MoveTableViewController.swift in Sources */,
+				E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */,
+				E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */,
+				E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
 				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
+				E94F4F121F08B244001DB22F /* Folder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

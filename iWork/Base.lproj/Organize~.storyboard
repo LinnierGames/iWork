@@ -38,7 +38,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="VFU-9e-z4e">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="VFU-9e-z4e">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VFU-9e-z4e" id="k82-KQ-K2r">
@@ -67,7 +67,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="tax-9v-2WK">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="tax-9v-2WK">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tax-9v-2WK" id="o2M-wQ-jGt">
@@ -167,11 +167,7 @@
                                     <action selector="pressAdd:" destination="ycQ-70-Hu7" id="mff-We-hqS"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="organize" id="4jC-H7-jQu">
-                                <connections>
-                                    <segue destination="OQo-d9-vuk" kind="showDetail" identifier="show oragnize" id="KRO-MG-Ubr"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem systemItem="organize" id="4jC-H7-jQu"/>
                         </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
@@ -202,8 +198,7 @@
         <!--Organize Table Table View Controller-->
         <scene sceneID="BAk-hH-pmH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7UH-DN-KmI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController storyboardIdentifier="organize table" id="aXU-Rj-be5" customClass="OrganizeTableTableViewController" customModule="iWork" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="organize table" id="aXU-Rj-be5" customClass="OrganizeTableTableViewController" customModule="Assigned" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="l7l-d4-vQd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -239,15 +234,7 @@
                             <outlet property="delegate" destination="aXU-Rj-be5" id="35U-ws-0cb"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Z5C-Ys-n7i"/>
-                        <barButtonItem title="Close" id="QX5-dA-Wer">
-                            <connections>
-                                <action selector="pressClose:" destination="aXU-Rj-be5" id="sxP-5m-Z3r"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="6DW-eB-P6M"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="kp5-Cp-bEC">
                         <nil key="title"/>
                         <rightBarButtonItems>
@@ -259,7 +246,6 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="buttonAddItem" destination="kyj-qX-HYg" id="sFP-aJ-qZF"/>
                         <segue destination="dtU-Uk-kVo" kind="showDetail" identifier="show assignment" id="9xY-bK-eOp">
@@ -270,14 +256,14 @@
                         </segue>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7UH-DN-KmI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3990" y="192"/>
         </scene>
         <!--Assignment-->
         <scene sceneID="lEt-Ze-4NO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8hr-xS-Slw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="assignmentVC" id="R27-pK-0rq" customClass="AssignmentViewController" customModule="iWork" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="assignmentVC" id="R27-pK-0rq" customClass="AssignmentViewController" customModule="Assigned" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jCZ-1g-XKP"/>
                         <viewControllerLayoutGuide type="bottom" id="lBI-RT-NLO"/>
@@ -529,36 +515,31 @@
                         <outlet property="tableView" destination="ISG-a5-zDv" id="n7A-xg-76D"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8hr-xS-Slw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5772" y="191"/>
         </scene>
         <!--Item-->
         <scene sceneID="2x0-q9-nh3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cd3-8u-C6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController toolbarHidden="NO" id="OQo-d9-vuk" sceneMemberID="viewController">
+                <navigationController id="OQo-d9-vuk" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="qbK-dE-Vdr"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tDz-g6-ILR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="KH6-Jv-sRf">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
                         <segue destination="aXU-Rj-be5" kind="relationship" relationship="rootViewController" id="i6r-hY-rBq"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cd3-8u-C6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3038" y="192"/>
         </scene>
         <!--Assignment Navigation Controller-->
         <scene sceneID="eUK-a8-V5a">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RAI-3a-9ai" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController storyboardIdentifier="assignmentNC" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dtU-Uk-kVo" customClass="AssignmentNavigationController" customModule="iWork" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="assignmentNC" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dtU-Uk-kVo" customClass="AssignmentNavigationController" customModule="Assigned" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="six-AR-CBw">
@@ -574,14 +555,14 @@
                         <segue destination="R27-pK-0rq" kind="relationship" relationship="rootViewController" id="GqE-xi-wPL"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RAI-3a-9ai" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4833" y="191"/>
         </scene>
         <!--Select a Destination-->
         <scene sceneID="KOq-HO-bAf">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kbN-8C-8p2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController storyboardIdentifier="moveVC" id="KeK-wH-L92" customClass="MoveTableViewController" customModule="iWork" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="moveVC" id="KeK-wH-L92" customClass="MoveTableViewController" customModule="Assigned" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jvX-lh-cFK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -618,47 +599,41 @@
                             <outlet property="delegate" destination="KeK-wH-L92" id="IFW-NV-pDt"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="5gC-jQ-d1N"/>
-                        <barButtonItem title="Close" id="nOK-PF-VTg">
-                            <connections>
-                                <action selector="pressCancel:" destination="KeK-wH-L92" id="fFy-Zd-epX"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="2MX-Un-l9y"/>
-                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Select a Destination" id="NOI-Ni-BYh">
-                        <barButtonItem key="rightBarButtonItem" title="Here" style="done" id="Pzv-et-ogI">
-                            <connections>
-                                <action selector="pressDone:" destination="KeK-wH-L92" id="paX-xT-uwQ"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Here" style="done" id="Pzv-et-ogI">
+                                <connections>
+                                    <action selector="pressDone:" destination="KeK-wH-L92" id="paX-xT-uwQ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="stop" id="5EU-Sw-y1u">
+                                <connections>
+                                    <action selector="pressCancel:" destination="KeK-wH-L92" id="aYj-pe-bm2"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kbN-8C-8p2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5642" y="971"/>
         </scene>
         <!--Move Navigation Controller-->
         <scene sceneID="IYc-EQ-tMG">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UVt-W6-wDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController storyboardIdentifier="moveNC" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="VS0-6F-vNH" customClass="MoveNavigationController" customModule="iWork" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="moveNC" automaticallyAdjustsScrollViewInsets="NO" id="VS0-6F-vNH" customClass="MoveNavigationController" customModule="Assigned" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yit-xi-t3U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="7Ri-Ag-Lrr">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
                         <segue destination="KeK-wH-L92" kind="relationship" relationship="rootViewController" id="tB0-Td-q12"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UVt-W6-wDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4833" y="971"/>
         </scene>
