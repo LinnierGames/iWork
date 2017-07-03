@@ -11,14 +11,6 @@ import CoreData
 
 class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveTableViewControllerDelegate {
     
-    private var appDelegate: AppDelegate? {
-        return UIApplication.shared.delegate as? AppDelegate
-    }
-    
-    private var container: NSPersistentContainer? {
-        return appDelegate?.persistentContainer
-    }
-    
     private var selectedRowItems: [Directory] = [Directory]() {
         didSet {
             if selectedRowItems.count > 0 {
@@ -105,23 +97,19 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
     // MARK: - VOID METHODS
     
     private func updateUI() {
-        if let context = container?.viewContext {
-            let request: NSFetchRequest<Directory> = Directory.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(key: "info.title", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))]
-            if let hierarchy = currentDirectory {
-                request.predicate = NSPredicate(format: "parent == %@", hierarchy)
-            } else {
-                request.predicate = NSPredicate(format: "parent = nil")
-            }
-            fetchedResultsController = NSFetchedResultsController<Directory>(
-                fetchRequest: request,
-                managedObjectContext: context,
-                sectionNameKeyPath: nil,
-                cacheName: nil
-            )
-            
+        let request: NSFetchRequest<Directory> = Directory.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "info.title", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))]
+        if let hierarchy = currentDirectory {
+            request.predicate = NSPredicate(format: "parent == %@", hierarchy)
+        } else {
+            request.predicate = NSPredicate(format: "parent = nil")
         }
-        
+        fetchedResultsController = NSFetchedResultsController<Directory>(
+            fetchRequest: request,
+            managedObjectContext: container.viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
     }
     
     private func prompt<T>(type:T.Type, withTitle promptTitle: String?, message promptMessage: String = "enter a title", willComplete: @escaping (T) -> Void = {_ in }, didComplete: @escaping (T) -> Void = {_ in }) {
@@ -131,30 +119,27 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak self] (action) in
-            if let context = self!.container?.viewContext {
-                let newClass: DirectoryInfo
-                if type is Folder.Type {
-                    newClass = Folder(context: context)
-                } else if type is Project.Type {
-                    newClass = Project(context: context)
-                } else if type is Task.Type {
-                    newClass = Task(context: context)
-                } else {
-                    newClass = DirectoryInfo(context: context)
-                }
-                newClass.title = alert.inputField.text
-                
-                willComplete(newClass as! T)
-                
-                _ = Directory.createDirectory(forDirectoryInfo: newClass, withParent: self!.currentDirectory, in: context)
-                
-                self!.appDelegate?.saveContext()
-                
-                didComplete(newClass as! T)
-                
-                self!.updateUI()
-                
+            let newClass: DirectoryInfo, context = self!.container.viewContext
+            if type is Folder.Type {
+                newClass = Folder(context: context)
+            } else if type is Project.Type {
+                newClass = Project(context: context)
+            } else if type is Task.Type {
+                newClass = Task(context: context)
+            } else {
+                newClass = DirectoryInfo(context: context)
             }
+            newClass.title = alert.inputField.text
+            
+            willComplete(newClass as! T)
+            
+            _ = Directory.createDirectory(forDirectoryInfo: newClass, withParent: self!.currentDirectory, in: context)
+            
+            self!.appDelegate.saveContext()
+            
+            didComplete(newClass as! T)
+            
+            self!.updateUI()
         }))
         
         self.present( alert, animated: true, completion: nil)
@@ -247,7 +232,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         alert.addAction( UIAlertAction(title: "Save", style: .default, handler: { [weak self] (action) in
             rowItem.info!.title = alert.textFields!.first!.text
             
-            self!.appDelegate?.saveContext()
+            self!.appDelegate.saveContext()
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -260,11 +245,9 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
             // Delete the row from the data source
             let row = fetchedResultsController!.object(at: indexPath)
             
-            if let context = container?.viewContext {
-                context.delete(row)
-                
-                appDelegate?.saveContext()
-            }
+            container.viewContext.delete(row)
+            
+            appDelegate.saveContext()
             
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

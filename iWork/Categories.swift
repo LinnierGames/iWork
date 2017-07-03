@@ -7,6 +7,19 @@
 //
 
 import UIKit
+import CoreData
+
+extension UIViewController {
+    
+    var appDelegate: AppDelegate {
+        return (UIApplication.shared.delegate as! AppDelegate)
+    }
+    
+    var container: NSPersistentContainer {
+        return appDelegate.persistentContainer
+    }
+    
+}
 
 extension UITableViewCell {
     func setState(enabled: Bool) {

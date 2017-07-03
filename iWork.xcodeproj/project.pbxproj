@@ -25,6 +25,8 @@
 		E94F4F101F08B177001DB22F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
 		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
 		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
+		E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349941F09C4A800A27473 /* RolesTableViewController.swift */; };
+		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		E94F4F0F1F08B177001DB22F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E94F4F111F08B244001DB22F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		E99349941F09C4A800A27473 /* RolesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RolesTableViewController.swift; sourceTree = "<group>"; };
+		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +127,6 @@
 				E94F4F011F08A994001DB22F /* Categories.swift */,
 				E94F4F0C1F08B130001DB22F /* Constants.swift */,
 				E94F4F0B1F08B0F7001DB22F /* Task Manager */,
-				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
 				E94F4F0E1F08B167001DB22F /* Supporting Files */,
 			);
 			path = iWork;
@@ -151,10 +154,12 @@
 			isa = PBXGroup;
 			children = (
 				E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */,
+				E99349941F09C4A800A27473 /* RolesTableViewController.swift */,
 				E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */,
 				E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */,
 				E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */,
 				E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */,
+				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
 			);
 			name = "Task Manager";
 			sourceTree = "<group>";
@@ -166,6 +171,7 @@
 				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
 				E94F4EDB1F088E8E001DB22F /* Info.plist */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
+				E99349961F09CB2200A27473 /* Role.swift */,
 				E94F4EFF1F08A4EC001DB22F /* Directory.swift */,
 				E94F4F111F08B244001DB22F /* Folder.swift */,
 				E99349921F09B78000A27473 /* Project.swift */,
@@ -322,8 +328,10 @@
 				E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */,
 				E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
+				E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */,
 				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
 				E94F4F121F08B244001DB22F /* Folder.swift in Sources */,
+				E99349971F09CB2200A27473 /* Role.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

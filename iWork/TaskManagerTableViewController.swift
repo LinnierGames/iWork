@@ -11,14 +11,6 @@ import CoreData
 
 class TaskManagerTableViewController: UITableViewController {
     
-    private var appDelegate: AppDelegate {
-        return (UIApplication.shared.delegate as! AppDelegate)
-    }
-    
-    private var container: NSPersistentContainer {
-        return appDelegate.persistentContainer
-    }
-    
     private var fetchedResultsController: NSFetchedResultsController<Directory>? {
         didSet {
             if let controller = fetchedResultsController {
@@ -177,6 +169,12 @@ class TaskManagerTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear( animated)
+        
+        self.title = appDelegate.currentRole.title
     }
 
     override func didReceiveMemoryWarning() {

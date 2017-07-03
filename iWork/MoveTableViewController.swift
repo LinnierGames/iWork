@@ -11,14 +11,6 @@ import CoreData
 
 class MoveTableViewController: UITableViewController {
     
-    private var appDelegate: AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-    
-    private var container: NSPersistentContainer? {
-        return appDelegate.persistentContainer
-    }
-    
     private var navController: MoveNavigationController {
         return navigationController as! MoveNavigationController
     }
@@ -74,11 +66,8 @@ class MoveTableViewController: UITableViewController {
     private func updateUI() {
         if currentDirectory != nil {
             arrayM = currentDirectory?.children?.allObjects as! [Directory]
-            
         } else {
-            if let context = container?.viewContext {
-                arrayM = Directory.fetchDirectoryWithParentDirectory(currentDirectory, in: context)
-            }
+            arrayM = Directory.fetchDirectoryWithParentDirectory(currentDirectory, in: container.viewContext)
         }
         
         tableView.reloadData()

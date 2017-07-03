@@ -4,6 +4,7 @@
         <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Directories" inverseName="parent" inverseEntity="Directories" syncable="YES"/>
         <relationship name="info" maxCount="1" deletionRule="Cascade" destinationEntity="DirectoryInfos" inverseName="directory" inverseEntity="DirectoryInfos" syncable="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Directories" inverseName="children" inverseEntity="Directories" syncable="YES"/>
+        <relationship name="role" maxCount="1" deletionRule="Nullify" destinationEntity="Roles" inverseName="directories" inverseEntity="Roles" syncable="YES"/>
     </entity>
     <entity name="DirectoryInfos" representedClassName="DirectoryInfo" isAbstract="YES" syncable="YES" codeGenerationType="class">
         <attribute name="title" attributeType="String" defaultValueString="Untitled" syncable="YES"/>
@@ -15,7 +16,7 @@
     </entity>
     <entity name="Roles" representedClassName="Role" syncable="YES" codeGenerationType="class">
         <attribute name="title" attributeType="String" defaultValueString="Untitled" syncable="YES"/>
-        <relationship name="directories" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Directories" syncable="YES"/>
+        <relationship name="directories" toMany="YES" deletionRule="Cascade" destinationEntity="Directories" inverseName="role" inverseEntity="Directories" syncable="YES"/>
     </entity>
     <entity name="Tasks" representedClassName="Task" parentEntity="DirectoryInfos" syncable="YES" codeGenerationType="class">
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -26,7 +27,7 @@
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" inverseName="tasks" inverseEntity="Projects" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Directories" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Directories" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="DirectoryInfos" positionX="-54" positionY="-9" width="128" height="75"/>
         <element name="Folders" positionX="-36" positionY="9" width="128" height="45"/>
         <element name="Projects" positionX="0" positionY="90" width="128" height="60"/>
