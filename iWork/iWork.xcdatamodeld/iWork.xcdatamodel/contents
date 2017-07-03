@@ -15,7 +15,7 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tasks" inverseName="project" inverseEntity="Tasks" syncable="YES"/>
     </entity>
     <entity name="Roles" representedClassName="Role" syncable="YES" codeGenerationType="class">
-        <attribute name="title" attributeType="String" defaultValueString="Untitled" syncable="YES"/>
+        <attribute name="title" attributeType="String" defaultValueString="Untitled Role" syncable="YES"/>
         <relationship name="directories" toMany="YES" deletionRule="Cascade" destinationEntity="Directories" inverseName="role" inverseEntity="Directories" syncable="YES"/>
     </entity>
     <entity name="Tasks" representedClassName="Task" parentEntity="DirectoryInfos" syncable="YES" codeGenerationType="class">

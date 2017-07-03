@@ -14,31 +14,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    lazy var currentRole: Role = {
-        if let role = UserDefaults.standard.string(forKey: "role") { //Fetches the default role
-            if let objectId = self.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: role)!) {
-                if let fetchedObject = self.persistentContainer.viewContext.object(with: objectId) as? Role {
-                    return fetchedObject
+    var currentRole: Role {
+        get {
+            if let role = UserDefaults.standard.string(forKey: "role") { //Fetches the default role
+                if let objectId = self.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: role)!) {
+                    if let fetchedObject = self.persistentContainer.viewContext.object(with: objectId) as? Role {
+                        return fetchedObject
+                    } else { //Not found, then remove the saved Id and create a new default
+                        UserDefaults.standard.setValue(nil, forKey: "role")
+                        return self.currentRole
+                    }
                 } else { //Not found, then remove the saved Id and create a new default
                     UserDefaults.standard.setValue(nil, forKey: "role")
-                    
                     return self.currentRole
                 }
-            } else { //Not found, then remove the saved Id and create a new default
-                UserDefaults.standard.setValue(nil, forKey: "role")
-                
-                return self.currentRole
+            } else { //Assume there is no role saved in context and create a new one
+                let defaultRole = Role(context: self.persistentContainer.viewContext)
+                self.currentRole = defaultRole
+                self.saveContext()
+                return defaultRole
             }
-        } else { //Assume there is no role saved in context and create a new one
-            let defaultRole = Role(context: self.persistentContainer.viewContext)
-            UserDefaults.standard.setValue(defaultRole.objectID.uriRepresentation().absoluteString, forKey: "role")
-            UserDefaults.standard.synchronize()
-            self.saveContext()
-            
-            return defaultRole
         }
-    }()
-    
+        set {
+            UserDefaults.standard.setValue(newValue.objectID.uriRepresentation().absoluteString, forKey: "role")
+            UserDefaults.standard.synchronize()
+        }
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true

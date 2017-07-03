@@ -246,6 +246,11 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="jTy-0d-a7z"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Switch Roles" id="bCl-Wr-ypD">
+                        <barButtonItem key="leftBarButtonItem" title="Rename" id="sLl-Ah-vTa">
+                            <connections>
+                                <action selector="pressRename:" destination="55D-zP-Mck" id="08d-cY-A4G"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="edit" id="zyg-qu-mGT"/>
                             <barButtonItem systemItem="add" id="ykD-EE-ghx">
