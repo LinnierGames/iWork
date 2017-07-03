@@ -100,9 +100,9 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         let request: NSFetchRequest<Directory> = Directory.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "info.title", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))]
         if let hierarchy = currentDirectory {
-            request.predicate = NSPredicate(format: "parent == %@", hierarchy)
+            request.predicate = NSPredicate(format: "role == %@ AND parent == %@", appDelegate.currentRole, hierarchy)
         } else {
-            request.predicate = NSPredicate(format: "parent = nil")
+            request.predicate = NSPredicate(format: "role == %@ AND parent = nil", appDelegate.currentRole)
         }
         fetchedResultsController = NSFetchedResultsController<Directory>(
             fetchRequest: request,
@@ -133,7 +133,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
             
             willComplete(newClass as! T)
             
-            _ = Directory.createDirectory(forDirectoryInfo: newClass, withParent: self!.currentDirectory, in: context)
+            _ = Directory.createDirectory(forDirectoryInfo: newClass, withParent: self!.currentDirectory, in: context, forRole: self!.appDelegate.currentRole)
             
             self!.appDelegate.saveContext()
             

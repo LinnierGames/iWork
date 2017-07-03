@@ -67,7 +67,7 @@ class MoveTableViewController: UITableViewController {
         if currentDirectory != nil {
             arrayM = currentDirectory?.children?.allObjects as! [Directory]
         } else {
-            arrayM = Directory.fetchDirectoryWithParentDirectory(currentDirectory, in: container.viewContext)
+            arrayM = Directory.fetchDirectoryWithParentDirectory(currentDirectory, in: container.viewContext, forRole: appDelegate.currentRole)
         }
         
         tableView.reloadData()

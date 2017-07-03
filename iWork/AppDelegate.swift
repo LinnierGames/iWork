@@ -22,16 +22,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return fetchedObject
                     } else { //Not found, then remove the saved Id and create a new default
                         UserDefaults.standard.setValue(nil, forKey: "role")
+                        
                         return self.currentRole
                     }
                 } else { //Not found, then remove the saved Id and create a new default
                     UserDefaults.standard.setValue(nil, forKey: "role")
+                    
                     return self.currentRole
                 }
             } else { //Assume there is no role saved in context and create a new one
                 let defaultRole = Role(context: self.persistentContainer.viewContext)
                 self.saveContext()
                 self.currentRole = defaultRole
+                
                 return defaultRole
             }
         }

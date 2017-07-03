@@ -24,24 +24,24 @@ extension Directory {
         }
     }
     
-    static func createDirectory( forDirectoryInfo info: DirectoryInfo, withParent parent: Directory?, `in` context: NSManagedObjectContext) -> Directory {
+    static func createDirectory( forDirectoryInfo info: DirectoryInfo, withParent parent: Directory?, `in` context: NSManagedObjectContext, forRole role: Role) -> Directory {
         let newHierarchy = Directory(context: context)
         newHierarchy.parent = parent
-        
         newHierarchy.info = info
+        newHierarchy.role = role
         
         return newHierarchy
         
     }
     
-    static func fetchDirectoryWithParentDirectory(_ directory: Directory?, `in` context: NSManagedObjectContext) -> [Directory] {
+    static func fetchDirectoryWithParentDirectory(_ directory: Directory?, `in` context: NSManagedObjectContext, forRole role: Role) -> [Directory] {
         let fetch: NSFetchRequest<Directory> = Directory.fetchRequest()
         fetch.sortDescriptors = [NSSortDescriptor(key: "info.title", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))]
         
         if directory == nil {
-            fetch.predicate = NSPredicate(format: "parent == nil")
+            fetch.predicate = NSPredicate(format: "role == %@ AND parent == nil", role)
         } else {
-            fetch.predicate = NSPredicate(format: "parent == %@", directory!)
+            fetch.predicate = NSPredicate(format: "role == %@ AND parent == %@", role, directory!)
         }
         
         var result = [Directory]()
