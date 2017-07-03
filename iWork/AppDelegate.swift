@@ -30,8 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             } else { //Assume there is no role saved in context and create a new one
                 let defaultRole = Role(context: self.persistentContainer.viewContext)
-                self.currentRole = defaultRole
                 self.saveContext()
+                self.currentRole = defaultRole
                 return defaultRole
             }
         }
