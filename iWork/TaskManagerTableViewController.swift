@@ -11,7 +11,7 @@ import CoreData
 
 class TaskManagerTableViewController: UITableViewController {
     
-    private var fetchedResultsController: NSFetchedResultsController<Directory>? {
+    private var fetchedResultsController: NSFetchedResultsController<Task>? {
         didSet {
             if let controller = fetchedResultsController {
                 // controller.delegate = self
@@ -59,20 +59,28 @@ class TaskManagerTableViewController: UITableViewController {
         
         let row = fetchedResultsController!.object(at: indexPath)
         
-        cell.textLabel!.text = row.info!.title
-        cell.detailTextLabel!.text = String(describing: row)
+        cell.textLabel!.text = row.title
         
         return cell
     }
     
     // MARK: - VOID METHODS
     
-    private func updateUI() {
-        let fetch: NSFetchRequest<Directory> = Directory.fetchRequest()
-        fetch.predicate = NSPredicate(format: "parent = nil")
-        fetch.sortDescriptors = [NSSortDescriptor(key: "info.title", ascending: true)]
+    private func updateUI() {// Get the current calendar with local time zone
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
         
-        fetchedResultsController = NSFetchedResultsController<Directory>(
+        // Get today's beginning & end
+        let dateFrom = calendar.startOfDay(for: Date())
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute],from: dateFrom)
+        components.day! += 1
+        let dateTo = calendar.date(from: components)!
+        
+        let fetch: NSFetchRequest<Task> = Task.fetchRequest()
+        fetch.predicate = NSPredicate(format: "directory.role == %@ AND isCompleted == FALSE AND (%@ <= dueDate) AND (dueDate < %@)", appDelegate.currentRole, dateFrom as NSDate, dateTo as NSDate)
+        fetch.sortDescriptors = [NSSortDescriptor(key: "dueDate", ascending: true)]
+        
+        fetchedResultsController = NSFetchedResultsController<Task>(
             fetchRequest: fetch,
             managedObjectContext: container.viewContext,
             sectionNameKeyPath: nil, cacheName: nil
@@ -100,7 +108,7 @@ class TaskManagerTableViewController: UITableViewController {
             
             willComplete(newClass as! T)
             
-            _ = Directory.createDirectory(forDirectoryInfo: newClass, withParent: nil, in: context)
+            _ = Directory.createDirectory(forDirectoryInfo: newClass, withParent: nil, in: context, forRole: self!.appDelegate.currentRole)
             
             self!.appDelegate.saveContext()
             
@@ -120,13 +128,20 @@ class TaskManagerTableViewController: UITableViewController {
             case "show oraganizer":
                 let organizeVC = segue.destination as! OrganizeTableTableViewController
                 organizeVC.currentDirectory = nil
+            case "show task":
+                let taskNC = segue.destination as! TaskNavigationController
+                taskNC.task = sender as! Task
             default:
                 break
             }
         }
     }
     
-    // MARK: Table view data source
+    // MARK: Table view
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "show task", sender: fetchedResultsController!.object(at: indexPath))
+    }
     
     /*
      // Override to support editing the table view.
@@ -143,38 +158,37 @@ class TaskManagerTableViewController: UITableViewController {
     // MARK: - IBACTIONS
     
     @IBAction func pressAdd(_ sender: Any) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Folder", style: .default, handler: { [weak self] (action) in
-            self!.prompt(type: Folder.self, withTitle: "New Folder")
-        }))
-        alert.addAction(UIAlertAction(title: "Task", style: .default, handler: { [weak self] (action) in
-            self!.prompt(type: Task.self, withTitle: "New Folder", willComplete: { (task) in
-                task.dateCreated = NSDate()
-            })
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
+        prompt(type: Task.self, withTitle: "New Task", willComplete: { (task) in
+            task.dateCreated = NSDate()
+            task.dueDate = NSDate()
+        }, didComplete: { [weak self] (task) in
+            let actionSheet = UIAlertController(title: nil, message: "select folder or project", preferredStyle: .actionSheet)
+            let topRootItems = Directory.fetchDirectoryWithParentDirectory(nil, in: self!.container.viewContext, forRole: self!.appDelegate.currentRole)
+            for item in topRootItems {
+                if item.isDirectory {
+                    actionSheet.addAction(UIAlertAction(title: item.info!.title, style: .default, handler: { (action) in
+                        task.directory!.parent = item
+                        self!.appDelegate.saveContext()
+                    }))
+                }
+            }
+            actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self!.present(actionSheet, animated: true, completion: nil)
+        })
     }
     
     // MARK: - LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        updateUI()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear( animated)
         
         self.title = appDelegate.currentRole.title
+        
+        updateUI()
     }
 
     override func didReceiveMemoryWarning() {

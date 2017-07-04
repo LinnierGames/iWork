@@ -152,10 +152,10 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         // Pass the selected object to the new view controller.
         if let identifier = segue.identifier {
             switch identifier {
-//            case "show assignment":
-//                let assignmentVC = segue.destination as! AssignmentNavigationController
-//                let directory = sender as! Directory
-//                assignmentVC.directory = directory
+            case "show task":
+                let taskNC = segue.destination as! TaskNavigationController
+                let task = (sender as! Directory).info! as! Task
+                taskNC.task = task
             case "show move":
                 let moveNC = segue.destination as! MoveNavigationController
                 moveNC.itemsToBeMoved = selectedRowItems
@@ -200,10 +200,10 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
                 self.navigationController?.pushViewController( vc, animated: true)
                 
             }
-//            else if row.info! is Assignment {
-//                self.performSegue(withIdentifier: "show assignment", sender: row)
-//                
-//            }
+            else if row.info! is Task {
+                self.performSegue(withIdentifier: "show task", sender: row)
+                
+            }
             else {
                 assertionFailure("tableView:didSelectRowAt: -- failed to cast the selected object from row")
             }
