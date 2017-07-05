@@ -154,8 +154,8 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
             switch identifier {
             case "show task":
                 let taskNC = segue.destination as! TaskNavigationController
-                let task = (sender as! Directory).info! as! Task
-                taskNC.task = task
+                taskNC.task = sender as? Task
+                taskNC.parentDirectory = currentDirectory
             case "show move":
                 let moveNC = segue.destination as! MoveNavigationController
                 moveNC.itemsToBeMoved = selectedRowItems
@@ -201,7 +201,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
                 
             }
             else if row.info! is Task {
-                self.performSegue(withIdentifier: "show task", sender: row)
+                self.performSegue(withIdentifier: "show task", sender: row.info!)
                 
             }
             else {
@@ -275,9 +275,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         
         // Only tasks can be inside a project
         if currentDirectory?.info! is Project {
-            prompt(type: Task.self, withTitle: "New Task", willComplete: { (obj) in
-                obj.dateCreated = NSDate()
-            })
+            self.performSegue(withIdentifier: "show task", sender: nil)
             
         } else {
             let actionType = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -297,9 +295,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
             // A task can be inside anywhere but not in root
             if currentDirectory != nil {
                 actionType.addAction( UIAlertAction(title: "Task", style: .default, handler: { [weak self] (action) in
-                    self!.prompt(type: Task.self, withTitle: "New Task", willComplete: { (obj) -> Void in
-                        obj.dateCreated = NSDate()
-                    })
+                    self!.performSegue(withIdentifier: "show task", sender: nil)
                 }))
             }
             

@@ -29,6 +29,8 @@
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
 		E99349991F0C160500A27473 /* TaskNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349981F0C160500A27473 /* TaskNavigationController.swift */; };
 		E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993499A1F0C171600A27473 /* TaskViewController.swift */; };
+		E993499E1F0C5A3700A27473 /* Task.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E993499C1F0C5A3700A27473 /* Task.storyboard */; };
+		E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		E99349981F0C160500A27473 /* TaskNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNavigationController.swift; sourceTree = "<group>"; };
 		E993499A1F0C171600A27473 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		E993499D1F0C5A3700A27473 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Task.storyboard; sourceTree = "<group>"; };
+		E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,7 @@
 				E94F4F011F08A994001DB22F /* Categories.swift */,
 				E94F4F0C1F08B130001DB22F /* Constants.swift */,
 				E94F4F0B1F08B0F7001DB22F /* Task Manager */,
+				E99349A11F0C5D9200A27473 /* UICustom */,
 				E94F4F0E1F08B167001DB22F /* Supporting Files */,
 			);
 			path = iWork;
@@ -166,6 +171,7 @@
 				E99349981F0C160500A27473 /* TaskNavigationController.swift */,
 				E993499A1F0C171600A27473 /* TaskViewController.swift */,
 				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
+				E993499C1F0C5A3700A27473 /* Task.storyboard */,
 			);
 			name = "Task Manager";
 			sourceTree = "<group>";
@@ -184,6 +190,14 @@
 				E94F4F0F1F08B177001DB22F /* Task.swift */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E99349A11F0C5D9200A27473 /* UICustom */ = {
+			isa = PBXGroup;
+			children = (
+				E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */,
+			);
+			name = UICustom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94F4EDA1F088E8E001DB22F /* LaunchScreen.storyboard in Resources */,
+				E993499E1F0C5A3700A27473 /* Task.storyboard in Resources */,
 				E94F4ED71F088E8E001DB22F /* Assets.xcassets in Resources */,
 				E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */,
 			);
@@ -333,6 +348,7 @@
 				E94F4F0A1F08B0F2001DB22F /* MoveTableViewController.swift in Sources */,
 				E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */,
 				E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */,
+				E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */,
 				E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
 				E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */,
@@ -389,6 +405,14 @@
 				E94F4ED91F088E8E001DB22F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E993499C1F0C5A3700A27473 /* Task.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E993499D1F0C5A3700A27473 /* Base */,
+			);
+			name = Task.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -8,8 +8,19 @@
 
 import UIKit
 
+public enum CDEditingStyle {
+    case none
+    case insert
+    case update
+    case delete
+}
+
 class TaskNavigationController: UINavigationController {
     
     var task: Task!
+    
+    var parentDirectory: Directory?
+    
+    var option: CDEditingStyle!
 
 }

@@ -130,7 +130,7 @@ class TaskManagerTableViewController: UITableViewController {
                 organizeVC.currentDirectory = nil
             case "show task":
                 let taskNC = segue.destination as! TaskNavigationController
-                taskNC.task = sender as! Task
+                taskNC.task = sender as? Task
             default:
                 break
             }
@@ -158,23 +158,7 @@ class TaskManagerTableViewController: UITableViewController {
     // MARK: - IBACTIONS
     
     @IBAction func pressAdd(_ sender: Any) {
-        prompt(type: Task.self, withTitle: "New Task", willComplete: { (task) in
-            task.dateCreated = NSDate()
-            task.dueDate = NSDate()
-        }, didComplete: { [weak self] (task) in
-            let actionSheet = UIAlertController(title: nil, message: "select folder or project", preferredStyle: .actionSheet)
-            let topRootItems = Directory.fetchDirectoryWithParentDirectory(nil, in: self!.container.viewContext, forRole: self!.appDelegate.currentRole)
-            for item in topRootItems {
-                if item.isDirectory {
-                    actionSheet.addAction(UIAlertAction(title: item.info!.title, style: .default, handler: { (action) in
-                        task.directory!.parent = item
-                        self!.appDelegate.saveContext()
-                    }))
-                }
-            }
-            actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self!.present(actionSheet, animated: true, completion: nil)
-        })
+        performSegue(withIdentifier: "show task", sender: nil)
     }
     
     // MARK: - LIFE CYCLE
