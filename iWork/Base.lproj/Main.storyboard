@@ -383,6 +383,11 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="6DW-eB-P6M"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Organize" id="kp5-Cp-bEC">
+                        <barButtonItem key="leftBarButtonItem" systemItem="bookmarks" id="dko-t5-9Lq">
+                            <connections>
+                                <segue destination="oq5-gK-rcu" kind="showDetail" identifier="show inbox" id="FIj-Sp-UM7"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="Item" id="QIs-jF-DbO"/>
                             <barButtonItem systemItem="add" id="kyj-qX-HYg">
@@ -513,6 +518,73 @@
             </objects>
             <point key="canvasLocation" x="5642" y="971"/>
         </scene>
+        <!--Inbox-->
+        <scene sceneID="Rr5-hg-7hE">
+            <objects>
+                <tableViewController id="9Hi-rv-kzX" customClass="InboxTableViewController" customModule="iWork" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nCN-VM-Ifz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="U3F-Z6-EkA" style="IBUITableViewCellStyleDefault" id="PKg-a9-tyT">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PKg-a9-tyT" id="3Pp-pt-ZEZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U3F-Z6-EkA">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="dtU-Uk-kVo" kind="show" identifier="show task" id="dd6-sO-OY7"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9Hi-rv-kzX" id="Bea-NN-7fE"/>
+                            <outlet property="delegate" destination="9Hi-rv-kzX" id="CGS-6R-UHR"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Inbox" id="6ve-hu-7Rd">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="all-v4-J2v">
+                            <connections>
+                                <action selector="pressDone:" destination="9Hi-rv-kzX" id="h2i-DR-hIq"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="edit" id="lc1-N1-e9V"/>
+                            <barButtonItem systemItem="add" id="3jY-A4-fVw"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mJr-y3-KfY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5641" y="1674"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xBw-zD-p3R">
+            <objects>
+                <navigationController id="oq5-gK-rcu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gvc-1l-XL9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="9Hi-rv-kzX" kind="relationship" relationship="rootViewController" id="48M-SF-Hf2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yra-zW-HtV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4833" y="1674"/>
+        </scene>
         <!--Move Navigation Controller-->
         <scene sceneID="IYc-EQ-tMG">
             <objects>
@@ -548,6 +620,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8Pl-tK-p2D"/>
+        <segue reference="dd6-sO-OY7"/>
     </inferredMetricsTieBreakers>
 </document>

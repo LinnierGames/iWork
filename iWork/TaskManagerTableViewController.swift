@@ -9,19 +9,18 @@
 import UIKit
 import CoreData
 
-class TaskManagerTableViewController: UITableViewController {
+class TaskManagerTableViewController: FetchedResultsTableViewController {
     
     private var fetchedResultsController: NSFetchedResultsController<Task>? {
         didSet {
             if let controller = fetchedResultsController {
-                // controller.delegate = self
                 do {
                     try controller.performFetch()
+                    controller.delegate = self
+                    tableView.reloadData()
                 } catch {
                     print(error.localizedDescription)
                 }
-                
-                tableView.reloadData()
             }
         }
     }
