@@ -8,13 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */; };
-		E94F4ECF1F088E8E001DB22F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ECE1F088E8E001DB22F /* ViewController.swift */; };
 		E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED01F088E8E001DB22F /* Main.storyboard */; };
 		E94F4ED51F088E8E001DB22F /* iWork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */; };
 		E94F4ED71F088E8E001DB22F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED61F088E8E001DB22F /* Assets.xcassets */; };
 		E94F4EDA1F088E8E001DB22F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */; };
 		E94F4EE51F088E8E001DB22F /* iWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EE41F088E8E001DB22F /* iWorkTests.swift */; };
 		E94F4EF01F088E8E001DB22F /* iWorkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EEF1F088E8E001DB22F /* iWorkUITests.swift */; };
+		E94F4EFE1F089AAD001DB22F /* TaskManagerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */; };
+		E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EFF1F08A4EC001DB22F /* Directory.swift */; };
+		E94F4F021F08A994001DB22F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F011F08A994001DB22F /* Categories.swift */; };
+		E94F4F041F08B0DA001DB22F /* OrganizeTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */; };
+		E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */; };
+		E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */; };
+		E94F4F0A1F08B0F2001DB22F /* MoveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */; };
+		E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0C1F08B130001DB22F /* Constants.swift */; };
+		E94F4F101F08B177001DB22F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
+		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
+		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
+		E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349941F09C4A800A27473 /* RolesTableViewController.swift */; };
+		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
+		E99349991F0C160500A27473 /* TaskNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349981F0C160500A27473 /* TaskNavigationController.swift */; };
+		E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993499A1F0C171600A27473 /* TaskViewController.swift */; };
+		E993499E1F0C5A3700A27473 /* Task.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E993499C1F0C5A3700A27473 /* Task.storyboard */; };
+		E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */; };
+		E99349A31F0C841700A27473 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A21F0C841700A27473 /* SettingsTableViewController.swift */; };
+		E99349A61F0DCD3F00A27473 /* Employer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A51F0DCD3F00A27473 /* Employer.swift */; };
+		E99349A81F0DE3D500A27473 /* DirectoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A71F0DE3D500A27473 /* DirectoryInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +56,6 @@
 /* Begin PBXFileReference section */
 		E94F4EC91F088E8E001DB22F /* iWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E94F4ECE1F088E8E001DB22F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E94F4ED11F088E8E001DB22F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E94F4ED41F088E8E001DB22F /* iWork.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iWork.xcdatamodel; sourceTree = "<group>"; };
 		E94F4ED61F088E8E001DB22F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +67,26 @@
 		E94F4EEB1F088E8E001DB22F /* iWorkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iWorkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4EEF1F088E8E001DB22F /* iWorkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iWorkUITests.swift; sourceTree = "<group>"; };
 		E94F4EF11F088E8E001DB22F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskManagerTableViewController.swift; sourceTree = "<group>"; };
+		E94F4EFF1F08A4EC001DB22F /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
+		E94F4F011F08A994001DB22F /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeTableTableViewController.swift; sourceTree = "<group>"; };
+		E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
+		E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveNavigationController.swift; sourceTree = "<group>"; };
+		E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTableViewController.swift; sourceTree = "<group>"; };
+		E94F4F0C1F08B130001DB22F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E94F4F0F1F08B177001DB22F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		E94F4F111F08B244001DB22F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		E99349941F09C4A800A27473 /* RolesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RolesTableViewController.swift; sourceTree = "<group>"; };
+		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		E99349981F0C160500A27473 /* TaskNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNavigationController.swift; sourceTree = "<group>"; };
+		E993499A1F0C171600A27473 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		E993499D1F0C5A3700A27473 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Task.storyboard; sourceTree = "<group>"; };
+		E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
+		E99349A21F0C841700A27473 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		E99349A51F0DCD3F00A27473 /* Employer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employer.swift; sourceTree = "<group>"; };
+		E99349A71F0DE3D500A27473 /* DirectoryInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +138,12 @@
 			isa = PBXGroup;
 			children = (
 				E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */,
-				E94F4ECE1F088E8E001DB22F /* ViewController.swift */,
-				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
-				E94F4ED61F088E8E001DB22F /* Assets.xcassets */,
-				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
-				E94F4EDB1F088E8E001DB22F /* Info.plist */,
-				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
+				E94F4F011F08A994001DB22F /* Categories.swift */,
+				E94F4F0C1F08B130001DB22F /* Constants.swift */,
+				E94F4F0B1F08B0F7001DB22F /* Task Manager */,
+				E99349A41F0C841B00A27473 /* Settings */,
+				E99349A11F0C5D9200A27473 /* UICustom */,
+				E94F4F0E1F08B167001DB22F /* Supporting Files */,
 			);
 			path = iWork;
 			sourceTree = "<group>";
@@ -126,6 +164,57 @@
 				E94F4EF11F088E8E001DB22F /* Info.plist */,
 			);
 			path = iWorkUITests;
+			sourceTree = "<group>";
+		};
+		E94F4F0B1F08B0F7001DB22F /* Task Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */,
+				E99349941F09C4A800A27473 /* RolesTableViewController.swift */,
+				E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */,
+				E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */,
+				E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */,
+				E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */,
+				E99349981F0C160500A27473 /* TaskNavigationController.swift */,
+				E993499A1F0C171600A27473 /* TaskViewController.swift */,
+				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
+				E993499C1F0C5A3700A27473 /* Task.storyboard */,
+			);
+			name = "Task Manager";
+			sourceTree = "<group>";
+		};
+		E94F4F0E1F08B167001DB22F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E94F4ED61F088E8E001DB22F /* Assets.xcassets */,
+				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
+				E94F4EDB1F088E8E001DB22F /* Info.plist */,
+				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
+				E99349A51F0DCD3F00A27473 /* Employer.swift */,
+				E99349961F09CB2200A27473 /* Role.swift */,
+				E94F4EFF1F08A4EC001DB22F /* Directory.swift */,
+				E99349A71F0DE3D500A27473 /* DirectoryInfo.swift */,
+				E94F4F111F08B244001DB22F /* Folder.swift */,
+				E99349921F09B78000A27473 /* Project.swift */,
+				E94F4F0F1F08B177001DB22F /* Task.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E99349A11F0C5D9200A27473 /* UICustom */ = {
+			isa = PBXGroup;
+			children = (
+				E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */,
+			);
+			name = UICustom;
+			sourceTree = "<group>";
+		};
+		E99349A41F0C841B00A27473 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E99349A21F0C841700A27473 /* SettingsTableViewController.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94F4EDA1F088E8E001DB22F /* LaunchScreen.storyboard in Resources */,
+				E993499E1F0C5A3700A27473 /* Task.storyboard in Resources */,
 				E94F4ED71F088E8E001DB22F /* Assets.xcassets in Resources */,
 				E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */,
 			);
@@ -265,9 +355,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E99349991F0C160500A27473 /* TaskNavigationController.swift in Sources */,
 				E94F4ED51F088E8E001DB22F /* iWork.xcdatamodeld in Sources */,
-				E94F4ECF1F088E8E001DB22F /* ViewController.swift in Sources */,
+				E94F4F041F08B0DA001DB22F /* OrganizeTableTableViewController.swift in Sources */,
+				E94F4EFE1F089AAD001DB22F /* TaskManagerTableViewController.swift in Sources */,
+				E94F4F021F08A994001DB22F /* Categories.swift in Sources */,
+				E94F4F101F08B177001DB22F /* Task.swift in Sources */,
+				E99349931F09B78000A27473 /* Project.swift in Sources */,
+				E94F4F0A1F08B0F2001DB22F /* MoveTableViewController.swift in Sources */,
+				E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */,
+				E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */,
+				E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */,
+				E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
+				E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */,
+				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
+				E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */,
+				E99349A81F0DE3D500A27473 /* DirectoryInfo.swift in Sources */,
+				E99349A31F0C841700A27473 /* SettingsTableViewController.swift in Sources */,
+				E94F4F121F08B244001DB22F /* Folder.swift in Sources */,
+				E99349A61F0DCD3F00A27473 /* Employer.swift in Sources */,
+				E99349971F09CB2200A27473 /* Role.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +425,14 @@
 				E94F4ED91F088E8E001DB22F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E993499C1F0C5A3700A27473 /* Task.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E993499D1F0C5A3700A27473 /* Base */,
+			);
+			name = Task.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -520,6 +636,7 @@
 				E94F4EF61F088E8E001DB22F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E94F4EF71F088E8E001DB22F /* Build configuration list for PBXNativeTarget "iWorkTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +645,7 @@
 				E94F4EF91F088E8E001DB22F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E94F4EFA1F088E8E001DB22F /* Build configuration list for PBXNativeTarget "iWorkUITests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +654,7 @@
 				E94F4EFC1F088E8E001DB22F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

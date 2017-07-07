@@ -13,10 +13,84 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    var currentEmployer: Employer {
+        get {
+            if let employer = UserDefaults.standard.string(forKey: "employer") { //Fetches the default employer
+                if let objectId = self.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: employer)!) {
+                    if let fetchedObject = self.persistentContainer.viewContext.object(with: objectId) as? Employer {
+                        return fetchedObject
+                    } else { //Not found, then remove the saved Id and create a new default
+                        UserDefaults.standard.setValue(nil, forKey: "employer")
+                        
+                        return self.currentEmployer
+                    }
+                } else { //Not found, then remove the saved Id and create a new default
+                    UserDefaults.standard.setValue(nil, forKey: "employer")
+                    
+                    return self.currentEmployer
+                }
+            } else { //Assume there is no employer saved in context and create a new one
+                let defaultEmployer = Employer(inContext: self.persistentContainer.viewContext)
+                self.saveContext()
+                self.currentEmployer = defaultEmployer
+                
+                return defaultEmployer
+            }
+        }
+        set {
+            UserDefaults.standard.setValue(newValue.objectID.uriRepresentation().absoluteString, forKey: "employer")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    /// Well call saveContext() on set
+    var currentRole: Role {
+        get {
+            return currentEmployer.selectedRole!
+        }
+        set {
+            currentEmployer.selectedRole = newValue
+            saveContext()
+        }
+//        get {
+//            if let role = UserDefaults.standard.string(forKey: "role") { //Fetches the default role
+//                if let objectId = self.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: role)!) {
+//                    if let fetchedObject = self.persistentContainer.viewContext.object(with: objectId) as? Role {
+//                        return fetchedObject
+//                    } else { //Not found, then remove the saved Id and create a new default
+//                        UserDefaults.standard.setValue(nil, forKey: "role")
+//                        
+//                        return self.currentRole
+//                    }
+//                } else { //Not found, then remove the saved Id and create a new default
+//                    UserDefaults.standard.setValue(nil, forKey: "role")
+//                    
+//                    return self.currentRole
+//                }
+//            } else { //Assume there is no role saved in context and create a new one
+//                let defaultRole = Role(inContext: self.persistentContainer.viewContext, forEmployer: currentEmployer)
+//                self.saveContext()
+//                self.currentRole = defaultRole
+//                
+//                return defaultRole
+//            }
+//        }
+//        set {
+//            UserDefaults.standard.setValue(newValue.objectID.uriRepresentation().absoluteString, forKey: "role")
+//            UserDefaults.standard.synchronize()
+//        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // if the application has NOT already launched, then set up first-time settings
+        if (UserDefaults.standard.value(forKey: "hasAlreadyLaunched") as? Bool ?? false) == false {
+            
+        }
+        
+        
         return true
     }
 
