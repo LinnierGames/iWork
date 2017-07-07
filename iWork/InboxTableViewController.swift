@@ -71,10 +71,25 @@ class InboxTableViewController: FetchedResultsTableViewController {
         if let identifier = segue.identifier {
             switch identifier {
             case "show task":
-                break
+                let taskNC = segue.destination as! TaskNavigationController
+                let task = fetchedResultsController.object(at: tableView.indexPath(for: sender as! UITableViewCell)!)
+                taskNC.task = task
             default:
                 break
             }
+        }
+    }
+    
+    // MARK: Table View Delegate
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            let task = fetchedResultsController.object(at: indexPath)
+            container.viewContext.delete(task)
+            appDelegate.saveContext()
+        default:
+            break
         }
     }
     
@@ -93,7 +108,8 @@ class InboxTableViewController: FetchedResultsTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         updateUI()
     }
 }

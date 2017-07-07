@@ -543,6 +543,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="dtU-Uk-kVo" kind="show" identifier="show task" id="dd6-sO-OY7"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -617,6 +620,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9xY-bK-eOp"/>
+        <segue reference="dd6-sO-OY7"/>
     </inferredMetricsTieBreakers>
 </document>
