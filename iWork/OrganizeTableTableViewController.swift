@@ -27,7 +27,6 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
                 do {
                     controller.delegate = self
                     try controller.performFetch()
-                    
                 } catch let error {
                     print("ERROR: \(error.localizedDescription)")
                 }
@@ -325,6 +324,9 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: currentDirectory?.info!.title ?? "root", style: .plain, target: self, action: #selector(dismiss(animated:completion:)))
         
+        if currentDirectory != nil {
+            self.navigationItem.leftBarButtonItem = nil
+        }
         self.navigationItem.rightBarButtonItem = self.editButtonItem
 
         self.clearsSelectionOnViewWillAppear = true
