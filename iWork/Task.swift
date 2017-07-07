@@ -16,14 +16,13 @@ extension Directory {
 }
 
 extension Task {
-    convenience init(parent: Directory? = nil, title: String = "", dateCreated: NSDate = NSDate(), dueDate: NSDate? = nil, context: NSManagedObjectContext, forRole role: Role) {
+    convenience init(titleTask title: String, dueDate: NSDate? = nil, dateCreated: NSDate = NSDate(), parent: Directory? = nil, inContext context: NSManagedObjectContext, forRole role: Role) {
         self.init(context: context)
         
-        _ = Directory.createDirectory(forDirectoryInfo: self, withParent: parent, in: context, forRole: role)
+        _ = Directory(info: self, withParent: parent, inContext: context, forRole: role)
         
         self.title = title
         self.dateCreated = dateCreated
         self.dueDate = dueDate
     }
-    
 }

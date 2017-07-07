@@ -135,7 +135,7 @@ class TaskViewController: UITableViewController, UITextFieldDelegate {
         
         if navController.task == nil {
             navController.option = .insert
-            navController.task = Task(parent: navController.parentDirectory, context: container.viewContext, forRole: appDelegate.currentRole)
+            navController.task = Task(titleTask: "", parent: navController.parentDirectory, inContext: container.viewContext, forRole: appDelegate.currentRole)
         } else {
             navController.option = .update
             hasInitialTitle = true

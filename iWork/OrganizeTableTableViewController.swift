@@ -115,25 +115,28 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
     private func prompt<T>(type:T.Type, withTitle promptTitle: String?, message promptMessage: String = "enter a title", willComplete: @escaping (T) -> Void = {_ in }, didComplete: @escaping (T) -> Void = {_ in }) {
         let alert = UIAlertController(title: promptTitle, message: promptMessage, preferredStyle: .alert)
         alert.addTextField { (textField) in
-            textField.setStyleToParagraph(withPlacehodlerText: nil, withInitalText: nil)
+            textField.setStyleToParagraph()
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak self] (action) in
-            let newClass: DirectoryInfo, context = self!.container.viewContext
+            let newClass: DirectoryInfo
+            let context = self!.container.viewContext
+            let text = alert.inputField.text!
+            let parent = self!.currentDirectory
+            let role = self!.appDelegate.currentRole
+            
             if type is Folder.Type {
-                newClass = Folder(context: context)
+                newClass = Folder(title: text, parent: parent, inContext: context, forRole: role)
             } else if type is Project.Type {
-                newClass = Project(context: context)
+                newClass = Project(titleProject: text, parent: parent, inContext: context, forRole: role)
             } else if type is Task.Type {
-                newClass = Task(context: context)
+                newClass = Task(titleTask: text, inContext: context, forRole: role)
             } else {
                 newClass = DirectoryInfo(context: context)
             }
             newClass.title = alert.inputField.text
             
             willComplete(newClass as! T)
-            
-            _ = Directory.createDirectory(forDirectoryInfo: newClass, withParent: self!.currentDirectory, in: context, forRole: self!.appDelegate.currentRole)
             
             self!.appDelegate.saveContext()
             
@@ -226,7 +229,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         let alert = UIAlertController(title: "Update Title", message: "enter a new title", preferredStyle: .alert
         )
         alert.addTextField { (textField) in
-            textField.setStyleToParagraph(withPlacehodlerText: nil, withInitalText: rowItem.info!.title)
+            textField.setStyleToParagraph(withInitalText: rowItem.info!.title)
         }
         alert.addAction( UIAlertAction(title: "Discard", style: .default, handler: nil))
         alert.addAction( UIAlertAction(title: "Save", style: .default, handler: { [weak self] (action) in
@@ -292,12 +295,9 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
                 })
             }))
             
-            // A task can be inside anywhere but not in root
-            if currentDirectory != nil {
-                actionType.addAction( UIAlertAction(title: "Task", style: .default, handler: { [weak self] (action) in
-                    self!.performSegue(withIdentifier: "show task", sender: nil)
-                }))
-            }
+            actionType.addAction( UIAlertAction(title: "Task", style: .default, handler: { [weak self] (action) in
+                self!.performSegue(withIdentifier: "show task", sender: nil)
+            }))
             
             actionType.addAction( UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             

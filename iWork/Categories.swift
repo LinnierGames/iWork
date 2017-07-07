@@ -22,6 +22,7 @@ extension UIViewController {
 }
 
 extension UITableViewCell {
+    
     func setState(enabled: Bool) {
         if enabled {
             self.textLabel!.alpha = 1
@@ -36,7 +37,7 @@ extension UITableViewCell {
 }
 
 extension UITextField {
-    open func setStyleToParagraph(withPlacehodlerText placeholder: String?, withInitalText text: String?) {
+    open func setStyleToParagraph(withPlaceholderText placeholder: String? = "", withInitalText text: String? = "") {
         self.autocorrectionType = .default
         self.autocapitalizationType = .words
         self.text = text

@@ -7,18 +7,13 @@
 //
 
 import Foundation
+import CoreData
 
 extension Role {
-//    convenience public init(coder aDecoder: NSCoder) {
-//        self.init(coder: aDecoder)
-//        
-//        if let titleValue = aDecoder.decodeObject(forKey: "title") {
-//            self.title = (titleValue as! String)
-//        }
-//    }
-//    
-//    func encode(with aCoder: NSCoder) {
-//        aCoder.encode(self.title, forKey: "title")
-//        aCoder.encode(self.directories, forKey: "directories")
-//    }
+    convenience init(title: String = "Untitled Role", inContext context: NSManagedObjectContext, forEmployer employer: Employer) {
+        self.init(context: context)
+        
+        self.title = title
+        self.employer = employer
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension Directory {
     public var folder: Folder {
@@ -15,6 +16,13 @@ extension Directory {
 }
 
 extension Folder {
+    convenience init(title: String, parent: Directory?, inContext context: NSManagedObjectContext, forRole role: Role) {
+        self.init(context: context)
+        
+        _ = Directory(info: self, withParent: parent, inContext: context, forRole: role)
+        
+        self.title = title
+    }
     
     public var tasksDescription: String? {
         if let directories = self.directory!.children as? Set<Directory> {

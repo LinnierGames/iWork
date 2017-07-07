@@ -13,3 +13,7 @@ func CTAttributedStringStrikeOut(string: String) -> NSMutableAttributedString {
     attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
     return attributeString
 }
+
+func CTSortDescriptor(key: String, ascending: Bool = true) -> [NSSortDescriptor] {
+    return [NSSortDescriptor(key: key, ascending: ascending, selector: #selector(NSString.localizedStandardCompare(_:)))]
+}

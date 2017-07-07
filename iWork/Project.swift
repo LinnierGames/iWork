@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension Directory {
     public var project: Project {
@@ -15,6 +16,14 @@ extension Directory {
 }
 
 extension Project {
+    convenience init(titleProject title: String, dateCreated: NSDate = NSDate(), parent: Directory?, inContext context: NSManagedObjectContext, forRole role: Role) {
+        self.init(context: context)
+        
+        _ = Directory(info: self, withParent: parent, inContext: context, forRole: role)
+        
+        self.title = title
+        self.dateCreated = dateCreated
+    }
     
     public var tasksDescription: String? {
         if let directories = self.directory!.children as? Set<Directory> {

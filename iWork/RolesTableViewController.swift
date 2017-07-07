@@ -68,6 +68,7 @@ class RolesTableViewController: FetchedResultsTableViewController {
     
     private func updateUI() {
         let fetch: NSFetchRequest<Role> = Role.fetchRequest()
+        fetch.predicate = NSPredicate(format: "employer == %@", appDelegate.currentEmployer)
         fetch.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
         fetchedResultsController = NSFetchedResultsController<Role>(
@@ -81,7 +82,7 @@ class RolesTableViewController: FetchedResultsTableViewController {
     private func rename(role: Role) {
         let alert = UIAlertController(title: "Edit Role", message: "enter a title", preferredStyle: .alert)
         alert.addTextField { (textField) in
-            textField.setStyleToParagraph(withPlacehodlerText: nil, withInitalText: role.title)
+            textField.setStyleToParagraph(withInitalText: role.title)
         }
         alert.addAction(UIAlertAction(title: "Discard", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak self] (action) in
@@ -132,11 +133,11 @@ class RolesTableViewController: FetchedResultsTableViewController {
     @IBAction func pressAdd(_ sender: Any) {
         let alert = UIAlertController(title: "New Role", message: "enter a title", preferredStyle: .alert)
         alert.addTextField { (textField) in
-            textField.setStyleToParagraph(withPlacehodlerText: nil, withInitalText: nil)
+            textField.setStyleToParagraph()
         }
         alert.addAction(UIAlertAction(title: "Discard", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak self] (action) in
-            let newRole = Role(context: self!.container.viewContext)
+            let newRole = Role(inContext: self!.container.viewContext, forEmployer: self!.appDelegate.currentEmployer)
             newRole.title = alert.inputField.text
             
             self!.appDelegate.saveContext()

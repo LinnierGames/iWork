@@ -88,39 +88,6 @@ class TaskManagerTableViewController: UITableViewController {
         
     }
     
-    private func prompt<T>(type:T.Type, withTitle promptTitle: String?, message promptMessage: String = "enter a title", willComplete: @escaping (T) -> Void = {_ in }, didComplete: @escaping (T) -> Void = {_ in }) {
-        let alert = UIAlertController(title: promptTitle, message: promptMessage, preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.setStyleToParagraph(withPlacehodlerText: nil, withInitalText: nil)
-        }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak self] (action) in
-            let context = self!.container.viewContext
-            let newClass: DirectoryInfo
-            if type is Folder.Type {
-                newClass = Folder(context: context)
-            } else if type is Task.Type {
-                newClass = Task(context: context)
-            } else {
-                newClass = DirectoryInfo(context: context)
-            }
-            newClass.title = alert.inputField.text
-            
-            willComplete(newClass as! T)
-            
-            _ = Directory.createDirectory(forDirectoryInfo: newClass, withParent: nil, in: context, forRole: self!.appDelegate.currentRole)
-            
-            self!.appDelegate.saveContext()
-            
-            didComplete(newClass as! T)
-            
-            self!.updateUI()
-        }))
-        
-        self.present( alert, animated: true, completion: nil)
-        
-    }
-    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {

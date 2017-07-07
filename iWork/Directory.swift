@@ -11,6 +11,14 @@ import CoreData
 
 extension Directory {
     
+    convenience init(info: DirectoryInfo, withParent parent: Directory?, inContext context: NSManagedObjectContext, forRole role: Role) {
+        self.init(context: context)
+        
+        self.info = info
+        self.parent = parent
+        self.role = role
+    }
+    
     override public var description: String {
         switch self.info! {
         case is Folder:
@@ -22,16 +30,6 @@ extension Directory {
         default:
             return NSStringFromClass(self.info!.classForCoder)
         }
-    }
-    
-    static func createDirectory( forDirectoryInfo info: DirectoryInfo, withParent parent: Directory?, `in` context: NSManagedObjectContext, forRole role: Role) -> Directory {
-        let newHierarchy = Directory(context: context)
-        newHierarchy.parent = parent
-        newHierarchy.info = info
-        newHierarchy.role = role
-        
-        return newHierarchy
-        
     }
     
     static func fetchDirectoryWithParentDirectory(_ directory: Directory?, `in` context: NSManagedObjectContext, forRole role: Role) -> [Directory] {
