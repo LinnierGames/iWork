@@ -76,8 +76,8 @@ class TaskManagerTableViewController: FetchedResultsTableViewController {
         let dateTo = calendar.date(from: components)!
         
         let fetch: NSFetchRequest<Task> = Task.fetchRequest()
-        fetch.predicate = NSPredicate(format: "directory.role == %@ AND isCompleted == FALSE AND (%@ <= dueDate) AND (dueDate < %@)", appDelegate.currentRole, dateFrom as NSDate, dateTo as NSDate)
-        fetch.sortDescriptors = [NSSortDescriptor(key: "dueDate", ascending: true)]
+        fetch.predicate = NSPredicate(format: "directory.role == %@ AND isCompleted == FALSE AND (%@ <= dueDate) AND (dueDate < %@) OR (%@ <= startDate) AND (startDate < %@)", appDelegate.currentRole, dateFrom as NSDate, dateTo as NSDate, dateFrom as NSDate, dateTo as NSDate)
+        fetch.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true), NSSortDescriptor(key: "dueDate", ascending: true), CTSortDescriptor(key: "title")]
         
         fetchedResultsController = NSFetchedResultsController<Task>(
             fetchRequest: fetch,

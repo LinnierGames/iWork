@@ -8,12 +8,35 @@
 
 import UIKit
 
-class TaskViewController: UITableViewController, UITextFieldDelegate {
+//checkbox/title, assigned by, due date, prioity/isStarred, notes,
+private enum Table: Int {
+    case titleSection = 0
+    case assignedBySection = 1
+    case startDateSection = 2
+    case dueDateSection = 3
+    case prioritySection = 4
+    case notesSection = 5
+}
+
+class TaskViewController: UITableViewController, UITextFieldDelegate, DatePickerDelegate {
     
     private var hasInitialTitle = false
     
+    private var showAssigngedBy: Bool = false {
+        didSet {
+            if oldValue != showAssigngedBy {
+                if oldValue == false {
+                    tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+                } else {
+                    tableView.deleteRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+                }
+            }
+        }
+    }
+    
     private var cellTitle: CustomTableViewCells! {
         didSet {
+            cellTitle.textField!.delegate = self
             cellTitle.textField!.text = navController.task.title
             if navController.option == .insert {
                 cellTitle.textField!.becomeFirstResponder()
@@ -26,6 +49,54 @@ class TaskViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    private var cellAssignedBy: CustomTableViewCells! {
+        didSet {
+            cellAssignedBy.textField!.delegate = self
+            if let assignedBy = navController.task.assignedBy {
+                cellAssignedBy.textField!.text = assignedBy
+                //showAssigngedBy = true
+            }
+            cellAssignedBy.textField!.placeholder = "Assigned by"
+        }
+    }
+    
+    private var cellDueDate: UITableViewCell! {
+        didSet {
+            if let dueDate = navController.task.dueDate {
+                let showTime = navController.task.dueTime == true ? DateFormatter.Style.short : DateFormatter.Style.none
+                cellDueDate.textLabel!.text = DateFormatter.localizedString(from: dueDate as Date, dateStyle: .medium, timeStyle: showTime)
+            } else {
+                cellDueDate.textLabel!.text = "Add a Due Date"
+            }
+        }
+    }
+    
+    private var cellStartDate: UITableViewCell! {
+        didSet {
+            if let startDate = navController.task.startDate {
+                let showTime = navController.task.startTime == true ? DateFormatter.Style.short : DateFormatter.Style.none
+                cellStartDate.textLabel!.text = DateFormatter.localizedString(from: startDate as Date, dateStyle: .medium, timeStyle: showTime)
+            } else {
+                cellStartDate.textLabel!.text = "Add a Start Date"
+            }
+        }
+    }
+    
+    private var cellPrioity: UITableViewCell! {
+        didSet {
+            cellPrioity.textLabel!.text = "Add a Prioity"
+        }
+    }
+    
+    private var cellNotes: UITableViewCell! {
+        didSet {
+            cellNotes.textLabel!.text = navController.task.notes
+        }
+    }
+    
+    private var pickerDueDate: DatePickerViewController?
+    private var pickerStartDate: DatePickerViewController?
+    
     private var navController: TaskNavigationController {
         return self.navigationController as! TaskNavigationController
     }
@@ -33,28 +104,55 @@ class TaskViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - RETURN VALUES
     
     // MARK: Table View Data Source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 6
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return 1
+        } else if section == 1 {
+            if showAssigngedBy {
+                return 1
+            } else {
+                return 0
+            }
+        } else {
+            return 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "textField", for: indexPath) as! CustomTableViewCells
-            
-            cell.textField!.delegate = self
+        if indexPath.section == Table.titleSection.rawValue {
+            let cell = returnCell(forIdentifier: "textField", atIndexPath: indexPath) as! CustomTableViewCells
             
             cellTitle = cell; return cell
             
+        } else if indexPath.section == Table.assignedBySection.rawValue {
+            let cell = returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
+            cell.labelTitle!.text = "Assigned By"
+            
+            cellAssignedBy = cell; return cell
+            
+        } else if indexPath.section == Table.dueDateSection.rawValue {
+            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
+            
+            cellDueDate = cell; return cell
+            
+        } else if indexPath.section == Table.startDateSection.rawValue {
+            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
+            
+            cellStartDate = cell; return cell
+            
+        } else if indexPath.section == Table.prioritySection.rawValue {
+            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
+            
+            cellPrioity = cell; return cell
+            
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "titleSegment", for: indexPath) as! CustomTableViewCells
+            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
             
-            return cell
-            
+            cellNotes = cell; return cell
         }
     }
     
@@ -75,8 +173,23 @@ class TaskViewController: UITableViewController, UITextFieldDelegate {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "show date":
+                let info = sender as! (date: Date?, time: Bool, picker: String)
+                let dateVC = (segue.destination as! UINavigationController).topViewController as! DatePickerViewController
+                dateVC.date = info.date
+                dateVC.isTimeSet = info.time
+                dateVC.delegate = self
+                if info.picker == "due date" {
+                    pickerDueDate = dateVC
+                } else if info.picker == "start date" {
+                    pickerStartDate = dateVC
+                }
+            default:
+                break
+            }
+        }
     }
     
     private func dismiss() {
@@ -91,23 +204,51 @@ class TaskViewController: UITableViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Table View Delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == Table.dueDateSection.rawValue {
+            self.performSegue(withIdentifier: "show date", sender: (date: navController.task.dueDate, time: navController.task.dueTime, picker: "due date"))
+        } else if indexPath.section == Table.startDateSection.rawValue {
+            self.performSegue(withIdentifier: "show date", sender: (date: navController.task.startDate, time: navController.task.startTime, picker: "start date"))
+        }
+    }
+    
     // MARK: Text Field
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.text == "" {
-            if hasInitialTitle == false {
-                textField.text = "Untitled Task"
+        if textField == cellTitle.textField! {
+            if textField.text == "" {
+                if hasInitialTitle == false {
+                    textField.text = "Untitled Task"
+                } else {
+                    textField.text = navController.task.title
+                }
             } else {
-                textField.text = navController.task.title
+                hasInitialTitle = true
             }
-        } else {
-            hasInitialTitle = true
+            navController.task.title = cellTitle.textField!.text
+        } else if textField == cellAssignedBy.textField! {
+            navController.task.assignedBy = textField.text
         }
-        navController.task.title = cellTitle.textField!.text
     }
     
     func textFieldDidChange(_ note: Notification) {
         _ = (note.object as! UITextField)
+    }
+    
+    // MARK: Date Picker Delegate
+    
+    func datePicker(_ picker: DatePickerViewController, didFinishWithDate date: Date?, withTimeInterval interval: TimeInterval?) {
+        if picker == pickerDueDate {
+            navController.task.dueDate = date as NSDate?
+            navController.task.dueTime = interval == nil ? false : true
+            tableView.reloadSections([Table.dueDateSection.rawValue], with: .fade)
+        } else if picker == pickerStartDate {
+            navController.task.startDate = date as NSDate?
+            navController.task.startTime = interval == nil ? false : true
+            tableView.reloadSections([Table.startDateSection.rawValue], with: .fade)
+        }
     }
     
     // MARK: - IBACTIONS
@@ -124,6 +265,11 @@ class TaskViewController: UITableViewController, UITextFieldDelegate {
         self.dismiss()
     }
     
+    @IBAction func pressAssignedBy(_ sender: Any) {
+        showAssigngedBy = true
+        cellAssignedBy.textField!.becomeFirstResponder()
+    }
+    
     @IBAction func pressDone(_ sender: Any) {
         self.dismiss()
     }
@@ -132,6 +278,9 @@ class TaskViewController: UITableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.estimatedRowHeight = 44.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         if navController.task == nil {
             navController.option = .insert
@@ -146,6 +295,9 @@ class TaskViewController: UITableViewController, UITextFieldDelegate {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(pressRightNav(_:)))
         } else if navController.option == .update {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pressLeftNav(_:)))
+        }
+        if navController.task.assignedBy != nil {
+            showAssigngedBy = true
         }
     }
     

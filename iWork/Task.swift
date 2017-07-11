@@ -25,4 +25,14 @@ extension Task {
         self.dateCreated = dateCreated
         self.dueDate = dueDate
     }
+    
+    override public func willSave() {
+        super.willSave()
+        
+        if let assignedBy = self.assignedBy {
+            if assignedBy == "" {
+                self.assignedBy = nil
+            }
+        }
+    }
 }

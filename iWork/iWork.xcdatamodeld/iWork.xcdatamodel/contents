@@ -26,20 +26,25 @@
         <relationship name="isSelected" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employers" inverseName="selectedRole" inverseEntity="Employers" syncable="YES"/>
     </entity>
     <entity name="Tasks" representedClassName="Task" parentEntity="DirectoryInfos" syncable="YES" codeGenerationType="class">
+        <attribute name="assignedBy" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dueTime" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isStarred" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prioity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="startTime" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" inverseName="tasks" inverseEntity="Projects" syncable="YES"/>
     </entity>
     <elements>
         <element name="Directories" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="DirectoryInfos" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="Employers" positionX="-36" positionY="63" width="128" height="90"/>
         <element name="Folders" positionX="-36" positionY="9" width="128" height="45"/>
         <element name="Projects" positionX="0" positionY="90" width="128" height="60"/>
         <element name="Roles" positionX="-18" positionY="81" width="128" height="103"/>
-        <element name="Tasks" positionX="-27" positionY="36" width="128" height="135"/>
-        <element name="Employers" positionX="-36" positionY="63" width="128" height="90"/>
+        <element name="Tasks" positionX="-27" positionY="36" width="128" height="210"/>
     </elements>
 </model>

@@ -45,8 +45,48 @@
                                     <outlet property="textField" destination="wW8-Hq-lx2" id="cHe-uc-XST"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="titleTextField" rowHeight="62" id="sdj-le-Bqr" customClass="CustomTableViewCells" customModule="iWork" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="62"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sdj-le-Bqr" id="l6M-Dx-yzh">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="9fy-Ds-9BV">
+                                            <rect key="frame" x="16" y="8" width="351" height="45.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTB-LI-xx5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="351" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="12" id="DCB-Vb-6bR"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SUK-fI-jX6">
+                                                    <rect key="frame" x="0.0" y="16" width="351" height="29.5"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                                </textField>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="9fy-Ds-9BV" firstAttribute="top" secondItem="l6M-Dx-yzh" secondAttribute="topMargin" id="FVN-kx-Q3K"/>
+                                        <constraint firstItem="9fy-Ds-9BV" firstAttribute="leading" secondItem="l6M-Dx-yzh" secondAttribute="leadingMargin" constant="8" id="pZQ-nX-Ldh"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="9fy-Ds-9BV" secondAttribute="bottom" id="tnZ-EK-oUB"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="9fy-Ds-9BV" secondAttribute="trailing" id="wZW-o5-Jdy"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="labelTitle" destination="QTB-LI-xx5" id="XHW-z2-idy"/>
+                                    <outlet property="textField" destination="SUK-fI-jX6" id="cVM-rb-vyB"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="titleSegment" rowHeight="74" id="7Ts-Ju-sEg" customClass="CustomTableViewCells" customModule="iWork" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="74"/>
+                                <rect key="frame" x="0.0" y="134" width="375" height="74"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Ts-Ju-sEg" id="fUN-jW-TB9">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="73.5"/>
@@ -110,12 +150,21 @@
                                     <outlet property="segment" destination="JQ3-07-8m0" id="Eyp-Dl-KND"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Yz6-dZ-E9O">
-                                <rect key="frame" x="0.0" y="146" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="hRv-Dv-O4p" style="IBUITableViewCellStyleDefault" id="Yz6-dZ-E9O">
+                                <rect key="frame" x="0.0" y="208" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yz6-dZ-E9O" id="5LM-rv-pZe">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hRv-Dv-O4p">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -127,15 +176,183 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="U5b-rh-t3f"/>
-                        <barButtonItem title="Item" id="nH4-dQ-Hlt"/>
+                        <barButtonItem title="Assigned By" id="nH4-dQ-Hlt">
+                            <connections>
+                                <action selector="pressAssignedBy:" destination="PZJ-QW-LsU" id="KmJ-Lm-pDD"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Task" id="RbI-lT-X3z"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="JFC-l3-8f4" kind="showDetail" identifier="show date" id="tUT-fC-oXZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bBh-FW-wfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6460" y="189.3553223388306"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="BhW-3u-INO">
+            <objects>
+                <navigationController toolbarHidden="NO" id="JFC-l3-8f4" sceneMemberID="viewController">
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rdF-Zx-GP8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="0kj-DL-dZJ">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="Smo-TM-Iw1" kind="relationship" relationship="rootViewController" id="Zh7-8v-qv0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MgO-Rd-Uh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7318" y="189"/>
+        </scene>
+        <!--Dates-->
+        <scene sceneID="zwp-Wq-nbe">
+            <objects>
+                <viewController id="Smo-TM-Iw1" customClass="DatePickerViewController" customModule="iWork" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Erd-PR-afb"/>
+                        <viewControllerLayoutGuide type="bottom" id="kYx-tf-dCe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PNq-iQ-Cc7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lb5-8U-eFe">
+                                <rect key="frame" x="16" y="88" width="343" height="32"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xAq-LE-YDe">
+                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="32"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ktE-LS-2KZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="32" id="EaG-ad-2pT"/>
+                                                    <constraint firstAttribute="height" constant="32" id="Ipc-4v-PC6"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djv-8c-3G1">
+                                                <rect key="frame" x="40" y="0.0" width="131.5" height="32"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="pressDate:" destination="Smo-TM-Iw1" eventType="touchUpInside" id="cbx-UZ-kPM"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="djv-8c-3G1" firstAttribute="height" secondItem="ktE-LS-2KZ" secondAttribute="height" id="tIx-o8-g7N"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qpn-zZ-BEz">
+                                        <rect key="frame" x="171.5" y="0.0" width="171.5" height="32"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNh-Y7-1nw">
+                                                <rect key="frame" x="0.0" y="0.0" width="131.5" height="32"/>
+                                                <state key="normal" title="Button">
+                                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressTime:" destination="Smo-TM-Iw1" eventType="touchUpInside" id="dtA-dd-fVn"/>
+                                                </connections>
+                                            </button>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RCv-HB-ky1">
+                                                <rect key="frame" x="139.5" y="0.0" width="32" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="Ogc-qy-Le5"/>
+                                                    <constraint firstAttribute="width" constant="32" id="iHn-yG-z7e"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="qNh-Y7-1nw" firstAttribute="height" secondItem="RCv-HB-ky1" secondAttribute="height" id="Dgf-N0-Gyo"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="djv-8c-3G1" firstAttribute="width" secondItem="qNh-Y7-1nw" secondAttribute="width" id="UD7-R0-HAW"/>
+                                </constraints>
+                            </stackView>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxl-u3-xIu">
+                                <rect key="frame" x="0.0" y="407" width="375" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="rEH-2Z-vh7"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="521436304.22175199">
+                                    <!--2017-07-11 03:25:04 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="didChangeDatePicker:" destination="Smo-TM-Iw1" eventType="valueChanged" id="MSg-Je-nK5"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Mxl-u3-xIu" secondAttribute="trailing" id="AY8-68-KAy"/>
+                            <constraint firstItem="kYx-tf-dCe" firstAttribute="top" secondItem="Mxl-u3-xIu" secondAttribute="bottom" id="IoK-FZ-msD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Lb5-8U-eFe" secondAttribute="trailing" id="Zpj-nn-kNQ"/>
+                            <constraint firstItem="Lb5-8U-eFe" firstAttribute="leading" secondItem="PNq-iQ-Cc7" secondAttribute="leadingMargin" id="fW3-jZ-8V8"/>
+                            <constraint firstItem="Mxl-u3-xIu" firstAttribute="leading" secondItem="PNq-iQ-Cc7" secondAttribute="leading" id="lbP-sk-fCc"/>
+                            <constraint firstItem="Lb5-8U-eFe" firstAttribute="top" secondItem="Erd-PR-afb" secondAttribute="bottom" constant="24" id="tAH-TA-Zhv"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem tag="1" title="Today" id="LMr-cE-pzD">
+                            <connections>
+                                <action selector="pressToolbarButton:" destination="Smo-TM-Iw1" id="5xQ-Hl-cpI"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Oem-f1-pt1"/>
+                        <barButtonItem tag="2" title="Tomorrow" id="Dqh-lS-XSj">
+                            <connections>
+                                <action selector="pressToolbarButton:" destination="Smo-TM-Iw1" id="BTR-PA-S6I"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="94Y-LV-C3c"/>
+                        <barButtonItem tag="3" title="2 Days" id="ZZx-3R-2Wd">
+                            <connections>
+                                <action selector="pressToolbarButton:" destination="Smo-TM-Iw1" id="keJ-4g-JeL"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="yhS-sS-sbZ"/>
+                        <barButtonItem tag="4" title="None" id="EwZ-PT-3QT">
+                            <connections>
+                                <action selector="pressToolbarButton:" destination="Smo-TM-Iw1" id="z0X-Pu-G8I"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Dates" id="nti-6p-jPY">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="sDA-qZ-wOo">
+                            <connections>
+                                <action selector="pressCancel:" destination="Smo-TM-Iw1" id="hhE-QX-PfF"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="9Pl-Kd-QCx">
+                            <connections>
+                                <action selector="pressDone:" destination="Smo-TM-Iw1" id="eNG-5Y-Tbz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="buttonDate" destination="djv-8c-3G1" id="dzw-3U-5uM"/>
+                        <outlet property="buttonTime" destination="qNh-Y7-1nw" id="N2W-y0-cJ3"/>
+                        <outlet property="datePicker" destination="Mxl-u3-xIu" id="W3n-74-sZ2"/>
+                        <outletCollection property="barButtons" destination="LMr-cE-pzD" collectionClass="NSMutableArray" id="gmf-22-IxN"/>
+                        <outletCollection property="barButtons" destination="Dqh-lS-XSj" collectionClass="NSMutableArray" id="dSx-ka-yb6"/>
+                        <outletCollection property="barButtons" destination="ZZx-3R-2Wd" collectionClass="NSMutableArray" id="cR2-jP-f35"/>
+                        <outletCollection property="barButtons" destination="EwZ-PT-3QT" collectionClass="NSMutableArray" id="e4B-kz-iek"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jc3-Pn-3g4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8120.8000000000002" y="187.55622188905548"/>
         </scene>
     </scenes>
 </document>
