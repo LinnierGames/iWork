@@ -10,6 +10,12 @@ import UIKit
 
 class UtilitiesTableViewController: UITableViewController {
     
+    private struct Table {
+        static let punchClockSection = 0
+        static let timersSection = 1
+        static let alarmsSection = 2
+    }
+    
     private struct Feature {
         var title: String
         var subtitle: String?
@@ -55,9 +61,28 @@ class UtilitiesTableViewController: UITableViewController {
     
     // MARK: - VOID METHODS
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "show punch clock":
+                break
+            default:
+                break
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Table View Delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == Table.punchClockSection {
+            performSegue(withIdentifier: "show punch clock", sender: nil)
+        }
     }
     
     // MARK: - IBACTIONS

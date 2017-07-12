@@ -70,7 +70,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Utilities" id="jCa-Xg-AKb"/>
                     <connections>
-                        <segue destination="Do7-lu-o7C" kind="show" id="AZn-Vj-Jpa"/>
+                        <segue destination="Do7-lu-o7C" kind="show" identifier="show punch clock" id="AZn-Vj-Jpa"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kiG-xL-uqn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -80,7 +80,7 @@
         <!--Employer-->
         <scene sceneID="4J2-Tp-ZGS">
             <objects>
-                <tableViewController id="Do7-lu-o7C" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="Do7-lu-o7C" customClass="PunchClockTableViewController" customModule="iWork" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="c2G-u9-Tgj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,7 +119,11 @@
                     <navigationItem key="navigationItem" title="Employer" id="WjP-Bf-ydN">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="edit" id="0Np-8g-xcL"/>
-                            <barButtonItem systemItem="add" id="DZ1-1S-T9A"/>
+                            <barButtonItem systemItem="add" id="DZ1-1S-T9A">
+                                <connections>
+                                    <action selector="pressAdd:" destination="Do7-lu-o7C" id="WFb-tW-A8I"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>

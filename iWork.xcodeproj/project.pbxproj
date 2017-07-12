@@ -37,6 +37,7 @@
 		E9D43E8A1F12D16A0067FF44 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E891F12D16A0067FF44 /* DatePickerViewController.swift */; };
 		E9D43E8D1F15BA330067FF44 /* TaskManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D43E8B1F15BA330067FF44 /* TaskManager.storyboard */; };
 		E9D43E8F1F15BDB20067FF44 /* UtilitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */; };
+		E9D43E921F15C1870067FF44 /* PunchClockTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		E9D43E891F12D16A0067FF44 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		E9D43E8C1F15BA330067FF44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TaskManager.storyboard; sourceTree = "<group>"; };
 		E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilitiesTableViewController.swift; sourceTree = "<group>"; };
+		E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PunchClockTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */,
+				E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */,
 			);
 			name = Utitlities;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				E9D43E8A1F12D16A0067FF44 /* DatePickerViewController.swift in Sources */,
 				E99349A61F0DCD3F00A27473 /* Employer.swift in Sources */,
 				E99349971F09CB2200A27473 /* Role.swift in Sources */,
+				E9D43E921F15C1870067FF44 /* PunchClockTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
