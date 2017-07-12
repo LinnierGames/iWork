@@ -40,7 +40,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
     @IBOutlet weak var textViewNotes: UITextView! {
         didSet {
             textViewNotes.text = shift.notes
-            if shift.notes == "" {
+            if shift.notes == "" || shift.notes == nil {
                 labelNotes.isHidden = false
             } else {
                 labelNotes.isHidden = true
@@ -103,14 +103,10 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         let punch = fetchedResultsController.object(at: indexPath)
         cell.textLabel!.text = String(describing: punch.punchType)
         let time = String(punch.timeStamp!, dateStyle: .none, timeStyle: .medium)
-        let nPunches = fetchedResultsController.fetchedObjects!.count
-        if  nPunches > 1, indexPath.row != nPunches-1 {
-            let perviousIndexPath = IndexPath(row: indexPath.row+1, section: indexPath.section)
-            let perviousPunch = fetchedResultsController.object(at: perviousIndexPath)
-            let intervalTimeVariance = punch.timeStamp!.timeIntervalSince(perviousPunch.timeStamp! as Date)
-            let stringTimeVariance = String(intervalTimeVariance)
+        if let duration = punch.duration {
+            let stringTimeVariance = String(duration)
             let cellDetailText = NSMutableAttributedString(string: "\(time) was \(stringTimeVariance) long")
-            if intervalTimeVariance >= CTDateComponentHour*4+CTDateComponentMinute*30 { //4hours and 30minutes
+            if duration >= TimeInterval(CTDateComponentHour*4+CTDateComponentMinute*30) { //4hours and 30minutes
                 cellDetailText.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: time.characters.count+5, length: stringTimeVariance.characters.count+5))
             }
             cell.detailTextLabel!.attributedText = cellDetailText

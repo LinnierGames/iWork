@@ -35,4 +35,16 @@ extension TimePunch {
             return PunchType(rawValue: self.punchValue)!
         }
     }
+    
+    public var duration: TimeInterval? {
+        let punches = self.shift!.punches!.reversed
+        let selfIndex = punches.index(of: self)
+        if self != punches.lastObject! as! TimePunch {
+            let previousPunch = punches[selfIndex+1] as! TimePunch
+            
+            return self.timeStamp?.timeIntervalSince(previousPunch.timeStamp! as Date)
+        } else {
+            return nil
+        }
+    }
 }

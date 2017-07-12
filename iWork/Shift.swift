@@ -17,6 +17,10 @@ extension Shift {
         self.employer = employer
     }
     
+    public var lastPunch: TimePunch? {
+        return self.punches?.array.last as! TimePunch?
+    }
+    
     /// This includes the duration of the last punch, excluding start lunch, till the current time
     public var onTheClockDuration: TimeInterval? {
         if let punches = self.punches?.array as? [TimePunch] {
@@ -37,7 +41,7 @@ extension Shift {
     
     public var continuousOnTheClockDuration: TimeInterval? {
         if let onTheClockDuration = self.onTheClockDuration {
-            let lastPunch = self.punches!.array.last as! TimePunch
+            let lastPunch = self.lastPunch!
             if lastPunch.punchType != .StartLunch, lastPunch.punchType != .EndShift {
                 return onTheClockDuration + Date().timeIntervalSince(lastPunch.timeStamp! as Date)
             } else {
@@ -57,6 +61,14 @@ extension Shift {
             }
             
             return nil
+        } else {
+            return nil
+        }
+    }
+    
+    public var isCompletedShift: Bool? {
+        if let punch = self.lastPunch {
+            return punch.punchType == .EndShift ? true : false
         } else {
             return nil
         }

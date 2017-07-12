@@ -50,7 +50,23 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         
         let shift = fetchedResultsController!.object(at: indexPath)
         cell.textLabel!.text = String(shift.date!, dateStyle: .full)
-        cell.detailTextLabel!.text = "Shift info here"
+        if shift.isCompletedShift ?? false {
+            cell.detailTextLabel!.text = String(shift.onTheClockDuration!)
+        } else {
+            if shift.punches!.count > 0 {
+                cell.detailTextLabel!.textColor = UIColor.blue
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak cell] (timer) in
+                    let lastPunch = shift.lastPunch!
+                    if let duration = lastPunch.duration {
+                        cell?.detailTextLabel!.text = "\(String(shift.continuousOnTheClockDuration!)) - last punch: \(lastPunch.punchType) for \(String(duration))"
+                    } else {
+                        cell?.detailTextLabel!.text = "\(String(shift.continuousOnTheClockDuration!)) - last punch: \(lastPunch.punchType)"
+                    }
+                })
+            } else {
+                cell.detailTextLabel!.text = "No recorded punches"
+            }
+        }
         
         return cell
     }
@@ -89,6 +105,16 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "show shift", sender: fetchedResultsController.object(at: indexPath))
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            container.viewContext.delete(fetchedResultsController.object(at: indexPath))
+            appDelegate.saveContext()
+        default:
+            break
+        }
     }
     
     // MARK: - IBACTIONS
