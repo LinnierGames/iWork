@@ -187,13 +187,13 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         } else {
             if currentDirectory == nil {
                 let folder = fetchedResultsController.object(at: indexPath) as! Folder
-                let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "organize table") as! OrganizeTableTableViewController
+                let vc = UIStoryboard(name: "TaskManager", bundle: Bundle.main).instantiateViewController(withIdentifier: "organize table") as! OrganizeTableTableViewController
                 vc.currentDirectory = folder.directory!
                 self.navigationController?.pushViewController( vc, animated: true)
             } else {
                 let row = fetchedResultsController.object(at: indexPath) as! Directory
                 if row.isDirectory {
-                    let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "organize table") as! OrganizeTableTableViewController
+                    let vc = UIStoryboard(name: "TaskManager", bundle: Bundle.main).instantiateViewController(withIdentifier: "organize table") as! OrganizeTableTableViewController
                     vc.currentDirectory = row
                     
                     self.navigationController?.pushViewController( vc, animated: true)

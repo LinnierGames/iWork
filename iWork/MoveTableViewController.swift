@@ -78,7 +78,7 @@ class MoveTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = arrayM[indexPath.row]
         if row.isDirectory {
-            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "moveVC") as! MoveTableViewController
+            let vc = UIStoryboard(name: "TaskManager", bundle: Bundle.main).instantiateViewController(withIdentifier: "moveVC") as! MoveTableViewController
             vc.navigationItem.prompt = self.navigationItem.prompt
             vc.currentDirectory = row
             
