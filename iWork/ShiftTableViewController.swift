@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ShiftViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
     var shift: Shift!
     
@@ -37,6 +37,22 @@ class ShiftViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var labelLastPunch: UILabel!
     @IBOutlet weak var labelCaption: UILabel!
     @IBOutlet weak var labelSum: UILabel!
+    @IBOutlet weak var textViewNotes: UITextView! {
+        didSet {
+            textViewNotes.text = shift.notes
+            if shift.notes == "" {
+                labelNotes.isHidden = false
+            } else {
+                labelNotes.isHidden = true
+            }
+        }
+    }
+    @IBOutlet weak var labelNotes: UILabel!
+    @IBAction func didTapToDimissKeyboard(_ sender: Any) {
+        if textViewNotes.isFirstResponder {
+            textViewNotes.resignFirstResponder()
+        }
+    }
     
     private var timer: Timer!
     
@@ -162,6 +178,23 @@ class ShiftViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Text View Delegate
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        labelNotes.isHidden = true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        shift.notes = textView.text
+        appDelegate.saveContext()
+        
+        if textView.text == "" {
+            labelNotes.isHidden = false
+        } else {
+            labelNotes.isHidden = true
+        }
     }
     
     // MARK: Table View Delegate

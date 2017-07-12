@@ -175,7 +175,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="until you hit a 5th hour" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KW2-Cf-AAn">
-                                                        <rect key="frame" x="0.0" y="72" width="343" height="18"/>
+                                                        <rect key="frame" x="0.0" y="72" width="343" height="0.0"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="18" id="upe-MP-3QX"/>
                                                         </constraints>
@@ -184,7 +184,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Punch:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEr-s6-8Se">
-                                                        <rect key="frame" x="0.0" y="98" width="343" height="24"/>
+                                                        <rect key="frame" x="0.0" y="80" width="343" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="W94-YS-Usx"/>
                                                         </constraints>
@@ -193,7 +193,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sum:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08J-Rb-WQf">
-                                                        <rect key="frame" x="0.0" y="130" width="343" height="24"/>
+                                                        <rect key="frame" x="0.0" y="112" width="343" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="mYG-Yc-qYM"/>
                                                         </constraints>
@@ -201,26 +201,52 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nbG-X1-YqD">
-                                                        <rect key="frame" x="0.0" y="162" width="343" height="96"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHx-6t-x57">
+                                                        <rect key="frame" x="0.0" y="144" width="343" height="114"/>
+                                                        <subviews>
+                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nbG-X1-YqD">
+                                                                <rect key="frame" x="0.0" y="0.0" width="343" height="114"/>
+                                                                <color key="backgroundColor" red="1" green="0.97258907658400773" blue="0.89969889322916663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="fbZ-EE-z11" id="nrK-y4-DB8"/>
+                                                                </connections>
+                                                            </textView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap here for notes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UjU-Pd-8o6">
+                                                                <rect key="frame" x="0.0" y="45" width="343" height="24"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="96" id="WOx-Ri-WVj"/>
+                                                            <constraint firstItem="nbG-X1-YqD" firstAttribute="leading" secondItem="HHx-6t-x57" secondAttribute="leading" id="3dd-c0-9PX"/>
+                                                            <constraint firstItem="UjU-Pd-8o6" firstAttribute="centerY" secondItem="HHx-6t-x57" secondAttribute="centerY" id="4XS-yo-rw3"/>
+                                                            <constraint firstAttribute="height" constant="114" id="BP3-N1-Zhq"/>
+                                                            <constraint firstItem="UjU-Pd-8o6" firstAttribute="leading" secondItem="HHx-6t-x57" secondAttribute="leading" id="DKX-hg-Htk"/>
+                                                            <constraint firstAttribute="trailing" secondItem="UjU-Pd-8o6" secondAttribute="trailing" id="PqE-4s-efc"/>
+                                                            <constraint firstAttribute="bottom" secondItem="nbG-X1-YqD" secondAttribute="bottom" id="WrS-8g-Zbi"/>
+                                                            <constraint firstAttribute="trailing" secondItem="nbG-X1-YqD" secondAttribute="trailing" id="f9f-zh-EnD"/>
+                                                            <constraint firstItem="nbG-X1-YqD" firstAttribute="top" secondItem="HHx-6t-x57" secondAttribute="top" id="idr-9V-lgn"/>
                                                         </constraints>
-                                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    </textView>
+                                                    </view>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="29m-2W-nbI" secondAttribute="bottom" id="BH1-x9-p1G"/>
                                             <constraint firstItem="29m-2W-nbI" firstAttribute="leading" secondItem="Ai2-3h-hDg" secondAttribute="leading" constant="16" id="FLe-q7-Z3U"/>
                                             <constraint firstItem="29m-2W-nbI" firstAttribute="top" secondItem="Ai2-3h-hDg" secondAttribute="top" id="NWl-uK-vHg"/>
                                             <constraint firstAttribute="trailing" secondItem="29m-2W-nbI" secondAttribute="trailing" constant="16" id="wgi-yr-kaC"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="uzq-Pd-ZlS" appends="YES" id="bGQ-4p-Lio"/>
+                                        </connections>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Jj-vF-xHf">
                                         <rect key="frame" x="0.0" y="266" width="375" height="285"/>
@@ -284,11 +310,18 @@
                         <outlet property="labelCaption" destination="KW2-Cf-AAn" id="f1y-vE-Gbl"/>
                         <outlet property="labelFifthHour" destination="BRC-uo-a7J" id="yCa-41-BR5"/>
                         <outlet property="labelLastPunch" destination="PEr-s6-8Se" id="WaK-jC-tHU"/>
+                        <outlet property="labelNotes" destination="UjU-Pd-8o6" id="j10-Zm-g63"/>
                         <outlet property="labelSum" destination="08J-Rb-WQf" id="fAg-fG-Z9J"/>
                         <outlet property="tableView" destination="7Jj-vF-xHf" id="5BD-e8-jTB"/>
+                        <outlet property="textViewNotes" destination="nbG-X1-YqD" id="rwN-fv-fPk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7tv-ip-67T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="uzq-Pd-ZlS">
+                    <connections>
+                        <action selector="didTapToDimissKeyboard:" destination="fbZ-EE-z11" id="Spq-Yz-O1b"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3669.5999999999999" y="886.50674662668678"/>
         </scene>
