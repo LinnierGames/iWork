@@ -36,6 +36,7 @@
 		E99349AA1F0F46EF00A27473 /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A91F0F46EF00A27473 /* InboxTableViewController.swift */; };
 		E9D43E8A1F12D16A0067FF44 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E891F12D16A0067FF44 /* DatePickerViewController.swift */; };
 		E9D43E8D1F15BA330067FF44 /* TaskManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D43E8B1F15BA330067FF44 /* TaskManager.storyboard */; };
+		E9D43E8F1F15BDB20067FF44 /* UtilitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		E99349A91F0F46EF00A27473 /* InboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		E9D43E891F12D16A0067FF44 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		E9D43E8C1F15BA330067FF44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TaskManager.storyboard; sourceTree = "<group>"; };
+		E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilitiesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				E94F4F011F08A994001DB22F /* Categories.swift */,
 				E94F4F0C1F08B130001DB22F /* Constants.swift */,
 				E94F4F0B1F08B0F7001DB22F /* Task Manager */,
+				E9D43E901F15BDB60067FF44 /* Utitlities */,
 				E99349A41F0C841B00A27473 /* Settings */,
 				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
 				E99349A11F0C5D9200A27473 /* UICustom */,
@@ -221,6 +224,14 @@
 				E99349A21F0C841700A27473 /* SettingsTableViewController.swift */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		E9D43E901F15BDB60067FF44 /* Utitlities */ = {
+			isa = PBXGroup;
+			children = (
+				E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */,
+			);
+			name = Utitlities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,6 +388,7 @@
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
 				E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */,
 				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
+				E9D43E8F1F15BDB20067FF44 /* UtilitiesTableViewController.swift in Sources */,
 				E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */,
 				E99349A81F0DE3D500A27473 /* DirectoryInfo.swift in Sources */,
 				E99349A31F0C841700A27473 /* SettingsTableViewController.swift in Sources */,
