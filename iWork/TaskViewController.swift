@@ -9,13 +9,13 @@
 import UIKit
 
 //checkbox/title, assigned by, due date, prioity/isStarred, notes,
-private enum Table: Int {
-    case titleSection = 0
-    case assignedBySection = 1
-    case startDateSection = 2
-    case dueDateSection = 3
-    case prioritySection = 4
-    case notesSection = 5
+private struct Table {
+    static var titleSection = 0
+    static var assignedBySection = 1
+    static var startDateSection = 2
+    static var dueDateSection = 3
+    static var prioritySection = 4
+    static var notesSection = 5
 }
 
 class TaskViewController: UITableViewController, UITextFieldDelegate, DatePickerDelegate {
@@ -36,55 +36,60 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     
     private var cellTitle: CustomTableViewCells! {
         didSet {
-            cellTitle.textField!.delegate = self
-            cellTitle.textField!.text = navController.task.title
+            cellTitle.textField.delegate = self
+            cellTitle.textField.text = navController.task.title
             if navController.option == .insert {
-                cellTitle.textField!.becomeFirstResponder()
-                cellTitle.textField!.placeholder = "New Task Title"
+                cellTitle.textField.becomeFirstResponder()
+                cellTitle.textField.placeholder = "New Task Title"
             } else {
-                cellTitle.textField!.placeholder = "Title"
+                cellTitle.textField.placeholder = "Title"
             }
             
-            NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidChange(_:)), name: .UITextFieldTextDidChange, object: cellTitle.textField!)
+            NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidChange(_:)), name: .UITextFieldTextDidChange, object: cellTitle.textField)
         }
     }
     
     private var cellAssignedBy: CustomTableViewCells! {
         didSet {
-            cellAssignedBy.textField!.delegate = self
+            cellAssignedBy.textField.delegate = self
             if let assignedBy = navController.task.assignedBy {
-                cellAssignedBy.textField!.text = assignedBy
+                cellAssignedBy.textField.text = assignedBy
                 //showAssigngedBy = true
             }
-            cellAssignedBy.textField!.placeholder = "Assigned by"
+            cellAssignedBy.textField.placeholder = "Assigned by"
         }
     }
     
-    private var cellDueDate: UITableViewCell! {
+    private var cellDueDate: CustomTableViewCells! {
         didSet {
             if let dueDate = navController.task.dueDate {
                 let showTime = navController.task.dueTime == true ? DateFormatter.Style.short : DateFormatter.Style.none
-                cellDueDate.textLabel!.text = DateFormatter.localizedString(from: dueDate as Date, dateStyle: .medium, timeStyle: showTime)
+                cellDueDate.labelSubtitle.text = DateFormatter.localizedString(from: dueDate as Date, dateStyle: .medium, timeStyle: showTime)
             } else {
-                cellDueDate.textLabel!.text = "Add a Due Date"
+                cellDueDate.labelSubtitle.text = "Add a Due Date"
             }
         }
     }
     
-    private var cellStartDate: UITableViewCell! {
+    private var cellStartDate: CustomTableViewCells! {
         didSet {
             if let startDate = navController.task.startDate {
                 let showTime = navController.task.startTime == true ? DateFormatter.Style.short : DateFormatter.Style.none
-                cellStartDate.textLabel!.text = DateFormatter.localizedString(from: startDate as Date, dateStyle: .medium, timeStyle: showTime)
+                cellStartDate.labelSubtitle.text = DateFormatter.localizedString(from: startDate as Date, dateStyle: .medium, timeStyle: showTime)
             } else {
-                cellStartDate.textLabel!.text = "Add a Start Date"
+                cellStartDate.labelSubtitle.text = "Add a Start Date"
             }
         }
     }
     
-    private var cellPrioity: UITableViewCell! {
+    private var cellPriority: CustomTableViewCells! {
         didSet {
-            cellPrioity.textLabel!.text = "Add a Prioity"
+            let priority = navController.task.priority
+            if priority == .none {
+                cellPriority.labelSubtitle.text = "Add a Prioity"
+            } else {
+                cellPriority.labelSubtitle.text = String(describing: priority)
+            }
         }
     }
     
@@ -123,31 +128,34 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == Table.titleSection.rawValue {
+        if indexPath.section == Table.titleSection {
             let cell = returnCell(forIdentifier: "textField", atIndexPath: indexPath) as! CustomTableViewCells
             
             cellTitle = cell; return cell
             
-        } else if indexPath.section == Table.assignedBySection.rawValue {
+        } else if indexPath.section == Table.assignedBySection {
             let cell = returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
             cell.labelTitle!.text = "Assigned By"
             
             cellAssignedBy = cell; return cell
             
-        } else if indexPath.section == Table.dueDateSection.rawValue {
-            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
-            
-            cellDueDate = cell; return cell
-            
-        } else if indexPath.section == Table.startDateSection.rawValue {
-            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
+        } else if indexPath.section == Table.startDateSection {
+            let cell = returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
+            cell.labelCaption.text = "Start Date"
             
             cellStartDate = cell; return cell
             
-        } else if indexPath.section == Table.prioritySection.rawValue {
-            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
+        } else if indexPath.section == Table.dueDateSection {
+            let cell = returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
+            cell.labelCaption.text = "Due Date"
             
-            cellPrioity = cell; return cell
+            cellDueDate = cell; return cell
+            
+        } else if indexPath.section == Table.prioritySection {
+            let cell = returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
+            cell.labelCaption.text = "Priority"
+            
+            cellPriority = cell; return cell
             
         } else {
             let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
@@ -167,7 +175,7 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     private func updateUI() {
         title = navController.task.title
         
-        cellTitle.textField!.text = navController.task.title
+        cellTitle.textField.text = navController.task.title
         
     }
     
@@ -193,8 +201,8 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     }
     
     private func dismiss() {
-        if cellTitle.textField!.isFirstResponder {
-            cellTitle.textField!.resignFirstResponder()
+        if cellTitle.textField.isFirstResponder {
+            cellTitle.textField.resignFirstResponder()
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -207,17 +215,46 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     // MARK: Table View Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == Table.dueDateSection.rawValue {
+        if indexPath.section == Table.dueDateSection {
             self.performSegue(withIdentifier: "show date", sender: (date: navController.task.dueDate, time: navController.task.dueTime, picker: "due date"))
-        } else if indexPath.section == Table.startDateSection.rawValue {
+        } else if indexPath.section == Table.startDateSection {
             self.performSegue(withIdentifier: "show date", sender: (date: navController.task.startDate, time: navController.task.startTime, picker: "start date"))
+        } else if indexPath.section == Table.prioritySection {
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let stringStarred = navController.task.isStarred ? "Unstar" : "Star"
+            alert.addAction(UIAlertAction(title: stringStarred, style: .default, handler: { [weak self] (action) in
+                self!.navController.task.isStarred.invert()
+                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+            }))
+            alert.addAction(UIAlertAction(title: "High", style: .default, handler: { [weak self] (action) in
+                self!.navController.task.priority = .High
+                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+            }))
+            alert.addAction(UIAlertAction(title: "Medium", style: .default, handler: { [weak self] (action) in
+                self!.navController.task.priority = .Medium
+                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+            }))
+            alert.addAction(UIAlertAction(title: "Low", style: .default, handler: { [weak self] (action) in
+                self!.navController.task.priority = .Low
+                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+            }))
+            alert.addAction(UIAlertAction(title: "Unimportant", style: .default, handler: { [weak self] (action) in
+                self!.navController.task.priority = .Unimportant
+                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+            }))
+            alert.addAction(UIAlertAction(title: "None", style: .cancel, handler: { [weak self] (action) in
+                self!.navController.task.priority = .None
+                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
     // MARK: Text Field
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == cellTitle.textField! {
+        if textField == cellTitle.textField {
             if textField.text == "" {
                 if hasInitialTitle == false {
                     textField.text = "Untitled Task"
@@ -227,8 +264,8 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
             } else {
                 hasInitialTitle = true
             }
-            navController.task.title = cellTitle.textField!.text
-        } else if textField == cellAssignedBy.textField! {
+            navController.task.title = cellTitle.textField.text
+        } else if textField == cellAssignedBy.textField {
             navController.task.assignedBy = textField.text
         }
     }
@@ -243,11 +280,11 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
         if picker == pickerDueDate {
             navController.task.dueDate = date as NSDate?
             navController.task.dueTime = interval == nil ? false : true
-            tableView.reloadSections([Table.dueDateSection.rawValue], with: .fade)
+            tableView.reloadSections([Table.dueDateSection], with: .fade)
         } else if picker == pickerStartDate {
             navController.task.startDate = date as NSDate?
             navController.task.startTime = interval == nil ? false : true
-            tableView.reloadSections([Table.startDateSection.rawValue], with: .fade)
+            tableView.reloadSections([Table.startDateSection], with: .fade)
         }
     }
     
@@ -267,7 +304,7 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     
     @IBAction func pressAssignedBy(_ sender: Any) {
         showAssigngedBy = true
-        cellAssignedBy.textField!.becomeFirstResponder()
+        cellAssignedBy.textField.becomeFirstResponder()
     }
     
     @IBAction func pressDone(_ sender: Any) {

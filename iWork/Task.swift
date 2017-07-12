@@ -16,6 +16,23 @@ extension Directory {
 }
 
 extension Task {
+    
+    public enum Priority: Int16 {
+        case High = 3
+        case Medium = 2
+        case Low = 1
+        case None = 0
+        case Unimportant = -1
+    }
+    
+    public var priority: Priority {
+        set {
+            self.priorityValue = newValue.rawValue
+        }
+        get {
+            return Priority(rawValue: self.priorityValue)!
+        }
+    }
     convenience init(titleTask title: String, dueDate: NSDate? = nil, dateCreated: NSDate = NSDate(), parent: Directory? = nil, inContext context: NSManagedObjectContext, forRole role: Role) {
         self.init(context: context)
         

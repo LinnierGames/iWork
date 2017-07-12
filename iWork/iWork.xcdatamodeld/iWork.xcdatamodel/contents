@@ -30,10 +30,11 @@
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dueTime" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isStarred" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="prioity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="priorityValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="startTime" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" inverseName="tasks" inverseEntity="Projects" syncable="YES"/>
@@ -45,6 +46,6 @@
         <element name="Folders" positionX="-36" positionY="9" width="128" height="45"/>
         <element name="Projects" positionX="0" positionY="90" width="128" height="60"/>
         <element name="Roles" positionX="-18" positionY="81" width="128" height="103"/>
-        <element name="Tasks" positionX="-27" positionY="36" width="128" height="210"/>
+        <element name="Tasks" positionX="-27" positionY="36" width="128" height="225"/>
     </elements>
 </model>

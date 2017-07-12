@@ -61,6 +61,16 @@ extension UIAlertController {
     
 }
 
+extension Bool {
+    public mutating func invert() {
+        if self == true {
+            self = false
+        } else {
+            self = true
+        }
+    }
+}
+
 extension String {
     init?(date: NSDate) {
         self.init("date")
