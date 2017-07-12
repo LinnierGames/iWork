@@ -72,12 +72,32 @@ extension Bool {
 }
 
 extension String {
-    init(date: NSDate, dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .none) {
+    init(_ date: NSDate, dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .none) {
         self.init(DateFormatter.localizedString(from: date as Date, dateStyle: dateStyle, timeStyle: timeStyle))!
     }
     
-    init(date: Date, dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .none) {
-        self = String(date: date as NSDate, dateStyle: dateStyle, timeStyle: timeStyle)
+    init(_ date: Date, dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .none) {
+        self = String(date as NSDate, dateStyle: dateStyle, timeStyle: timeStyle)
+    }
+    init(_ timeInterval: TimeInterval) {
+        var temp = abs(Int(timeInterval))
+        let hours = temp/Int(CTDateComponentHour)
+        temp -= hours*Int(CTDateComponentHour)
+        
+        let minutes = temp/Int(CTDateComponentMinute)
+        temp -= minutes*Int(CTDateComponentMinute)
+        
+        let seconds = temp
+        var string = ""
+        if hours > 0 {
+            string.append("\(hours)h ")
+        }
+        if minutes > 0 {
+            string.append("\(minutes)m ")
+        }
+        string.append("\(seconds)s")
+        
+        self = string
     }
 }
 
@@ -89,6 +109,8 @@ extension DateComponents {
     init(date: Date, forComponents components: Set<Calendar.Component>)  {
         self = Calendar.current.dateComponents(components, from: date)
     }
+    
+    /// returns the length in time, seconds+mintues+hours only
     var timeInterval: TimeInterval {
         get {
             var interval: TimeInterval = 0

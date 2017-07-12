@@ -28,6 +28,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     // MARK: - RETURN VALUES
     
     // MARK: Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         if let sections = fetchedResultsController.sections?.count {
             return sections
@@ -48,7 +49,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         let shift = fetchedResultsController!.object(at: indexPath)
-        cell.textLabel!.text = String(date: shift.date!)
+        cell.textLabel!.text = String(shift.date!, dateStyle: .full)
         cell.detailTextLabel!.text = "Shift info here"
         
         return cell
@@ -68,12 +69,26 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "show shift":
+                let shiftVC = segue.destination as! ShiftViewController
+                shiftVC.shift = sender as! Shift
+            default:
+                break
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Table View Delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "show shift", sender: fetchedResultsController.object(at: indexPath))
     }
     
     // MARK: - IBACTIONS

@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 extension TimePunch {
-    enum PunchType: Int16 {
+    public enum PunchType: Int16 {
         case StartShift = 0
         case StartBreak = 1
         case EndBreak = 2
@@ -19,11 +19,20 @@ extension TimePunch {
         case EndShift = 5
     }
     
-    convenience init(punch: PunchType, timeStamp stamp: Date, inContext context: NSManagedObjectContext, forShift shift: Shift) {
+    convenience init(punch: PunchType, timeStamp stamp: Date = Date(), inContext context: NSManagedObjectContext, forShift shift: Shift) {
         self.init(context: context)
         
         self.punchValue = punch.rawValue
         self.timeStamp = stamp as NSDate
         self.shift = shift
+    }
+    
+    public var punchType: PunchType {
+        set {
+            self.punchValue = newValue.rawValue
+        }
+        get {
+            return PunchType(rawValue: self.punchValue)!
+        }
     }
 }

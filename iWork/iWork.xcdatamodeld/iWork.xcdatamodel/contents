@@ -30,7 +30,7 @@
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="employer" maxCount="1" deletionRule="Nullify" destinationEntity="Employers" inverseName="shifts" inverseEntity="Employers" syncable="YES"/>
-        <relationship name="punches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TimePunches" inverseName="shift" inverseEntity="TimePunches" syncable="YES"/>
+        <relationship name="punches" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="TimePunches" inverseName="shift" inverseEntity="TimePunches" syncable="YES"/>
     </entity>
     <entity name="Tasks" representedClassName="Task" parentEntity="DirectoryInfos" syncable="YES" codeGenerationType="class">
         <attribute name="assignedBy" optional="YES" attributeType="String" syncable="YES"/>

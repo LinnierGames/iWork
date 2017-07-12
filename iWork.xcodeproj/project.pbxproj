@@ -40,6 +40,7 @@
 		E9D43E921F15C1870067FF44 /* PunchClockTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */; };
 		E9D43E951F15C3A90067FF44 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E941F15C3A90067FF44 /* Shift.swift */; };
 		E9D43E981F15C42C0067FF44 /* TimePunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E971F15C42C0067FF44 /* TimePunch.swift */; };
+		E9D43E9A1F15CED30067FF44 /* ShiftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E991F15CED30067FF44 /* ShiftTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PunchClockTableViewController.swift; sourceTree = "<group>"; };
 		E9D43E941F15C3A90067FF44 /* Shift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		E9D43E971F15C42C0067FF44 /* TimePunch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePunch.swift; sourceTree = "<group>"; };
+		E9D43E991F15CED30067FF44 /* ShiftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiftTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 			children = (
 				E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */,
 				E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */,
+				E9D43E991F15CED30067FF44 /* ShiftTableViewController.swift */,
 			);
 			name = Utitlities;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				E94F4EFE1F089AAD001DB22F /* TaskManagerTableViewController.swift in Sources */,
 				E94F4F021F08A994001DB22F /* Categories.swift in Sources */,
 				E94F4F101F08B177001DB22F /* Task.swift in Sources */,
+				E9D43E9A1F15CED30067FF44 /* ShiftTableViewController.swift in Sources */,
 				E99349AA1F0F46EF00A27473 /* InboxTableViewController.swift in Sources */,
 				E99349931F09B78000A27473 /* Project.swift in Sources */,
 				E94F4F0A1F08B0F2001DB22F /* MoveTableViewController.swift in Sources */,
