@@ -72,12 +72,12 @@ extension Bool {
 }
 
 extension String {
-    init?(date: NSDate) {
-        self.init("date")
+    init(date: NSDate, dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .none) {
+        self.init(DateFormatter.localizedString(from: date as Date, dateStyle: dateStyle, timeStyle: timeStyle))!
     }
     
-    init?(date: Date) {
-        self.init("date")
+    init(date: Date, dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .none) {
+        self = String(date: date as NSDate, dateStyle: dateStyle, timeStyle: timeStyle)
     }
 }
 

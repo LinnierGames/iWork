@@ -7,32 +7,65 @@
 //
 
 import UIKit
+import CoreData
 
-class PunchClockTableViewController: UITableViewController {
+class PunchClockTableViewController: FetchedResultsTableViewController {
+    
+    private var fetchedResultsController: NSFetchedResultsController<Shift>! {
+        didSet {
+            if let controller = fetchedResultsController {
+                do {
+                    try controller.performFetch()
+                    controller.delegate = self
+                    tableView.reloadData()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
     
     // MARK: - RETURN VALUES
     
     // MARK: Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        if let sections = fetchedResultsController.sections?.count {
+            return sections
+        } else {
+            return 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        if let sections = fetchedResultsController.sections, sections.count > 0 {
+            return sections[section].numberOfObjects
+        } else {
+            return 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        // Configure the cell...
+        let shift = fetchedResultsController!.object(at: indexPath)
+        cell.textLabel!.text = String(date: shift.date!)
+        cell.detailTextLabel!.text = "Shift info here"
         
         return cell
     }
     
     // MARK: - VOID METHODS
+    
+    private func updateUI() {
+        let fetch: NSFetchRequest<Shift> = Shift.fetchRequest()
+        fetch.predicate = NSPredicate(format: "employer == %@", appDelegate.currentEmployer)
+        fetch.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchedResultsController = NSFetchedResultsController<Shift>(
+            fetchRequest: fetch,
+            managedObjectContext: container.viewContext,
+            sectionNameKeyPath: nil, cacheName: nil
+        )
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -46,7 +79,8 @@ class PunchClockTableViewController: UITableViewController {
     // MARK: - IBACTIONS
     
     @IBAction func pressAdd(_ sender: Any) {
-        
+        _ = Shift(inContext: container.viewContext, forEmployer: appDelegate.currentEmployer)
+        appDelegate.saveContext()
     }
     
     // MARK: - LIFE CYCLE
@@ -56,5 +90,8 @@ class PunchClockTableViewController: UITableViewController {
 
         self.clearsSelectionOnViewWillAppear = true
         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.title = appDelegate.currentEmployer.name
+        updateUI()
     }
 }
