@@ -14,6 +14,7 @@
         <attribute name="name" attributeType="String" defaultValueString="Untitled Employer" syncable="YES"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Roles" inverseName="employer" inverseEntity="Roles" syncable="YES"/>
         <relationship name="selectedRole" maxCount="1" deletionRule="Nullify" destinationEntity="Roles" inverseName="isSelected" inverseEntity="Roles" syncable="YES"/>
+        <relationship name="shifts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Shifts" inverseName="employer" inverseEntity="Shifts" syncable="YES"/>
     </entity>
     <entity name="Folders" representedClassName="Folder" parentEntity="DirectoryInfos" syncable="YES" codeGenerationType="class"/>
     <entity name="Projects" representedClassName="Project" parentEntity="Tasks" syncable="YES" codeGenerationType="class">
@@ -24,6 +25,12 @@
         <relationship name="directories" toMany="YES" deletionRule="Cascade" destinationEntity="Directories" inverseName="role" inverseEntity="Directories" syncable="YES"/>
         <relationship name="employer" maxCount="1" deletionRule="Nullify" destinationEntity="Employers" inverseName="roles" inverseEntity="Employers" syncable="YES"/>
         <relationship name="isSelected" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employers" inverseName="selectedRole" inverseEntity="Employers" syncable="YES"/>
+    </entity>
+    <entity name="Shifts" representedClassName="Shift" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="employer" maxCount="1" deletionRule="Nullify" destinationEntity="Employers" inverseName="shifts" inverseEntity="Employers" syncable="YES"/>
+        <relationship name="punches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TimePunches" inverseName="shift" inverseEntity="TimePunches" syncable="YES"/>
     </entity>
     <entity name="Tasks" representedClassName="Task" parentEntity="DirectoryInfos" syncable="YES" codeGenerationType="class">
         <attribute name="assignedBy" optional="YES" attributeType="String" syncable="YES"/>
@@ -39,13 +46,21 @@
         <attribute name="startTime" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" inverseName="tasks" inverseEntity="Projects" syncable="YES"/>
     </entity>
+    <entity name="TimePunches" representedClassName="TimePunch" syncable="YES" codeGenerationType="class">
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="punchValue" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="timeStamp" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="shift" maxCount="1" deletionRule="Nullify" destinationEntity="Shifts" inverseName="punches" inverseEntity="Shifts" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Directories" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="DirectoryInfos" positionX="-54" positionY="-9" width="128" height="75"/>
-        <element name="Employers" positionX="-36" positionY="63" width="128" height="90"/>
+        <element name="Employers" positionX="-36" positionY="63" width="128" height="105"/>
         <element name="Folders" positionX="-36" positionY="9" width="128" height="45"/>
         <element name="Projects" positionX="0" positionY="90" width="128" height="60"/>
         <element name="Roles" positionX="-18" positionY="81" width="128" height="103"/>
         <element name="Tasks" positionX="-27" positionY="36" width="128" height="225"/>
+        <element name="Shifts" positionX="-36" positionY="108" width="128" height="105"/>
+        <element name="TimePunches" positionX="-27" positionY="117" width="128" height="105"/>
     </elements>
 </model>
