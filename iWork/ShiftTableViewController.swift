@@ -132,6 +132,41 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         updateInfo()
     }
     
+    private func setSuggestedPunch() -> TimePunch.PunchType? {
+        if let punches = shift.punches?.array as! [TimePunch]? {
+            let hasFirstBreak = punches.contains(where: { $0.punchType == .StartBreak }),
+            hasLunch = punches.contains(where: { $0.punchType == .StartLunch }),
+            hasSecondBreak = punches.reduce(0) { $1.punchType == .StartBreak ? $0+1 : $0 } > 1,
+            hasEndShift = punches.contains(where: { $0.punchType == .EndShift })
+            
+            if shift.lastPunch!.punchType == .StartBreak {
+                return .EndBreak
+            } else if shift.lastPunch!.punchType == .StartLunch {
+                return .EndLunch
+            } else {
+                if hasFirstBreak {
+                    if hasLunch {
+                        if hasSecondBreak {
+                            if hasEndShift {
+                                return nil
+                            } else {
+                                return .EndShift
+                            }
+                        } else {
+                            return .StartBreak
+                        }
+                    } else {
+                        return .StartLunch
+                    }
+                } else {
+                    return .StartBreak
+                }
+            }
+        } else {
+            return .StartShift
+        }
+    }
+    
     private func updateInfo() {
         if let punch = lastPunch {
             if punch.punchType != .EndShift {
@@ -154,12 +189,13 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                     labelFifthHour.text = "You've worked over 5 hours"
                     labelCaption.text = nil
                 }
-            } else {
+            } else { //Starting a lunch or ended a shift
                 labelFifthHour.text = "Currently off the Clock"
                 labelCaption.text = nil
             }
             labelSum.text = "Sum: \(String(shift.continuousOnTheClockDuration!))"
             
+            suggestedPunch = setSuggestedPunch()
 //            if punch.punchType == .EndShift {
 //                timer.invalidate()
 //            }
@@ -168,6 +204,8 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             labelCaption.text = nil
             labelLastPunch.text = "Last Punch:"
             labelSum.text = "Sum:"
+            
+            suggestedPunch = .StartShift
         }
     }
     
@@ -206,40 +244,42 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
     }
     
     // MARK: - IBACTIONS
+    
+    private func insert(punch: TimePunch.PunchType) {
+        let newPunch = TimePunch(punch: punch, inContext: container.viewContext, forShift: shift)
+        shift.addToPunches(newPunch)
+        appDelegate.saveContext()
+        updateInfo()
+    }
+    
     @IBAction func pressAdd(_ sender: Any) {
         let alert = UIAlertController(title: "Adding a Punch", message: "select a punch type", preferredStyle: .actionSheet)
-        
-        func insert(punch: TimePunch.PunchType) {
-            let newPunch = TimePunch(punch: punch, inContext: container.viewContext, forShift: shift)
-            shift.addToPunches(newPunch)
-            appDelegate.saveContext()
-        }
         if let punch = lastPunch {
             switch punch.punchType {
             case .StartShift, .EndBreak, .EndLunch:
-                alert.addAction(UIAlertAction(title: "Start Break", style: .default, handler: { (action) in
-                    insert(punch: .StartBreak)
+                alert.addAction(UIAlertAction(title: "Start Break", style: .default, handler: { [weak self] (action) in
+                    self!.insert(punch: .StartBreak)
                 }))
-                alert.addAction(UIAlertAction(title: "Start Lunch", style: .default, handler: { (action) in
-                    insert(punch: .StartLunch)
+                alert.addAction(UIAlertAction(title: "Start Lunch", style: .default, handler: { [weak self] (action) in
+                    self!.insert(punch: .StartLunch)
                 }))
-                alert.addAction(UIAlertAction(title: "End Shift", style: .default, handler: { (action) in
-                    insert(punch: .EndShift)
+                alert.addAction(UIAlertAction(title: "End Shift", style: .default, handler: { [weak self] (action) in
+                    self!.insert(punch: .EndShift)
                 }))
             case .StartBreak:
-                alert.addAction(UIAlertAction(title: "End Break", style: .default, handler: { (action) in
-                    insert(punch: .EndBreak)
+                alert.addAction(UIAlertAction(title: "End Break", style: .default, handler: { [weak self] (action) in
+                    self!.insert(punch: .EndBreak)
                 }))
             case .StartLunch:
-                alert.addAction(UIAlertAction(title: "End Lunch", style: .default, handler: { (action) in
-                    insert(punch: .EndLunch)
+                alert.addAction(UIAlertAction(title: "End Lunch", style: .default, handler: { [weak self] (action) in
+                    self!.insert(punch: .EndLunch)
                 }))
             case .EndShift:
                 break
             }
         } else {
-            alert.addAction(UIAlertAction(title: "Start Shift", style: .default, handler: { (action) in
-                insert(punch: .StartShift)
+            alert.addAction(UIAlertAction(title: "Start Shift", style: .default, handler: { [weak self] (action) in
+                self!.insert(punch: .StartShift)
             }))
         }
         alert.addAction(UIAlertAction(title: "Override", style: .destructive, handler: nil))
@@ -249,6 +289,22 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
     @IBOutlet weak var buttonDate: UIButton!
     @IBAction func pressDate(_ sender: Any) {
         
+    }
+    
+    @IBOutlet weak var buttonPunch: UIBarButtonItem!
+    private var suggestedPunch: TimePunch.PunchType? = .StartShift {
+        didSet {
+            if let punch = suggestedPunch {
+                buttonPunch.title = String(punch)
+            } else {
+                buttonPunch.title = nil
+            }
+        }
+    }
+    @IBAction func pressPunch(_ sender: Any) {
+        if let punch = suggestedPunch {
+            insert(punch: punch)
+        }
     }
     
     // MARK: - LIFE CYCLE
@@ -262,14 +318,14 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         super.viewWillAppear(animated)
         
         tableView.setEditing(true, animated: false)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (timer) in
             self!.updateInfo()
         })
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

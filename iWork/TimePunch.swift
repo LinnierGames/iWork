@@ -9,14 +9,37 @@
 import Foundation
 import CoreData
 
+extension String {
+    init(_ punch: TimePunch.PunchType) {
+        self = punch.debugDescription
+    }
+}
+
 extension TimePunch {
-    public enum PunchType: Int16 {
+    public enum PunchType: Int16, CustomDebugStringConvertible {
         case StartShift = 0
         case StartBreak = 1
         case EndBreak = 2
         case StartLunch = 3
         case EndLunch = 4
         case EndShift = 5
+        
+        public var debugDescription: String {
+            switch self {
+            case .StartShift:
+                return "Start Shift"
+            case .StartBreak:
+                return "Start Break"
+            case .EndBreak:
+                return "End Break"
+            case .StartLunch:
+                return "Start Lunch"
+            case .EndLunch:
+                return "End Lunch"
+            case .EndShift:
+                return "End Shift"
+            }
+        }
     }
     
     convenience init(punch: PunchType, timeStamp stamp: Date = Date(), inContext context: NSManagedObjectContext, forShift shift: Shift) {

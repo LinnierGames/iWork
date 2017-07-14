@@ -56,11 +56,15 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
             if shift.punches!.count > 0 {
                 cell.detailTextLabel!.textColor = UIColor.blue
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak cell, weak shift] (timer) in
-                    if let lastPunch = shift?.lastPunch! {
-                        if let duration = lastPunch.duration {
-                            cell?.detailTextLabel!.text = "\(String(shift!.continuousOnTheClockDuration!)) - last punch: \(lastPunch.punchType) for \(String(duration))"
+                    if let lastPunch = shift?.lastPunch {
+                        if shift!.isCompletedShift! {
+                            timer.invalidate()
                         } else {
-                            cell?.detailTextLabel!.text = "\(String(shift!.continuousOnTheClockDuration!)) - last punch: \(lastPunch.punchType)"
+                            if let duration = lastPunch.duration {
+                                cell?.detailTextLabel!.text = "\(String(shift!.continuousOnTheClockDuration!)) - last punch: \(lastPunch.punchType) for \(String(duration))"
+                            } else {
+                                cell?.detailTextLabel!.text = "\(String(shift!.continuousOnTheClockDuration!)) - last punch: \(lastPunch.punchType)"
+                            }
                         }
                     } else {
                         timer.invalidate()
