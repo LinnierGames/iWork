@@ -24,7 +24,12 @@ extension UIViewController {
 extension UITableViewController {
     
     func returnCell(forIdentifier identifier: String = "title", atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        cell.textLabel?.text = nil
+        cell.detailTextLabel?.text = nil
+        cell.accessoryType = .none
+        
+        return cell
     }
 }
 
@@ -39,6 +44,22 @@ extension UITableViewCell {
             self.textLabel!.alpha = 0.3
             self.detailTextLabel!.alpha = 0.3
             self.isUserInteractionEnabled = false
+        }
+    }
+}
+
+public struct UIAlertActionInfo {
+    var title: String?
+    var handler: ((UIAlertAction) -> Swift.Void)?
+}
+
+extension UIAlertController {
+    open func addActions(cancelButton cancel: String? = "Cancel", alertStyle: UIAlertControllerStyle = .alert, actions: UIAlertActionInfo...) {
+        for action in actions {
+            self.addAction(UIAlertAction(title: action.title, style: .default, handler: action.handler))
+        }
+        if cancel != nil {
+            self.addAction(UIAlertAction(title: cancel, style: .cancel, handler: nil))
         }
     }
 }
