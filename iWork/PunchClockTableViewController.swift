@@ -46,14 +46,16 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.returnCell(atIndexPath: indexPath)
         
         let shift = fetchedResultsController!.object(at: indexPath)
         cell.textLabel!.text = String(shift.date!, dateStyle: .full)
+        cell.accessoryType = .detailDisclosureButton
         if shift.isCompletedShift ?? false {
-            cell.detailTextLabel!.text = String(shift.onTheClockDuration!)
+            cell.detailTextLabel!.text = "Sum: \(String(shift.onTheClockDuration!))"
         } else {
             if shift.punches!.count > 0 {
+                cell.detailTextLabel!.text = "Loading"
                 cell.detailTextLabel!.textColor = UIColor.blue
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak cell, weak shift] (timer) in
                     if let lastPunch = shift?.lastPunch {
@@ -61,9 +63,9 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
                             timer.invalidate()
                         } else {
                             if let duration = lastPunch.duration {
-                                cell?.detailTextLabel!.text = "\(String(shift!.continuousOnTheClockDuration!)) - last punch: \(lastPunch.punchType) for \(String(duration))"
+                                cell?.detailTextLabel!.text = "Sum: \(String(shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType) for \(String(duration))"
                             } else {
-                                cell?.detailTextLabel!.text = "\(String(shift!.continuousOnTheClockDuration!)) - last punch: \(lastPunch.punchType)"
+                                cell?.detailTextLabel!.text = "Sum: \(String(shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType)"
                             }
                         }
                     } else {

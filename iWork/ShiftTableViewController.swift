@@ -238,6 +238,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         case .delete:
             container.viewContext.delete(fetchedResultsController.object(at: indexPath))
             appDelegate.saveContext()
+            updateInfo()
         default:
             break
         }

@@ -129,36 +129,36 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == Table.titleSection {
-            let cell = returnCell(forIdentifier: "textField", atIndexPath: indexPath) as! CustomTableViewCells
+            let cell = tableView.returnCell(forIdentifier: "textField", atIndexPath: indexPath) as! CustomTableViewCells
             
             cellTitle = cell; return cell
             
         } else if indexPath.section == Table.assignedBySection {
-            let cell = returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
+            let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
             cell.labelTitle!.text = "Assigned By"
             
             cellAssignedBy = cell; return cell
             
         } else if indexPath.section == Table.startDateSection {
-            let cell = returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
+            let cell = tableView.returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
             cell.labelCaption.text = "Start Date"
             
             cellStartDate = cell; return cell
             
         } else if indexPath.section == Table.dueDateSection {
-            let cell = returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
+            let cell = tableView.returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
             cell.labelCaption.text = "Due Date"
             
             cellDueDate = cell; return cell
             
         } else if indexPath.section == Table.prioritySection {
-            let cell = returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
+            let cell = tableView.returnCell(forIdentifier: "captionSubtitle", atIndexPath: indexPath) as! CustomTableViewCells
             cell.labelCaption.text = "Priority"
             
             cellPriority = cell; return cell
             
         } else {
-            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
+            let cell = tableView.returnCell(forIdentifier: "cell", atIndexPath: indexPath)
             
             cellNotes = cell; return cell
         }

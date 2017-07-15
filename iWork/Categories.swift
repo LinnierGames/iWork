@@ -21,12 +21,13 @@ extension UIViewController {
     
 }
 
-extension UITableViewController {
+extension UITableView {
     
-    func returnCell(forIdentifier identifier: String = "title", atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        cell.textLabel?.text = nil
-        cell.detailTextLabel?.text = nil
+    func returnCell(forIdentifier identifier: String = "cell", atIndexPath indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        cell.textLabel?.text = ""
+        cell.textLabel?.textColor = UIColor.black
+        cell.detailTextLabel?.text = ""
         cell.accessoryType = .none
         
         return cell
@@ -50,13 +51,20 @@ extension UITableViewCell {
 
 public struct UIAlertActionInfo {
     var title: String?
+    var style: UIAlertActionStyle
     var handler: ((UIAlertAction) -> Swift.Void)?
+    
+    init(title: String?, style: UIAlertActionStyle = .default, handler: ((UIAlertAction) -> Swift.Void)?) {
+        self.title = title
+        self.style = style
+        self.handler = handler
+    }
 }
 
 extension UIAlertController {
     open func addActions(cancelButton cancel: String? = "Cancel", alertStyle: UIAlertControllerStyle = .alert, actions: UIAlertActionInfo...) {
         for action in actions {
-            self.addAction(UIAlertAction(title: action.title, style: .default, handler: action.handler))
+            self.addAction(UIAlertAction(title: action.title, style: action.style, handler: action.handler))
         }
         if cancel != nil {
             self.addAction(UIAlertAction(title: cancel, style: .cancel, handler: nil))
@@ -100,6 +108,7 @@ extension String {
     init(_ date: Date, dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .none) {
         self = String(date as NSDate, dateStyle: dateStyle, timeStyle: timeStyle)
     }
+    
     init(_ timeInterval: TimeInterval) {
         var temp = abs(Int(timeInterval))
         let hours = temp/Int(CTDateComponentHour)
