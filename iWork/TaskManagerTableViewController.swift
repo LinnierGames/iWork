@@ -136,7 +136,7 @@ class TaskManagerTableViewController: FetchedResultsTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear( animated)
         
-        self.title = appDelegate.currentRole.title
+        self.navigationItem.title = appDelegate.currentRole.title
         
         updateUI()
     }

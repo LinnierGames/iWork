@@ -164,8 +164,8 @@ class SettingsTableViewController: FetchedResultsTableViewController {
                 reloadIndexesOnViewDidAppear = [indexPath]
             }
         case .employers:
-            let row = fetchedResultsController.object(at: indexPath) as! Employer
-            appDelegate.currentEmployer = row
+            let employer = fetchedResultsController.object(at: indexPath) as! Employer
+            appDelegate.currentEmployer = employer
             self.navigationController?.popViewController(animated: true)
         }
     }

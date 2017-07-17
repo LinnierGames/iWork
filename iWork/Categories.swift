@@ -9,6 +9,12 @@
 import UIKit
 import CoreData
 
+extension UITabBarController {
+    var taskManager: TaskManagerTableViewController {
+        return (self.viewControllers![0] as! UINavigationController).viewControllers.first as! TaskManagerTableViewController
+    }
+}
+
 extension UIViewController {
     
     var appDelegate: AppDelegate {
