@@ -42,6 +42,7 @@ class InterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         
         // Configure interface objects here.
+        tableView.setNumberOfRows(2, withRowType: "row")
         rowTask = tableView.rowController(at: Table.rowTask) as! WKCustomTableRow
         rowPunchClock = tableView.rowController(at: Table.rowPunchClock) as! WKCustomTableRow
     }

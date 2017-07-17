@@ -16,7 +16,7 @@
                     <items>
                         <table alignment="left" id="SOV-so-1lp">
                             <items>
-                                <tableRow identifier="cell" id="XqD-dB-AGc" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
+                                <tableRow identifier="row" id="XqD-dB-AGc" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="wDT-Dc-7LP">
                                         <items>
                                             <label width="1" alignment="left" verticalAlignment="center" text="Task Manager" id="6Bq-NH-11n"/>
@@ -24,10 +24,10 @@
                                     </group>
                                     <connections>
                                         <outlet property="textLabel" destination="6Bq-NH-11n" id="jeq-uK-WP6"/>
-                                        <segue destination="1v7-qy-r3F" kind="push" identifier="show task" id="E1m-8K-hEQ"/>
+                                        <segue destination="Yjn-GV-HgL" kind="push" identifier="show task" id="7ym-VG-NUC"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="cell" id="9J5-vX-ih2" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
+                                <tableRow identifier="row" id="9J5-vX-ih2" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="zRA-ra-afh">
                                         <items>
                                             <label width="1" alignment="left" verticalAlignment="center" text="Punch Clock" id="TRE-iR-LIZ"/>
@@ -35,7 +35,7 @@
                                     </group>
                                     <connections>
                                         <outlet property="textLabel" destination="TRE-iR-LIZ" id="ykI-gL-9Mv"/>
-                                        <segue destination="Yjn-GV-HgL" kind="push" identifier="show puch clock" id="EAu-mf-gbo"/>
+                                        <segue destination="1v7-qy-r3F" kind="push" identifier="show punch clock" id="91Y-ON-PSY"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -65,21 +65,35 @@
             </objects>
             <point key="canvasLocation" x="220" y="942"/>
         </scene>
-        <!--Interface Controller-->
+        <!--Punch Clock Controller-->
         <scene sceneID="Xvp-rj-vd8">
             <objects>
-                <controller id="1v7-qy-r3F">
+                <controller id="1v7-qy-r3F" customClass="PunchClockController" customModule="WatchKit_Extension">
                     <items>
-                        <label width="1" alignment="left" text="time left" textAlignment="right" id="goE-cv-8Do">
+                        <label width="1" alignment="left" text="time till 5th hour" textAlignment="right" id="goE-cv-8Do">
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                         </label>
                         <label width="1" height="34" alignment="left" text="9:99:99" textAlignment="center" id="lPm-Ws-gF8">
                             <fontDescription key="font" type="system" pointSize="34"/>
                         </label>
+                        <separator alignment="left" alpha="0.45000000000000001" id="Be1-eM-kC5"/>
+                        <label width="1" alignment="left" text="Last Punch" textAlignment="right" id="VDR-YQ-OdO">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label width="1" alignment="left" text="4h 59m 59s ago" textAlignment="right" id="IVi-SP-jRg">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
                         <separator alignment="left" alpha="0.45000000000000001" id="EI6-Ou-jan"/>
+                        <label width="1" alignment="left" text="Sum" textAlignment="right" id="E8L-6B-ijI">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label width="1" alignment="left" text="7h 59m 59s" textAlignment="right" id="eh2-sX-nWx">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <separator alignment="left" alpha="0.45000000000000001" id="lo1-t8-DoI"/>
                         <table alignment="left" id="0Vc-qr-g9H">
                             <items>
-                                <tableRow identifier="row" id="Ypp-a3-CZp" customClass="rowController">
+                                <tableRow identifier="row" id="Ypp-a3-CZp" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="DW8-Da-9xf">
                                         <items>
                                             <label width="0.20000000000000001" height="1" alignment="left" text="SS" id="pqL-YE-C81">
@@ -100,16 +114,23 @@
                             </items>
                         </table>
                     </items>
+                    <connections>
+                        <outlet property="labelLastPunch" destination="IVi-SP-jRg" id="9cf-Db-WnW"/>
+                        <outlet property="labelLastPunchTitle" destination="VDR-YQ-OdO" id="ocW-Xv-mLV"/>
+                        <outlet property="labelSum" destination="eh2-sX-nWx" id="3ST-RE-q9L"/>
+                        <outlet property="labelTimeLeft" destination="lPm-Ws-gF8" id="egz-wu-HN5"/>
+                        <outlet property="tableView" destination="0Vc-qr-g9H" id="lnk-FR-wKB"/>
+                    </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="575" y="204"/>
+            <point key="canvasLocation" x="585" y="492"/>
         </scene>
         <!--Interface Controller-->
         <scene sceneID="mXW-8x-d5h">
             <objects>
                 <controller id="Yjn-GV-HgL"/>
             </objects>
-            <point key="canvasLocation" x="575" y="486"/>
+            <point key="canvasLocation" x="585" y="198"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
