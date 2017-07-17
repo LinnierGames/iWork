@@ -67,12 +67,12 @@ class SettingsTableViewController: FetchedResultsTableViewController {
         switch hierarchy {
         case .root:
             if indexPath == Table.RenameEmployerRow {
-                let cell = tableView.returnCell(atIndexPath: indexPath)
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = "Rename Employer"
                 
                 return cell
             } else {
-                let cell = tableView.returnCell(atIndexPath: indexPath)
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = appDelegate.currentEmployer.name
                 cell.accessoryType = .disclosureIndicator
                 

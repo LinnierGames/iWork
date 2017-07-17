@@ -143,6 +143,8 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                 return .EndBreak
             } else if shift.lastPunch!.punchType == .StartLunch {
                 return .EndLunch
+            } else if shift.lastPunch!.punchType == .EndShift {
+                return nil
             } else {
                 if hasFirstBreak {
                     if hasLunch {

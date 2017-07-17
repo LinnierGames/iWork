@@ -222,30 +222,32 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
         } else if indexPath.section == Table.prioritySection {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             let stringStarred = navController.task.isStarred ? "Unstar" : "Star"
-            alert.addAction(UIAlertAction(title: stringStarred, style: .default, handler: { [weak self] (action) in
-                self!.navController.task.isStarred.invert()
-                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
-            }))
-            alert.addAction(UIAlertAction(title: "High", style: .default, handler: { [weak self] (action) in
-                self!.navController.task.priority = .High
-                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
-            }))
-            alert.addAction(UIAlertAction(title: "Medium", style: .default, handler: { [weak self] (action) in
-                self!.navController.task.priority = .Medium
-                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
-            }))
-            alert.addAction(UIAlertAction(title: "Low", style: .default, handler: { [weak self] (action) in
-                self!.navController.task.priority = .Low
-                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
-            }))
-            alert.addAction(UIAlertAction(title: "Unimportant", style: .default, handler: { [weak self] (action) in
-                self!.navController.task.priority = .Unimportant
-                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
-            }))
-            alert.addAction(UIAlertAction(title: "None", style: .cancel, handler: { [weak self] (action) in
-                self!.navController.task.priority = .None
-                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
-            }))
+            alert.addActions(actions:
+                UIAlertActionInfo(title: stringStarred, handler: { [weak self] (action) in
+                    self!.navController.task.isStarred.invert()
+                    self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+                }),
+                             UIAlertActionInfo(title: "High", handler: { [weak self] (action) in
+                                self!.navController.task.priority = .High
+                                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+                             }),
+                             UIAlertActionInfo(title: "Medium", handler: { [weak self] (action) in
+                                self!.navController.task.priority = .Medium
+                                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+                             }),
+                             UIAlertActionInfo(title: "Low", handler: { [weak self] (action) in
+                                self!.navController.task.priority = .Low
+                                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+                             }),
+                             UIAlertActionInfo(title: "Unimportant", handler: { [weak self] (action) in
+                                self!.navController.task.priority = .Unimportant
+                                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+                             }),
+                             UIAlertActionInfo(title: "None", handler: { [weak self] (action) in
+                                self!.navController.task.priority = .None
+                                self!.tableView.reloadSections([Table.prioritySection], with: .fade)
+                             })
+            )
             
             self.present(alert, animated: true, completion: nil)
         }

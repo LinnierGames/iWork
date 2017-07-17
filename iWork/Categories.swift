@@ -25,9 +25,10 @@ extension UITableView {
     
     func returnCell(forIdentifier identifier: String = "cell", atIndexPath indexPath: IndexPath) -> UITableViewCell {
         let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        cell.textLabel?.text = ""
+        cell.textLabel?.text = nil
         cell.textLabel?.textColor = UIColor.black
-        cell.detailTextLabel?.text = ""
+        cell.detailTextLabel?.text = nil
+        cell.detailTextLabel?.textColor = UIColor.black
         cell.accessoryType = .none
         
         return cell
