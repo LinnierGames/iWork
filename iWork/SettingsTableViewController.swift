@@ -14,6 +14,11 @@ fileprivate enum CDSettingsHierarchy {
     case employers
 }
 
+fileprivate struct Table {
+    static let RenameEmployerRow = IndexPath(row: 0, section: 0)
+    static let SelectEmployerRow = IndexPath(row: 1, section: 0)
+}
+
 class SettingsTableViewController: FetchedResultsTableViewController {
     
     fileprivate var hierarchy: CDSettingsHierarchy = .root
@@ -43,7 +48,7 @@ class SettingsTableViewController: FetchedResultsTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch hierarchy {
         case .root:
-            return 1
+            return 2
         case .employers:
             return fetchedResultsController.sections![section].numberOfObjects
         }
@@ -59,18 +64,22 @@ class SettingsTableViewController: FetchedResultsTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        func returnCell(forIdentifier identifier: String = "title") -> UITableViewCell {
-            return tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        }
         switch hierarchy {
         case .root:
-            let cell = returnCell()
-            cell.textLabel!.text = appDelegate.currentEmployer.name
-            cell.accessoryType = .disclosureIndicator
-            
-            return cell
+            if indexPath == Table.RenameEmployerRow {
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
+                cell.textLabel!.text = "Rename Employer"
+                
+                return cell
+            } else {
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
+                cell.textLabel!.text = appDelegate.currentEmployer.name
+                cell.accessoryType = .disclosureIndicator
+                
+                return cell
+            }
         case .employers:
-            let cell = returnCell(forIdentifier: "subtitle")
+            let cell = tableView.returnCell(forIdentifier: "subtitle", atIndexPath: indexPath)
             let employer = fetchedResultsController.object(at: indexPath) as! Employer
             cell.textLabel!.text = String("\(employer.name!) - \(employer.selectedRole!.title!)")
             cell.detailTextLabel!.text = String("Number of Roles: \(employer.roles?.count ?? 0)")
@@ -108,7 +117,7 @@ class SettingsTableViewController: FetchedResultsTableViewController {
             break
         case .employers:
             let fetch: NSFetchRequest<Employer> = Employer.fetchRequest()
-            fetch.sortDescriptors = CTSortDescriptor(key: "name")
+            fetch.sortDescriptors = [CTSortDescriptor(key: "name")]
             fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         }
         
@@ -130,14 +139,33 @@ class SettingsTableViewController: FetchedResultsTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch hierarchy {
         case .root:
-            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "settingsVC") as! SettingsTableViewController
-            vc.hierarchy = .employers
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-            reloadIndexesOnViewDidAppear = [indexPath]
+            if indexPath == Table.RenameEmployerRow {
+                let alert = UIAlertController(title: "Rename Employer", message: "enter a name", preferredStyle: .alert)
+                alert.addTextField(configurationHandler: { [weak self] (textField) in
+                    textField.setStyleToParagraph(withPlaceholderText: "name", withInitalText: self!.appDelegate.currentEmployer.name)
+                })
+                alert.addActions(actions:
+                    UIAlertActionInfo(title: "Rename", handler: { [weak self] (action) in
+                        self!.appDelegate.currentEmployer.name = alert.inputField.text
+                        self!.appDelegate.saveContext()
+                        self!.tableView.reloadRows(at: [Table.SelectEmployerRow], with: .fade)
+                    })
+                )
+                
+                self.present(alert, animated: true, completion: { [weak self] in
+                    self!.tableView.deselectRow(at: Table.RenameEmployerRow, animated: true)
+                })
+                
+            } else {
+                let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "settingsVC") as! SettingsTableViewController
+                vc.hierarchy = .employers
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+                reloadIndexesOnViewDidAppear = [indexPath]
+            }
         case .employers:
-            let row = fetchedResultsController.object(at: indexPath) as! Employer
-            appDelegate.currentEmployer = row
+            let employer = fetchedResultsController.object(at: indexPath) as! Employer
+            appDelegate.currentEmployer = employer
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -156,15 +184,16 @@ class SettingsTableViewController: FetchedResultsTableViewController {
     // MARK: - IBACTIONS
     
     internal func pressRightNav(_ sender: Any) {
-        let alert = UIAlertController(title: "New Employer", message: "enter a title", preferredStyle: .alert)
+        let alert = UIAlertController(title: "New Employer", message: "enter a name", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.setStyleToParagraph()
         }
-        alert.addAction(UIAlertAction(title: "Discard", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak self] (action) in
-            _ = Employer(name: alert.inputField.text!, inContext: self!.container.viewContext)
-            self!.appDelegate.saveContext()
-        }))
+        alert.addActions(actions:
+            UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
+                _ = Employer(name: alert.inputField.text!, inContext: self!.container.viewContext)
+                self!.appDelegate.saveContext()
+            })
+        )
         self.present(alert, animated: true, completion: nil)
     }
     

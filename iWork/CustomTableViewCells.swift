@@ -22,13 +22,15 @@ class CustomTableViewCells: UITableViewCell {
     
     var cellStyle: CDCustomTableViewStyle = .none
     
-    @IBOutlet open var labelTitle: UILabel?
+    @IBOutlet open var labelTitle: UILabel!
     
-    @IBOutlet open var labelSubtitle: UILabel?
+    @IBOutlet open var labelSubtitle: UILabel!
     
-    @IBOutlet open var textField: UITextField?
+    @IBOutlet open var labelCaption: UILabel!
     
-    @IBOutlet open var segment: UISegmentedControl?
+    @IBOutlet open var textField: UITextField!
+    
+    @IBOutlet open var segment: UISegmentedControl!
     
     @IBAction public func pressSegment(sender: UISegmentedControl) {
         delegate?.customCell(self, segmentedControlDidSelect: sender)

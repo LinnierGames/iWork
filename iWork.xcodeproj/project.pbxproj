@@ -29,12 +29,18 @@
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
 		E99349991F0C160500A27473 /* TaskNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349981F0C160500A27473 /* TaskNavigationController.swift */; };
 		E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993499A1F0C171600A27473 /* TaskViewController.swift */; };
-		E993499E1F0C5A3700A27473 /* Task.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E993499C1F0C5A3700A27473 /* Task.storyboard */; };
 		E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */; };
 		E99349A31F0C841700A27473 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A21F0C841700A27473 /* SettingsTableViewController.swift */; };
 		E99349A61F0DCD3F00A27473 /* Employer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A51F0DCD3F00A27473 /* Employer.swift */; };
 		E99349A81F0DE3D500A27473 /* DirectoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A71F0DE3D500A27473 /* DirectoryInfo.swift */; };
 		E99349AA1F0F46EF00A27473 /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A91F0F46EF00A27473 /* InboxTableViewController.swift */; };
+		E9D43E8A1F12D16A0067FF44 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E891F12D16A0067FF44 /* DatePickerViewController.swift */; };
+		E9D43E8D1F15BA330067FF44 /* TaskManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D43E8B1F15BA330067FF44 /* TaskManager.storyboard */; };
+		E9D43E8F1F15BDB20067FF44 /* UtilitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */; };
+		E9D43E921F15C1870067FF44 /* PunchClockTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */; };
+		E9D43E951F15C3A90067FF44 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E941F15C3A90067FF44 /* Shift.swift */; };
+		E9D43E981F15C42C0067FF44 /* TimePunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E971F15C42C0067FF44 /* TimePunch.swift */; };
+		E9D43E9A1F15CED30067FF44 /* ShiftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E991F15CED30067FF44 /* ShiftTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,12 +89,18 @@
 		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		E99349981F0C160500A27473 /* TaskNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNavigationController.swift; sourceTree = "<group>"; };
 		E993499A1F0C171600A27473 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
-		E993499D1F0C5A3700A27473 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Task.storyboard; sourceTree = "<group>"; };
 		E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
 		E99349A21F0C841700A27473 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		E99349A51F0DCD3F00A27473 /* Employer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employer.swift; sourceTree = "<group>"; };
 		E99349A71F0DE3D500A27473 /* DirectoryInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryInfo.swift; sourceTree = "<group>"; };
 		E99349A91F0F46EF00A27473 /* InboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
+		E9D43E891F12D16A0067FF44 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		E9D43E8C1F15BA330067FF44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TaskManager.storyboard; sourceTree = "<group>"; };
+		E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilitiesTableViewController.swift; sourceTree = "<group>"; };
+		E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PunchClockTableViewController.swift; sourceTree = "<group>"; };
+		E9D43E941F15C3A90067FF44 /* Shift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
+		E9D43E971F15C42C0067FF44 /* TimePunch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePunch.swift; sourceTree = "<group>"; };
+		E9D43E991F15CED30067FF44 /* ShiftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiftTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,7 +155,9 @@
 				E94F4F011F08A994001DB22F /* Categories.swift */,
 				E94F4F0C1F08B130001DB22F /* Constants.swift */,
 				E94F4F0B1F08B0F7001DB22F /* Task Manager */,
+				E9D43E901F15BDB60067FF44 /* Utitlities */,
 				E99349A41F0C841B00A27473 /* Settings */,
+				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
 				E99349A11F0C5D9200A27473 /* UICustom */,
 				E94F4F0E1F08B167001DB22F /* Supporting Files */,
 			);
@@ -180,8 +194,7 @@
 				E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */,
 				E99349981F0C160500A27473 /* TaskNavigationController.swift */,
 				E993499A1F0C171600A27473 /* TaskViewController.swift */,
-				E94F4ED01F088E8E001DB22F /* Main.storyboard */,
-				E993499C1F0C5A3700A27473 /* Task.storyboard */,
+				E9D43E8B1F15BA330067FF44 /* TaskManager.storyboard */,
 			);
 			name = "Task Manager";
 			sourceTree = "<group>";
@@ -193,13 +206,8 @@
 				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
 				E94F4EDB1F088E8E001DB22F /* Info.plist */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
-				E99349A51F0DCD3F00A27473 /* Employer.swift */,
-				E99349961F09CB2200A27473 /* Role.swift */,
-				E94F4EFF1F08A4EC001DB22F /* Directory.swift */,
-				E99349A71F0DE3D500A27473 /* DirectoryInfo.swift */,
-				E94F4F111F08B244001DB22F /* Folder.swift */,
-				E99349921F09B78000A27473 /* Project.swift */,
-				E94F4F0F1F08B177001DB22F /* Task.swift */,
+				E9D43E931F15C3990067FF44 /* TaskManager */,
+				E9D43E961F15C3B50067FF44 /* Punch Clock */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -208,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				E993499F1F0C5D8C00A27473 /* CustomTableViewCells.swift */,
+				E9D43E891F12D16A0067FF44 /* DatePickerViewController.swift */,
 			);
 			name = UICustom;
 			sourceTree = "<group>";
@@ -218,6 +227,39 @@
 				E99349A21F0C841700A27473 /* SettingsTableViewController.swift */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		E9D43E901F15BDB60067FF44 /* Utitlities */ = {
+			isa = PBXGroup;
+			children = (
+				E9D43E8E1F15BDB20067FF44 /* UtilitiesTableViewController.swift */,
+				E9D43E911F15C1870067FF44 /* PunchClockTableViewController.swift */,
+				E9D43E991F15CED30067FF44 /* ShiftTableViewController.swift */,
+			);
+			name = Utitlities;
+			sourceTree = "<group>";
+		};
+		E9D43E931F15C3990067FF44 /* TaskManager */ = {
+			isa = PBXGroup;
+			children = (
+				E99349A51F0DCD3F00A27473 /* Employer.swift */,
+				E99349961F09CB2200A27473 /* Role.swift */,
+				E94F4EFF1F08A4EC001DB22F /* Directory.swift */,
+				E99349A71F0DE3D500A27473 /* DirectoryInfo.swift */,
+				E94F4F111F08B244001DB22F /* Folder.swift */,
+				E99349921F09B78000A27473 /* Project.swift */,
+				E94F4F0F1F08B177001DB22F /* Task.swift */,
+			);
+			name = TaskManager;
+			sourceTree = "<group>";
+		};
+		E9D43E961F15C3B50067FF44 /* Punch Clock */ = {
+			isa = PBXGroup;
+			children = (
+				E9D43E941F15C3A90067FF44 /* Shift.swift */,
+				E9D43E971F15C42C0067FF44 /* TimePunch.swift */,
+			);
+			name = "Punch Clock";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,7 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94F4EDA1F088E8E001DB22F /* LaunchScreen.storyboard in Resources */,
-				E993499E1F0C5A3700A27473 /* Task.storyboard in Resources */,
+				E9D43E8D1F15BA330067FF44 /* TaskManager.storyboard in Resources */,
 				E94F4ED71F088E8E001DB22F /* Assets.xcassets in Resources */,
 				E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */,
 			);
@@ -364,22 +406,28 @@
 				E94F4EFE1F089AAD001DB22F /* TaskManagerTableViewController.swift in Sources */,
 				E94F4F021F08A994001DB22F /* Categories.swift in Sources */,
 				E94F4F101F08B177001DB22F /* Task.swift in Sources */,
+				E9D43E9A1F15CED30067FF44 /* ShiftTableViewController.swift in Sources */,
 				E99349AA1F0F46EF00A27473 /* InboxTableViewController.swift in Sources */,
 				E99349931F09B78000A27473 /* Project.swift in Sources */,
 				E94F4F0A1F08B0F2001DB22F /* MoveTableViewController.swift in Sources */,
+				E9D43E981F15C42C0067FF44 /* TimePunch.swift in Sources */,
 				E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */,
 				E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */,
 				E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */,
+				E9D43E951F15C3A90067FF44 /* Shift.swift in Sources */,
 				E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
 				E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */,
 				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
+				E9D43E8F1F15BDB20067FF44 /* UtilitiesTableViewController.swift in Sources */,
 				E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */,
 				E99349A81F0DE3D500A27473 /* DirectoryInfo.swift in Sources */,
 				E99349A31F0C841700A27473 /* SettingsTableViewController.swift in Sources */,
 				E94F4F121F08B244001DB22F /* Folder.swift in Sources */,
+				E9D43E8A1F12D16A0067FF44 /* DatePickerViewController.swift in Sources */,
 				E99349A61F0DCD3F00A27473 /* Employer.swift in Sources */,
 				E99349971F09CB2200A27473 /* Role.swift in Sources */,
+				E9D43E921F15C1870067FF44 /* PunchClockTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,12 +479,12 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		E993499C1F0C5A3700A27473 /* Task.storyboard */ = {
+		E9D43E8B1F15BA330067FF44 /* TaskManager.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E993499D1F0C5A3700A27473 /* Base */,
+				E9D43E8C1F15BA330067FF44 /* Base */,
 			);
-			name = Task.storyboard;
+			name = TaskManager.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

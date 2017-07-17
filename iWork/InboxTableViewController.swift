@@ -59,7 +59,7 @@ class InboxTableViewController: FetchedResultsTableViewController {
     private func updateUI() {
         let fetch: NSFetchRequest<Task> = Task.fetchRequest()
         fetch.predicate = NSPredicate(format: "directory.parent = nil AND directory.role == %@", appDelegate.currentRole)
-        fetch.sortDescriptors = CTSortDescriptor(key: "title")
+        fetch.sortDescriptors = [CTSortDescriptor(key: "title")]
         fetchedResultsController = NSFetchedResultsController<Task>(
             fetchRequest: fetch,
             managedObjectContext: container.viewContext,

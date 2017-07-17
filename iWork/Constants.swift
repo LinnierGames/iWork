@@ -14,6 +14,6 @@ func CTAttributedStringStrikeOut(string: String) -> NSMutableAttributedString {
     return attributeString
 }
 
-func CTSortDescriptor(key: String, ascending: Bool = true) -> [NSSortDescriptor] {
-    return [NSSortDescriptor(key: key, ascending: ascending, selector: #selector(NSString.localizedStandardCompare(_:)))]
+func CTSortDescriptor(key: String, ascending: Bool = true) -> NSSortDescriptor {
+    return NSSortDescriptor(key: key, ascending: ascending, selector: #selector(NSString.localizedStandardCompare(_:)))
 }

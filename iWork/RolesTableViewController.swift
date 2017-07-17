@@ -82,13 +82,14 @@ class RolesTableViewController: FetchedResultsTableViewController {
     private func rename(role: Role) {
         let alert = UIAlertController(title: "Edit Role", message: "enter a title", preferredStyle: .alert)
         alert.addTextField { (textField) in
-            textField.setStyleToParagraph(withInitalText: role.title)
+            textField.setStyleToParagraph(withPlaceholderText: "Title", withInitalText: role.title)
         }
-        alert.addAction(UIAlertAction(title: "Discard", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak self] (action) in
-            role.title = alert.inputField.text
-            self!.appDelegate.saveContext()
-        }))
+        alert.addActions(actions:
+            UIAlertActionInfo(title: "Rename", handler: { [weak self] (action) in
+                role.title = alert.inputField.text
+                self!.appDelegate.saveContext()
+            })
+        )
         self.present(alert, animated: true, completion: nil)
         
     }
@@ -111,7 +112,6 @@ class RolesTableViewController: FetchedResultsTableViewController {
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         rename(role: fetchedResultsController!.object(at: indexPath))
-        
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -135,13 +135,13 @@ class RolesTableViewController: FetchedResultsTableViewController {
         alert.addTextField { (textField) in
             textField.setStyleToParagraph()
         }
-        alert.addAction(UIAlertAction(title: "Discard", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak self] (action) in
-            let newRole = Role(inContext: self!.container.viewContext, forEmployer: self!.appDelegate.currentEmployer)
-            newRole.title = alert.inputField.text
-            
-            self!.appDelegate.saveContext()
-        }))
+        alert.addActions(actions:
+            UIAlertActionInfo(title: "Rename", handler: { [weak self] (action) in
+                let newRole = Role(inContext: self!.container.viewContext, forEmployer: self!.appDelegate.currentEmployer)
+                newRole.title = alert.inputField.text
+                self!.appDelegate.saveContext()
+            })
+        )
         self.present(alert, animated: true, completion: nil)
     }
     

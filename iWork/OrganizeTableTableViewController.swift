@@ -176,24 +176,22 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
             let editingInvert = editing ? false : true
             buttonAddItem.isEnabled = editingInvert
             self.navigationItem.setHidesBackButton(editing, animated: true)
-            
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing {
             selectedRowItems.append(fetchedResultsController.object(at: indexPath))
-            
         } else {
             if currentDirectory == nil {
                 let folder = fetchedResultsController.object(at: indexPath) as! Folder
-                let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "organize table") as! OrganizeTableTableViewController
+                let vc = UIStoryboard(name: "TaskManager", bundle: Bundle.main).instantiateViewController(withIdentifier: "organize table") as! OrganizeTableTableViewController
                 vc.currentDirectory = folder.directory!
                 self.navigationController?.pushViewController( vc, animated: true)
             } else {
                 let row = fetchedResultsController.object(at: indexPath) as! Directory
                 if row.isDirectory {
-                    let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "organize table") as! OrganizeTableTableViewController
+                    let vc = UIStoryboard(name: "TaskManager", bundle: Bundle.main).instantiateViewController(withIdentifier: "organize table") as! OrganizeTableTableViewController
                     vc.currentDirectory = row
                     
                     self.navigationController?.pushViewController( vc, animated: true)
@@ -218,17 +216,16 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         let rowItem = fetchedResultsController.object(at: indexPath) as! Directory
-        let alert = UIAlertController(title: "Update Title", message: "enter a new title", preferredStyle: .alert
-        )
+        let alert = UIAlertController(title: "Update Title", message: "enter a new title", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.setStyleToParagraph(withInitalText: rowItem.info!.title)
         }
-        alert.addAction( UIAlertAction(title: "Discard", style: .default, handler: nil))
-        alert.addAction( UIAlertAction(title: "Save", style: .default, handler: { [weak self] (action) in
-            rowItem.info!.title = alert.textFields!.first!.text
-            
-            self!.appDelegate.saveContext()
-        }))
+        alert.addActions(actions:
+            UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
+                rowItem.info!.title = alert.textFields!.first!.text
+                self!.appDelegate.saveContext()
+            })
+        )
         
         self.present(alert, animated: true, completion: nil)
         
