@@ -50,6 +50,7 @@
 		E9DB72EA1F1C567900FF1016 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB72E91F1C567900FF1016 /* ComplicationController.swift */; };
 		E9DB72EC1F1C567900FF1016 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9DB72EB1F1C567900FF1016 /* Assets.xcassets */; };
 		E9DB72F01F1C567900FF1016 /* WatchKit.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E9DB72D01F1C567800FF1016 /* WatchKit.app */; };
+		E9DB72FA1F1C5AA500FF1016 /* WKCustomTableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB72F91F1C5AA500FF1016 /* WKCustomTableRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +162,7 @@
 		E9DB72E91F1C567900FF1016 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		E9DB72EB1F1C567900FF1016 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9DB72ED1F1C567900FF1016 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9DB72F91F1C5AA500FF1016 /* WKCustomTableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKCustomTableRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +355,7 @@
 				E9DB72EB1F1C567900FF1016 /* Assets.xcassets */,
 				E9DB72ED1F1C567900FF1016 /* Info.plist */,
 				E9DB72E11F1C567900FF1016 /* Supporting Files */,
+				E9DB72F91F1C5AA500FF1016 /* WKCustomTableRow.swift */,
 			);
 			path = "WatchKit Extension";
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 			files = (
 				E9DB72E81F1C567900FF1016 /* NotificationController.swift in Sources */,
 				E9DB72EA1F1C567900FF1016 /* ComplicationController.swift in Sources */,
+				E9DB72FA1F1C5AA500FF1016 /* WKCustomTableRow.swift in Sources */,
 				E9DB72E61F1C567900FF1016 /* ExtensionDelegate.swift in Sources */,
 				E9DB72E41F1C567900FF1016 /* InterfaceController.swift in Sources */,
 			);

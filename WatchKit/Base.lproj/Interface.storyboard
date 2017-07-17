@@ -1,14 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModuleProvider="target"/>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WatchKit" customModuleProvider="target">
+                    <items>
+                        <table alignment="left" id="SOV-so-1lp">
+                            <items>
+                                <tableRow identifier="cell" id="XqD-dB-AGc" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" id="wDT-Dc-7LP">
+                                        <items>
+                                            <label width="1" alignment="left" verticalAlignment="center" text="Task Manager" id="6Bq-NH-11n"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="textLabel" destination="6Bq-NH-11n" id="jeq-uK-WP6"/>
+                                        <segue destination="1v7-qy-r3F" kind="push" identifier="show task" id="E1m-8K-hEQ"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="cell" id="9J5-vX-ih2" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" id="zRA-ra-afh">
+                                        <items>
+                                            <label width="1" alignment="left" verticalAlignment="center" text="Punch Clock" id="TRE-iR-LIZ"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="textLabel" destination="TRE-iR-LIZ" id="ykI-gL-9Mv"/>
+                                        <segue destination="Yjn-GV-HgL" kind="push" identifier="show puch clock" id="EAu-mf-gbo"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <table alignment="left" id="3tg-L3-wtf"/>
+                    </items>
+                    <connections>
+                        <outlet property="tableView" destination="SOV-so-1lp" id="Xrb-vI-sYm"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
         </scene>
@@ -26,14 +63,60 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="220" y="643"/>
+            <point key="canvasLocation" x="220" y="942"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="Xvp-rj-vd8">
+            <objects>
+                <controller id="1v7-qy-r3F">
+                    <items>
+                        <label width="1" alignment="left" text="time left" textAlignment="right" id="goE-cv-8Do">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label width="1" height="34" alignment="left" text="9:99:99" textAlignment="center" id="lPm-Ws-gF8">
+                            <fontDescription key="font" type="system" pointSize="34"/>
+                        </label>
+                        <separator alignment="left" alpha="0.45000000000000001" id="EI6-Ou-jan"/>
+                        <table alignment="left" id="0Vc-qr-g9H">
+                            <items>
+                                <tableRow identifier="row" id="Ypp-a3-CZp" customClass="rowController">
+                                    <group key="rootItem" width="1" alignment="left" id="DW8-Da-9xf">
+                                        <items>
+                                            <label width="0.20000000000000001" height="1" alignment="left" text="SS" id="pqL-YE-C81">
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                            <label width="0.45000000000000001" height="1" alignment="left" text="10:09p" minimumScaleFactor="0.5" id="KST-W3-ope"/>
+                                            <label width="0.34999999999999998" height="1" alignment="left" text="5h 0m" minimumScaleFactor="0.5" id="KvS-Fn-8Es">
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="interval" destination="KvS-Fn-8Es" id="Py4-8u-iLN"/>
+                                        <outlet property="punchPrefix" destination="pqL-YE-C81" id="nMi-on-N4o"/>
+                                        <outlet property="timeStamp" destination="KST-W3-ope" id="Xhq-mE-4Rh"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="575" y="204"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="mXW-8x-d5h">
+            <objects>
+                <controller id="Yjn-GV-HgL"/>
+            </objects>
+            <point key="canvasLocation" x="575" y="486"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModuleProvider="target"/>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="WatchKit" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="468" y="643"/>
+            <point key="canvasLocation" x="468" y="942"/>
         </scene>
     </scenes>
 </document>
