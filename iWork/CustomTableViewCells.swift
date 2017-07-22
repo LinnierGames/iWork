@@ -30,6 +30,8 @@ class CustomTableViewCells: UITableViewCell {
     
     @IBOutlet open var textField: UITextField!
     
+    @IBOutlet open var textView: UITextView!
+    
     @IBOutlet open var segment: UISegmentedControl!
     
     @IBAction public func pressSegment(sender: UISegmentedControl) {
