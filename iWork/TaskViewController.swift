@@ -18,7 +18,7 @@ private struct Table {
     static var notesSection = 5
 }
 
-class TaskViewController: UITableViewController, UITextFieldDelegate, DatePickerDelegate {
+class TaskViewController: UITableViewController, UITextFieldDelegate, DatePickerDelegate, UITextViewDelegate {
     
     private var hasInitialTitle = false
     
@@ -44,8 +44,6 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
             } else {
                 cellTitle.textField.placeholder = "Title"
             }
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidChange(_:)), name: .UITextFieldTextDidChange, object: cellTitle.textField)
         }
     }
     
@@ -93,9 +91,10 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
         }
     }
     
-    private var cellNotes: UITableViewCell! {
+    private var cellNotes: CustomTableViewCells! {
         didSet {
-            cellNotes.textLabel!.text = navController.task.notes
+            cellNotes.textView.text = navController.task.notes
+            cellNotes.textView.delegate = self
         }
     }
     
@@ -158,7 +157,8 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
             cellPriority = cell; return cell
             
         } else {
-            let cell = returnCell(forIdentifier: "cell", atIndexPath: indexPath)
+            let cell = returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
+            cell.labelCaption.text = "Notes"
             
             cellNotes = cell; return cell
         }
@@ -204,6 +204,9 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
         if cellTitle.textField.isFirstResponder {
             cellTitle.textField.resignFirstResponder()
         }
+        if cellNotes.textView.isFirstResponder {
+            cellNotes.textView.resignFirstResponder()
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -248,6 +251,8 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
             }))
             
             self.present(alert, animated: true, completion: nil)
+        } else if indexPath.section == Table.notesSection {
+            
         }
     }
     
@@ -270,8 +275,10 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
         }
     }
     
-    func textFieldDidChange(_ note: Notification) {
-        _ = (note.object as! UITextField)
+    // MARK: Text View Delegate
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        navController.task.notes = textView.text
     }
     
     // MARK: Date Picker Delegate
@@ -291,15 +298,15 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     // MARK: - IBACTIONS
     
     func pressLeftNav(_ sender: Any) {
+        self.dismiss()
         if navController.option == .update {
             appDelegate.saveContext()
         }
-        self.dismiss()
     }
     
     func pressRightNav(_ sender: Any) {
-        appDelegate.saveContext()
         self.dismiss()
+        appDelegate.saveContext()
     }
     
     @IBAction func pressAssignedBy(_ sender: Any) {
@@ -335,11 +342,6 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
         }
         if navController.task.assignedBy != nil {
             showAssigngedBy = true
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if navController.option == .insert {
         }
     }
 
