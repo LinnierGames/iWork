@@ -157,7 +157,7 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
             cellPriority = cell; return cell
             
         } else {
-            let cell = returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
+            let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
             cell.labelCaption.text = "Notes"
             
             cellNotes = cell; return cell
