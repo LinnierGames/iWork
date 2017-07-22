@@ -24,6 +24,7 @@
 		E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0C1F08B130001DB22F /* Constants.swift */; };
 		E94F4F101F08B177001DB22F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
 		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
+		E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */; };
 		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
 		E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349941F09C4A800A27473 /* RolesTableViewController.swift */; };
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
@@ -84,6 +85,7 @@
 		E94F4F0C1F08B130001DB22F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E94F4F0F1F08B177001DB22F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E94F4F111F08B244001DB22F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E99349941F09C4A800A27473 /* RolesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RolesTableViewController.swift; sourceTree = "<group>"; };
 		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				E94F4ED61F088E8E001DB22F /* Assets.xcassets */,
+				E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */,
 				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
 				E94F4EDB1F088E8E001DB22F /* Info.plist */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
@@ -414,6 +417,7 @@
 				E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */,
 				E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */,
 				E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */,
+				E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */,
 				E9D43E951F15C3A90067FF44 /* Shift.swift in Sources */,
 				E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
