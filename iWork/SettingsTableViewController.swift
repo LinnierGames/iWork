@@ -127,6 +127,17 @@ class SettingsTableViewController: FetchedResultsTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "show setting":
+                let settingVC = segue.destination as! SettingsTableViewController
+                settingVC.hierarchy = .employers
+                
+                reloadIndexesOnViewDidAppear = [sender as! IndexPath]
+            default:
+                break
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -157,11 +168,7 @@ class SettingsTableViewController: FetchedResultsTableViewController {
                 })
                 
             } else {
-                let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "settingsVC") as! SettingsTableViewController
-                vc.hierarchy = .employers
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-                reloadIndexesOnViewDidAppear = [indexPath]
+                performSegue(withIdentifier: "show setting", sender: indexPath)
             }
         case .employers:
             let employer = fetchedResultsController.object(at: indexPath) as! Employer
@@ -215,10 +222,37 @@ class SettingsTableViewController: FetchedResultsTableViewController {
         self.clearsSelectionOnViewWillAppear = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         if let indexesToReload = reloadIndexesOnViewDidAppear {
             tableView.reloadRows(at: indexesToReload, with: .fade)
             reloadIndexesOnViewDidAppear = nil
+        }
+        
+        DispatchQueue.once(token: "settings.viewWillAppear") {
+            if hierarchy == .root {
+                let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+                let build = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
+                let labelVersion = UITextView(frame: CGRect(x: 0, y: 0, width: 0, height: 64))
+                labelVersion.translatesAutoresizingMaskIntoConstraints = false
+                
+                labelVersion.text = "iWork (Linnier__Games)\nv\(version) (\(build))"
+                labelVersion.textAlignment = .center
+                labelVersion.textColor = UIColor.lightGray
+                labelVersion.isEditable = false
+                labelVersion.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+                tableView.addSubview(labelVersion)
+                
+                let margins = labelVersion.superview!.readableContentGuide
+                
+                labelVersion.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+                labelVersion.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+                labelVersion.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0).isActive = true
+                labelVersion.heightAnchor.constraint(equalToConstant: 64).isActive = true
+            }
         }
     }
 }
