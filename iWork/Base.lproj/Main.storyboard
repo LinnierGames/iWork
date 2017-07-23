@@ -14,7 +14,7 @@
         <scene sceneID="3nd-t7-JNx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l5d-Jl-AL9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Task Manager" id="3qV-cQ-8U9"/>
+                    <tabBarItem key="tabBarItem" title="Task Manager" image="misc_icon" id="3qV-cQ-8U9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vPG-fz-KXU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -39,7 +39,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="1sr-Hp-CGk" detailTextLabel="dhZ-gO-jMO" style="IBUITableViewCellStyleSubtitle" id="VFU-9e-z4e">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VFU-9e-z4e" id="k82-KQ-K2r">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -256,7 +256,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zx5-W2-hPd" id="hnJ-Tv-yob">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eNx-R6-8jC">
@@ -348,7 +348,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="title" textLabel="kxA-B9-Of6" style="IBUITableViewCellStyleDefault" id="tax-9v-2WK">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tax-9v-2WK" id="o2M-wQ-jGt">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -365,7 +365,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="subtitle" textLabel="jrT-ye-rpY" detailTextLabel="P7M-kB-Mw3" style="IBUITableViewCellStyleSubtitle" id="m9i-Lx-5na">
-                                <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m9i-Lx-5na" id="UDv-WM-WLa">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -415,7 +415,7 @@
         <scene sceneID="IcW-8O-x3P">
             <objects>
                 <navigationController id="fZX-h6-Hyg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="uvb-2w-7sf"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="misc_icon" id="uvb-2w-7sf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sJB-AQ-Aoa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -432,7 +432,7 @@
         <scene sceneID="DBj-og-3aZ">
             <objects>
                 <navigationController id="Izn-sE-TRf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Utilities" id="lkA-H9-2Kx"/>
+                    <tabBarItem key="tabBarItem" title="Utilities" image="misc_icon" id="lkA-H9-2Kx"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hbu-qy-PSH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -476,4 +476,7 @@
             <point key="canvasLocation" x="2081" y="191"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="misc_icon" width="25" height="25"/>
+    </resources>
 </document>
