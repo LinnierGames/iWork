@@ -9,7 +9,8 @@
 import UIKit
 import CoreData
 
-class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, DatePickerDelegate {
+
     
     var shift: Shift!
     
@@ -105,9 +106,9 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         let time = String(punch.timeStamp!, dateStyle: .none, timeStyle: .medium)
         if let duration = punch.duration {
             let stringTimeVariance = String(duration)
-            let cellDetailText = NSMutableAttributedString(string: "\(time) was \(stringTimeVariance) long")
+            let cellDetailText = NSMutableAttributedString(string: "\(time) was \(stringTimeVariance)")
             if duration >= TimeInterval(CTDateComponentHour*4+CTDateComponentMinute*30) { //4hours and 30minutes
-                cellDetailText.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: time.characters.count+5, length: stringTimeVariance.characters.count+5))
+                cellDetailText.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: time.characters.count+5, length: stringTimeVariance.characters.count))
             }
             cell.detailTextLabel!.attributedText = cellDetailText
         } else {
@@ -173,7 +174,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         if let punch = lastPunch {
             if punch.punchType != .EndShift {
                 let sum = Date().timeIntervalSince(punch.timeStamp! as Date)
-                labelLastPunch.text = "Last Punch: \(String(describing: punch.punchType)) was \(String(sum)) ago"
+                labelLastPunch.text = "Last Punch: \(String(describing: punch.punchType)), \(String(sum)) ago"
             } else {
                 labelLastPunch.text = "Last Punch: End Shift"
             }
@@ -211,6 +212,21 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "show date":
+                let dateVC = (segue.destination as! UINavigationController).visibleViewController! as! DatePickerViewController
+                let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+                dateVC.date = fetchedResultsController.object(at: indexPath).timeStamp! as Date
+                dateVC.isTimeSet = true
+                dateVC.delegate = self
+            default:
+                break
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -243,6 +259,16 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             updateInfo()
         default:
             break
+        }
+    }
+    
+    // MARK: Date Picker Delegate
+    
+    func datePicker(_ picker: DatePickerViewController, didFinishWithDate date: Date?, withTimeInterval interval: TimeInterval?) {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let punch = fetchedResultsController.object(at: indexPath)
+            punch.timeStamp = date! as NSDate
+            appDelegate.saveContext()
         }
     }
     
