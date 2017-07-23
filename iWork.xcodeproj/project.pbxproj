@@ -25,6 +25,7 @@
 		E94F4F101F08B177001DB22F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
 		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
 		E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */; };
+		E98259121F245392003CB2DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98259111F245392003CB2DD /* Localizable.strings */; };
 		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
 		E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349941F09C4A800A27473 /* RolesTableViewController.swift */; };
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
@@ -86,6 +87,7 @@
 		E94F4F0F1F08B177001DB22F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E94F4F111F08B244001DB22F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		E98259111F245392003CB2DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E99349941F09C4A800A27473 /* RolesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RolesTableViewController.swift; sourceTree = "<group>"; };
 		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */,
 				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
 				E94F4EDB1F088E8E001DB22F /* Info.plist */,
+				E98259111F245392003CB2DD /* Localizable.strings */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
 				E9D43E931F15C3990067FF44 /* TaskManager */,
 				E9D43E961F15C3B50067FF44 /* Punch Clock */,
@@ -376,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94F4EDA1F088E8E001DB22F /* LaunchScreen.storyboard in Resources */,
+				E98259121F245392003CB2DD /* Localizable.strings in Resources */,
 				E9D43E8D1F15BA330067FF44 /* TaskManager.storyboard in Resources */,
 				E94F4ED71F088E8E001DB22F /* Assets.xcassets in Resources */,
 				E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */,
@@ -498,6 +502,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -549,6 +554,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

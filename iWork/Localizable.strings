@@ -1,0 +1,9 @@
+/* 
+  Localized Strings.strings
+  iWork
+
+  Created by Erick Sanchez on 7/22/17.
+  Copyright © 2017 Erick Sanchez. All rights reserved.
+*/
+"punch_fifth_hour_title" = "Punch Clock";
+"punch_fifth_hour" = "You are about to work five hours consecutavly in %@. Would you like to punch out now?";
