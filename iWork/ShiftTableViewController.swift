@@ -189,7 +189,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                         labelFifthHour.textColor = UIColor.black
                     }
                     labelFifthHour.text = "\(String(intervalTillFithHour)) left"
-                    labelCaption.text = "until you hit a 5th hour"
+                    labelCaption.text = "until you hit a 5th hour at \(String(shift.fithHour!, dateStyle: .none, timeStyle: .long))"
                 } else {
                     labelFifthHour.text = "You've worked over 5 hours"
                     labelCaption.text = nil
