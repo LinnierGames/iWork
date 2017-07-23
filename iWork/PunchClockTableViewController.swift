@@ -144,4 +144,10 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         self.title = appDelegate.currentEmployer.name
         updateUI()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        AppDelegate.userNotificationCenter.requestAuthorization(options: [.alert, .sound], completionHandler: { _ in })
+    }
 }
