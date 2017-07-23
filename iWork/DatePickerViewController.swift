@@ -27,7 +27,7 @@ class DatePickerViewController: UIViewController {
         }
     }
     
-    var timeInterval: TimeInterval? {
+    private var timeInterval: TimeInterval? {
         get {
             if date != nil {
                 if isTimeSet {
@@ -111,8 +111,8 @@ class DatePickerViewController: UIViewController {
     
     // MARK: - IBACTIONS
     
-    @IBOutlet weak var buttonDate: UIButton!
-    @IBAction func pressDate(_ sender: Any) {
+    @IBOutlet private weak var buttonDate: UIButton!
+    @IBAction private func pressDate(_ sender: Any) {
         datePicker.datePickerMode = .date
         if date == nil {
             date = Date()
@@ -121,8 +121,8 @@ class DatePickerViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var buttonTime: UIButton!
-    @IBAction func pressTime(_ sender: Any) {
+    @IBOutlet private weak var buttonTime: UIButton!
+    @IBAction private func pressTime(_ sender: Any) {
         datePicker.datePickerMode = .time
         isTimeSet = true
         if date == nil {
@@ -131,8 +131,8 @@ class DatePickerViewController: UIViewController {
         updateUI()
     }
     
-    @IBOutlet weak var datePicker: UIDatePicker! { didSet { datePicker.setDate(date ?? Date(), animated: true) } }
-    @IBAction func didChangeDatePicker(_ sender: Any) {
+    @IBOutlet private weak var datePicker: UIDatePicker! { didSet { datePicker.setDate(date ?? Date(), animated: true) } }
+    @IBAction private func didChangeDatePicker(_ sender: Any) {
         switch datePicker.datePickerMode {
         case .date:
             date = datePicker.date
@@ -145,7 +145,7 @@ class DatePickerViewController: UIViewController {
     }
     
     @IBOutlet private var barButtons: [UIBarButtonItem]!
-    @IBAction func pressToolbarButton(_ sender: UIBarButtonItem) {
+    @IBAction private func pressToolbarButton(_ sender: UIBarButtonItem) {
         if pickerMode == .date {
             func dateWithOffset(_ offset: TimeInterval) -> Date {
                 var _date = DateComponents(date: (date ?? Date()), forComponents: [.hour, .minute])
@@ -188,11 +188,11 @@ class DatePickerViewController: UIViewController {
         }
     }
     
-    @IBAction func pressCancel(_ sender: Any) {
+    @IBAction private func pressCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func pressDone(_ sender: Any) {
+    @IBAction private func pressDone(_ sender: Any) {
         self.dismiss(animated: true) { [weak self] in
             self!.delegate?.datePicker(self!, didFinishWithDate: self!.date, withTimeInterval: self!.timeInterval)
         }
