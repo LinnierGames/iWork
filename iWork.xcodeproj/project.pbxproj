@@ -596,7 +596,7 @@
 				DEVELOPMENT_TEAM = 8U3L6K9JA6;
 				INFOPLIST_FILE = iWork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.linniergames.iWork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linniergames.iWorks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -609,7 +609,7 @@
 				DEVELOPMENT_TEAM = 8U3L6K9JA6;
 				INFOPLIST_FILE = iWork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.linniergames.iWork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linniergames.iWorks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

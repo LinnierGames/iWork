@@ -576,7 +576,7 @@
                                 <rect key="frame" x="0.0" y="196" width="375" height="98"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8v6-rP-zHU" id="O2b-GC-lwJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="97.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="98"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="o5P-N2-TEp">
