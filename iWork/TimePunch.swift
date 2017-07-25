@@ -81,12 +81,13 @@ extension UserNotifications {
     public func addLocalNotification(forPunch punch: TimePunch) {
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour_title", arguments: nil)
-        content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour",
-                                                                arguments: ["99h 99m"])
         content.categoryIdentifier = "UTILS_PUNCH_CLOCK"
         content.sound = UNNotificationSound.default()
         
-        let dateInfo30 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*30), forComponents: [.hour, .minute, .second])
+        let fifthHour = String(punch.timeStamp!.addingTimeInterval(CTDateComponentHour*5), dateStyle: .none, timeStyle: .long)
+        
+        let dateInfo30 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*30), forComponents: [.day, .month, .year, .hour, .minute, .second])
+        content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["30m", fifthHour])
         var trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo30, repeats: false)
         
         // Create the request object.
@@ -96,7 +97,8 @@ extension UserNotifications {
             }
         }
         
-        let dateInfo15 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*15), forComponents: [.hour, .minute, .second])
+        let dateInfo15 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*15), forComponents: [.day, .month, .year, .hour, .minute, .second])
+        content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["15m", fifthHour])
         trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo15, repeats: false)
         
         // Create the request object.
@@ -106,7 +108,8 @@ extension UserNotifications {
             }
         }
         
-        let dateInfo10 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*10), forComponents: [.hour, .minute, .second])
+        let dateInfo10 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*10), forComponents: [.day, .month, .year, .hour, .minute, .second])
+        content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["10m", fifthHour])
         trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo10, repeats: false)
         
         // Create the request object.
@@ -116,7 +119,8 @@ extension UserNotifications {
             }
         }
         
-        let dateInfo5 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*5), forComponents: [.hour, .minute, .second])
+        let dateInfo5 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*5),  forComponents: [.day, .month, .year, .hour, .minute, .second])
+        content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["5m", fifthHour])
         trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo5, repeats: false)
         
         // Create the request object.
@@ -126,7 +130,8 @@ extension UserNotifications {
             }
         }
         
-        let dateInfo = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute), forComponents: [.hour, .minute, .second])
+        let dateInfo = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute),  forComponents: [.day, .month, .year, .hour, .minute, .second])
+        content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["1m", fifthHour])
         trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: false)
         
         // Create the request object.
