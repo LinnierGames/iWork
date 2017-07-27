@@ -16,10 +16,16 @@ fileprivate enum CDSettingsHierarchy {
 
 fileprivate struct Table {
     static let RenameEmployerRow = IndexPath(row: 0, section: 0)
-    static let SelectEmployerRow = IndexPath(row: 1, section: 0)
+    static let EmployerManagerRow = IndexPath(row: 1, section: 0)
+    static let StartDateRow = IndexPath(row: 2, section: 0)
+    static let EndDateRow = IndexPath(row: 3, section: 0)
+    static let LocationRow = IndexPath(row: 4, section: 0)
+    static let PhoneNumbersRow = IndexPath(row: 5, section: 0)
+    static let NotesRow = IndexPath(row: 6, section: 0)
+    static let SelectEmployerRow = IndexPath(row: 7, section: 0)
 }
 
-class SettingsTableViewController: FetchedResultsTableViewController {
+class SettingsTableViewController: FetchedResultsTableViewController, UITextFieldDelegate {
     
     fileprivate var hierarchy: CDSettingsHierarchy = .root
     
@@ -39,7 +45,7 @@ class SettingsTableViewController: FetchedResultsTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch hierarchy {
         case .root:
-            return "Select an Employer"
+            return "Current Employer"
         default:
             return nil
         }
@@ -48,7 +54,7 @@ class SettingsTableViewController: FetchedResultsTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch hierarchy {
         case .root:
-            return 2
+            return 8
         case .employers:
             return fetchedResultsController.sections![section].numberOfObjects
         }
@@ -71,7 +77,50 @@ class SettingsTableViewController: FetchedResultsTableViewController {
                 cell.textLabel!.text = "Rename Employer"
                 
                 return cell
-            } else {
+            } else if indexPath == Table.EmployerManagerRow {
+                let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
+                cell.labelTitle.text = "Manager"
+                cell.textField.text = appDelegate.currentEmployer.manager
+                
+            } else if indexPath == Table.StartDateRow {
+                let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
+                cell.textLabel!.text = "Start Date"
+                cell.detailTextLabel!.text = String(appDelegate.currentEmployer.startDate!)
+                
+                return cell
+            } else if indexPath == Table.EndDateRow {
+                let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
+                cell.textLabel!.text = "End Date"
+                if let endDate = appDelegate.currentEmployer.endDate {
+                    cell.detailTextLabel!.text = String(endDate)
+                } else {
+                    cell.detailTextLabel!.text = ""
+                }
+                
+                return cell
+            } else if indexPath == Table.LocationRow {
+                let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
+                cell.labelCaption.text = "Location"
+                cell.textView.text = appDelegate.currentEmployer.location
+                cell.textView.isEditable = false
+                
+                return cell
+            } else if indexPath == Table.PhoneNumbersRow {
+                let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
+                cell.labelCaption.text = "Phone Numbers"
+                cell.textView.text = appDelegate.currentEmployer.phoneNumbers ?? "None"
+                cell.textView.isEditable = false
+                
+                return cell
+            } else if indexPath == Table.NotesRow {
+                let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
+                cell.labelCaption.text = "Notes"
+                cell.textView.text = appDelegate.currentEmployer.notes
+                cell.textView.text = appDelegate.currentEmployer.notes ?? "None"
+                cell.textView.isEditable = false
+                
+                return cell
+            } else { //Select Employer
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = appDelegate.currentEmployer.name
                 cell.accessoryType = .disclosureIndicator
@@ -167,7 +216,7 @@ class SettingsTableViewController: FetchedResultsTableViewController {
                     self!.tableView.deselectRow(at: Table.RenameEmployerRow, animated: true)
                 })
                 
-            } else {
+            } else if indexPath == Table.SelectEmployerRow {
                 performSegue(withIdentifier: "show setting", sender: indexPath)
             }
         case .employers:
