@@ -198,6 +198,15 @@ extension UIColor {
     static var disabledStateOpacity: CGFloat { return 0.35 }
 }
 
+extension NSDecimalNumber {
+    public var currencyValue: String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        
+        return formatter.string(from: NSNumber(value: self.doubleValue))
+    }
+}
+
 public extension DispatchQueue {
     
     private static var _onceTracker = [String]()

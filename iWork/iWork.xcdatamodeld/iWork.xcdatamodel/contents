@@ -32,6 +32,12 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tasks" inverseName="project" inverseEntity="Tasks" syncable="YES"/>
     </entity>
     <entity name="Roles" representedClassName="Role" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="overtime" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="regularRate" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="startDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="supervisor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeAndHalf" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" defaultValueString="Untitled Role" syncable="YES"/>
         <relationship name="directories" toMany="YES" deletionRule="Cascade" destinationEntity="Directories" inverseName="role" inverseEntity="Directories" syncable="YES"/>
         <relationship name="employer" maxCount="1" deletionRule="Nullify" destinationEntity="Employers" inverseName="roles" inverseEntity="Employers" syncable="YES"/>
@@ -68,7 +74,7 @@
         <element name="Employers" positionX="-36" positionY="63" width="128" height="30"/>
         <element name="Folders" positionX="-36" positionY="9" width="128" height="45"/>
         <element name="Projects" positionX="0" positionY="90" width="128" height="60"/>
-        <element name="Roles" positionX="-18" positionY="81" width="128" height="103"/>
+        <element name="Roles" positionX="-18" positionY="81" width="128" height="195"/>
         <element name="Shifts" positionX="-36" positionY="108" width="128" height="105"/>
         <element name="Tasks" positionX="-27" positionY="36" width="128" height="225"/>
         <element name="TimePunches" positionX="-27" positionY="117" width="128" height="90"/>
