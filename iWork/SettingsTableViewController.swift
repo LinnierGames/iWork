@@ -43,14 +43,14 @@ fileprivate struct Table {
     }
     struct Role {
         struct IndexPaths {
-            static let RenameRoleRow = IndexPath(row: 0, section: 1)
-            static let RoleSupervisorRow = IndexPath(row: 1, section: 1)
-            static let RoleStartDateRow = IndexPath(row: 2, section: 1)
-            static let RoleEndDateRow = IndexPath(row: 3, section: 1)
-            static let RoleRegularRateRow = IndexPath(row: 4, section: 1)
-            static let RoleTimeAndHalfRow = IndexPath(row: 5, section: 1)
-            static let RoleOvertimeRow = IndexPath(row: 6, section: 1)
-            static let SelectRoleRow = IndexPath(row: 7, section: 1)
+            static let RenameRoleRow = IndexPath(row: 0, section: 0)
+            static let RoleSupervisorRow = IndexPath(row: 1, section: 0)
+            static let RoleStartDateRow = IndexPath(row: 2, section: 0)
+            static let RoleEndDateRow = IndexPath(row: 3, section: 0)
+            static let RoleRegularRateRow = IndexPath(row: 4, section: 0)
+            static let RoleTimeAndHalfRow = IndexPath(row: 5, section: 0)
+            static let RoleOvertimeRow = IndexPath(row: 6, section: 0)
+            static let SelectRoleRow = IndexPath(row: 7, section: 0)
         }
     }
 }
@@ -124,11 +124,11 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 return 0
             }
         case .DetailEmployer:
-            return 9
+            return 8
         case .Employers, .Roles:
             return fetchedResultsController.sections![section].numberOfObjects
         case .DetailRole:
-            return 8
+            return 7
         }
     }
     
@@ -363,6 +363,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         case .Roles:
             let fetch: NSFetchRequest<Role> = Role.fetchRequest()
+            fetch.predicate = NSPredicate(format: "employer == %@", appDelegate.currentEmployer)
             fetch.sortDescriptors = [CTSortDescriptor(key: "title")]
             fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         default:
@@ -372,15 +373,28 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         tableView.reloadData()
     }
     
+    private typealias prepareSegueSender = (hierarchy: CDSettingsHierarchy, options: [String:Any]?)
+    
+    private func performSegue(withHierarchy hierarchy: CDSettingsHierarchy, object: [String:Any]? = nil) {
+        self.performSegue(withIdentifier: "show setting", sender: (hierarchy, object))
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //TODO - use tuple as a sender
+        self.prepare(for: segue, object: sender! as! prepareSegueSender)
+    }
+    
+    private func prepare(for segue: UIStoryboardSegue, object: prepareSegueSender) {
         if let identifier = segue.identifier {
             switch identifier {
             case "show setting":
                 let settingVC = segue.destination as! SettingsTableViewController
-                settingVC.hierarchy = .Employers
+                settingVC.hierarchy = object.hierarchy
                 
-                reloadIndexesOnViewDidAppear = [sender as! IndexPath]
+                if object.options != nil {
+                    if let reloadingIndexPaths = object.options!["reloadOnViewDidAppear"] {
+                        reloadIndexesOnViewDidAppear = (reloadingIndexPaths as! [IndexPath])
+                    }
+                }
             default:
                 break
             }
@@ -397,7 +411,18 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch hierarchy {
         case .Root:
-            break
+            switch indexPath {
+            case Table.Root.IndexPaths.EditEmployer:
+                self.performSegue(withHierarchy: .DetailEmployer, object: ["reloadOnViewDidAppear": [Table.Root.IndexPaths.EditEmployer]])
+            case Table.Root.IndexPaths.SelectEmployer:
+                self.performSegue(withHierarchy: .Employers, object: ["reloadOnViewDidAppear": [Table.Root.IndexPaths.EditEmployer, Table.Root.IndexPaths.EditRole]])
+            case Table.Root.IndexPaths.EditRole:
+                self.performSegue(withHierarchy: .DetailRole, object: ["reloadOnViewDidAppear": [Table.Root.IndexPaths.EditRole]])
+            case Table.Root.IndexPaths.SelectRole:
+                self.performSegue(withHierarchy: .Roles, object: ["reloadOnViewDidAppear": [Table.Root.IndexPaths.EditRole]])
+            default:
+                break
+            }
         case .DetailEmployer:
             if indexPath == Table.Employer.IndexPaths.RenameEmployerRow {
                 let alert = UIAlertController(title: "Rename Employer", message: "enter a name", preferredStyle: .alert)
@@ -442,7 +467,6 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 self.present(alert, animated: true, completion: { [weak self] in
                     self!.tableView.deselectRow(at: Table.Role.IndexPaths.RenameRoleRow, animated: true)
                 })
-                
             }
         }
     }
@@ -461,26 +485,53 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     // MARK: Text Field Delegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == cellManager.textField {
-            appDelegate.currentEmployer.manager = textField.text
-            appDelegate.saveContext()
+        switch hierarchy {
+        case .DetailEmployer:
+            if textField == cellManager.textField {
+                appDelegate.currentEmployer.manager = textField.text
+                appDelegate.saveContext()
+            }
+        case .DetailRole:
+            if textField == cellSupervisor.textField {
+                appDelegate.currentRole.supervisor = textField.text
+                appDelegate.saveContext()
+            }
+        default:
+            break
         }
     }
     
     // MARK: - IBACTIONS
     
     internal func pressRightNav(_ sender: Any) {
-        let alert = UIAlertController(title: "New Employer", message: "enter a name", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.setStyleToParagraph()
+        switch hierarchy {
+        case .Employers:
+            let alert = UIAlertController(title: "New Employer", message: "enter a name", preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.setStyleToParagraph()
+            }
+            alert.addActions(actions:
+                UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
+                    _ = Employer(name: alert.inputField.text!, inContext: self!.container.viewContext)
+                    self!.appDelegate.saveContext()
+                })
+            )
+            self.present(alert, animated: true, completion: nil)
+        case .Roles:
+            let alert = UIAlertController(title: "New Role", message: "enter a title", preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.setStyleToParagraph()
+            }
+            alert.addActions(actions:
+                UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
+                    _ = Role(title: alert.inputField.text!, inContext: self!.container.viewContext, forEmployer: self!.appDelegate.currentEmployer)
+                    self!.appDelegate.saveContext()
+                })
+            )
+            self.present(alert, animated: true, completion: nil)
+        default:
+            break
         }
-        alert.addActions(actions:
-            UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
-                _ = Employer(name: alert.inputField.text!, inContext: self!.container.viewContext)
-                self!.appDelegate.saveContext()
-            })
-        )
-        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - LIFE CYCLE
