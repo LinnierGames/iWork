@@ -10,37 +10,54 @@ import UIKit
 import CoreData
 
 fileprivate enum CDSettingsHierarchy {
-    case root
-    case employers
+    case Root
+        case DetailEmployer
+            case Employers
+        case DetailRole
+            case Roles
 }
 
 fileprivate struct Table {
-    static let employerSection = 0
-    static let roleSection = 1
-    struct IndexPaths {
-        static let RenameEmployerRow = IndexPath(row: 0, section: 0)
-        static let EmployerManagerRow = IndexPath(row: 1, section: 0)
-        static let EmployerStartDateRow = IndexPath(row: 2, section: 0)
-        static let EmployerEndDateRow = IndexPath(row: 3, section: 0)
-        static let LocationRow = IndexPath(row: 4, section: 0)
-        static let PhoneNumbersRow = IndexPath(row: 5, section: 0)
-        static let HolidayRow = IndexPath(row: 6, section: 0)
-        static let NotesRow = IndexPath(row: 7, section: 0)
-        static let SelectEmployerRow = IndexPath(row: 8, section: 0)
-        static let RenameRoleRow = IndexPath(row: 0, section: 1)
-        static let RoleSupervisorRow = IndexPath(row: 1, section: 1)
-        static let RoleStartDateRow = IndexPath(row: 2, section: 1)
-        static let RoleEndDateRow = IndexPath(row: 3, section: 1)
-        static let RoleRegularRateRow = IndexPath(row: 4, section: 1)
-        static let RoleTimeAndHalfRow = IndexPath(row: 5, section: 1)
-        static let RoleOvertimeRow = IndexPath(row: 6, section: 1)
-        static let SelectRoleRow = IndexPath(row: 7, section: 1)
+    struct Root {
+        static let employerSection = 0
+        static let roleSection = 1
+        struct IndexPaths {
+            static let EditEmployer = IndexPath(row: 0, section: 0)
+            static let SelectEmployer = IndexPath(row: 1, section: 0)
+            static let EditRole = IndexPath(row: 0, section: 1)
+            static let SelectRole = IndexPath(row: 1, section: 1)
+        }
+    }
+    struct Employer {
+        struct IndexPaths {
+            static let RenameEmployerRow = IndexPath(row: 0, section: 0)
+            static let EmployerManagerRow = IndexPath(row: 1, section: 0)
+            static let EmployerStartDateRow = IndexPath(row: 2, section: 0)
+            static let EmployerEndDateRow = IndexPath(row: 3, section: 0)
+            static let LocationRow = IndexPath(row: 4, section: 0)
+            static let PhoneNumbersRow = IndexPath(row: 5, section: 0)
+            static let HolidayRow = IndexPath(row: 6, section: 0)
+            static let NotesRow = IndexPath(row: 7, section: 0)
+            static let SelectEmployerRow = IndexPath(row: 8, section: 0)
+        }
+    }
+    struct Role {
+        struct IndexPaths {
+            static let RenameRoleRow = IndexPath(row: 0, section: 1)
+            static let RoleSupervisorRow = IndexPath(row: 1, section: 1)
+            static let RoleStartDateRow = IndexPath(row: 2, section: 1)
+            static let RoleEndDateRow = IndexPath(row: 3, section: 1)
+            static let RoleRegularRateRow = IndexPath(row: 4, section: 1)
+            static let RoleTimeAndHalfRow = IndexPath(row: 5, section: 1)
+            static let RoleOvertimeRow = IndexPath(row: 6, section: 1)
+            static let SelectRoleRow = IndexPath(row: 7, section: 1)
+        }
     }
 }
 
 class SettingsTableViewController: FetchedResultsTableViewController, UITextFieldDelegate {
     
-    fileprivate var hierarchy: CDSettingsHierarchy = .root
+    fileprivate var hierarchy: CDSettingsHierarchy = .Root
     
     private var cellManager: CustomTableViewCells! {
         didSet {
@@ -74,20 +91,23 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         switch hierarchy {
-        case .root:
+        case .Root:
             return 2
-        case .employers:
+        case .Employers:
+            return 1
+        default:
             return 1
         }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch hierarchy {
-        case .root:
-            if section == Table.employerSection {
-                return "Current Employer"
-            } else {
-                return "Current Role"
+        case .Root:
+            switch section {
+            case Table.Root.employerSection:
+                return "Current Employers and Roles"
+            default:
+                return nil
             }
         default:
             return nil
@@ -96,21 +116,28 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch hierarchy {
-        case .root:
-            if section == Table.employerSection {
-                return 9
-            } else {
-                return 8
+        case .Root:
+            switch section {
+            case Table.Root.employerSection, Table.Root.roleSection:
+                return 2
+            default:
+                return 0
             }
-        case .employers:
+        case .DetailEmployer:
+            return 9
+        case .Employers, .Roles:
             return fetchedResultsController.sections![section].numberOfObjects
+        case .DetailRole:
+            return 8
         }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch hierarchy {
-        case .employers:
+        case .Employers:
             return (fetchedResultsController.object(at: indexPath).objectID != appDelegate.currentEmployer.objectID)
+        case .Roles:
+            return (fetchedResultsController.object(at: indexPath).objectID != appDelegate.currentRole.objectID)
         default:
             return false
         }
@@ -118,9 +145,11 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch hierarchy {
-        case .root:
+        case .Root:
+            return 44
+        case .DetailEmployer:
             switch indexPath {
-            case Table.IndexPaths.LocationRow, Table.IndexPaths.PhoneNumbersRow, Table.IndexPaths.NotesRow:
+            case Table.Employer.IndexPaths.LocationRow, Table.Employer.IndexPaths.PhoneNumbersRow, Table.Employer.IndexPaths.NotesRow:
                 return 96
             default:
                 return 44
@@ -132,26 +161,55 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch hierarchy {
-        case .root:
+        case .Root:
             switch indexPath {
-            case Table.IndexPaths.RenameEmployerRow:
+            case Table.Root.IndexPaths.EditEmployer:
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
+                cell.textLabel!.text = appDelegate.currentEmployer.name
+                cell.accessoryType = .disclosureIndicator
+                
+                return cell
+            case Table.Root.IndexPaths.SelectEmployer:
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
+                cell.textLabel!.text = "Switch Employers"
+                cell.accessoryType = .disclosureIndicator
+                
+                return cell
+            case Table.Root.IndexPaths.EditRole:
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
+                cell.textLabel!.text = appDelegate.currentRole.title
+                cell.accessoryType = .disclosureIndicator
+                
+                return cell
+            case Table.Root.IndexPaths.SelectRole:
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
+                cell.textLabel!.text = "Switch Roles"
+                cell.accessoryType = .disclosureIndicator
+                
+                return cell
+            default:
+                return UITableViewCell() //None
+            }
+        case .DetailEmployer:
+            switch indexPath {
+            case Table.Employer.IndexPaths.RenameEmployerRow:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = appDelegate.currentEmployer.name
                 
                 return cell
-            case Table.IndexPaths.EmployerManagerRow:
+            case Table.Employer.IndexPaths.EmployerManagerRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Manager"
                 cell.textField.text = appDelegate.currentEmployer.manager
                 
                 cellManager = cell; return cell
-            case Table.IndexPaths.EmployerStartDateRow:
+            case Table.Employer.IndexPaths.EmployerStartDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
                 cell.detailTextLabel!.text = String(appDelegate.currentEmployer.startDate!)
                 
                 return cell
-            case Table.IndexPaths.EmployerEndDateRow:
+            case Table.Employer.IndexPaths.EmployerEndDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "End Date"
                 if let endDate = appDelegate.currentEmployer.endDate {
@@ -161,7 +219,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 }
                 
                 return cell
-            case Table.IndexPaths.LocationRow:
+            case Table.Employer.IndexPaths.LocationRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelCaption.text = "Location"
                 cell.textView.text = appDelegate.currentEmployer.location
@@ -169,7 +227,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 cell.accessoryType = .disclosureIndicator
                 
                 return cell
-            case Table.IndexPaths.PhoneNumbersRow:
+            case Table.Employer.IndexPaths.PhoneNumbersRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelCaption.text = "Phone Numbers"
                 cell.textView.text = appDelegate.currentEmployer.phoneNumbers ?? "None"
@@ -177,7 +235,12 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 cell.accessoryType = .disclosureIndicator
                 
                 return cell
-            case Table.IndexPaths.NotesRow:
+            case Table.Employer.IndexPaths.HolidayRow:
+                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
+                cell.textLabel!.text = "Holiday Dates"
+                
+                return cell
+            case Table.Employer.IndexPaths.NotesRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelCaption.text = "Notes"
                 cell.textView.text = appDelegate.currentEmployer.notes
@@ -186,31 +249,30 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 cell.accessoryType = .disclosureIndicator
                 
                 return cell
-            case Table.IndexPaths.SelectEmployerRow:
-                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
-                cell.textLabel!.text = "Select Employer"
-                cell.accessoryType = .disclosureIndicator
-                
-                return cell
-            case Table.IndexPaths.RenameRoleRow:
+            default:
+                return UITableViewCell() //None
+            }
+        case .DetailRole:
+            switch indexPath {
+            case Table.Role.IndexPaths.RenameRoleRow:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = appDelegate.currentRole.title
                 
                 return cell
-            case Table.IndexPaths.RoleSupervisorRow:
+            case Table.Role.IndexPaths.RoleSupervisorRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Supervisor"
                 cell.textField.text = appDelegate.currentRole.supervisor
                 //cell.accessoryType = .none
                 
                 cellSupervisor = cell; return cell
-            case Table.IndexPaths.RoleStartDateRow:
+            case Table.Role.IndexPaths.RoleStartDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
                 cell.detailTextLabel!.text = String(appDelegate.currentRole.startDate!)
                 
                 return cell
-            case Table.IndexPaths.RoleEndDateRow:
+            case Table.Role.IndexPaths.RoleEndDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "End Date"
                 if let endDate = appDelegate.currentRole.endDate {
@@ -220,42 +282,42 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 }
                 
                 return cell
-            case Table.IndexPaths.HolidayRow:
-                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
-                cell.textLabel!.text = "Holiday Dates"
-                
-                return cell
-            case Table.IndexPaths.RoleRegularRateRow:
+            case Table.Role.IndexPaths.RoleRegularRateRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Regular Pay Rate"
                 cell.textField.text = appDelegate.currentRole.regularRate!.currencyValue
                 
                 cellRegularRate = cell; return cell
-            case Table.IndexPaths.RoleTimeAndHalfRow:
+            case Table.Role.IndexPaths.RoleTimeAndHalfRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Time and a Half"
                 
                 return cell
-            case Table.IndexPaths.RoleOvertimeRow:
+            case Table.Role.IndexPaths.RoleOvertimeRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Overtime"
                 
                 return cell
-            case Table.IndexPaths.SelectRoleRow:
-                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
-                cell.textLabel!.text = "Select Role"
-                cell.accessoryType = .disclosureIndicator
-                
-                return cell
             default:
-                return UITableViewCell() //None
+                return UITableViewCell()
             }
-        case .employers:
+        case .Employers:
             let cell = tableView.returnCell(forIdentifier: "subtitle", atIndexPath: indexPath)
             let employer = fetchedResultsController.object(at: indexPath) as! Employer
             cell.textLabel!.text = String("\(employer.name!) - \(employer.selectedRole!.title!)")
             cell.detailTextLabel!.text = String("Number of Roles: \(employer.roles?.count ?? 0)")
             if employer.objectID == appDelegate.currentEmployer.objectID {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            return cell
+        case .Roles:
+            let cell = tableView.returnCell(forIdentifier: "subtitle", atIndexPath: indexPath)
+            let role = fetchedResultsController.object(at: indexPath) as! Role
+            cell.textLabel!.text = role.title!
+            if role.objectID == appDelegate.currentRole.objectID {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
@@ -295,25 +357,28 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     private func updateTable() {
         switch hierarchy {
-        case .root:
-            break
-        case .employers:
+        case .Employers:
             let fetch: NSFetchRequest<Employer> = Employer.fetchRequest()
             fetch.sortDescriptors = [CTSortDescriptor(key: "name")]
             fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        case .Roles:
+            let fetch: NSFetchRequest<Role> = Role.fetchRequest()
+            fetch.sortDescriptors = [CTSortDescriptor(key: "title")]
+            fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        default:
+            break
         }
-        
+    
         tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        //TODO - use tuple as a sender
         if let identifier = segue.identifier {
             switch identifier {
             case "show setting":
                 let settingVC = segue.destination as! SettingsTableViewController
-                settingVC.hierarchy = .employers
+                settingVC.hierarchy = .Employers
                 
                 reloadIndexesOnViewDidAppear = [sender as! IndexPath]
             default:
@@ -331,8 +396,10 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch hierarchy {
-        case .root:
-            if indexPath == Table.IndexPaths.RenameEmployerRow {
+        case .Root:
+            break
+        case .DetailEmployer:
+            if indexPath == Table.Employer.IndexPaths.RenameEmployerRow {
                 let alert = UIAlertController(title: "Rename Employer", message: "enter a name", preferredStyle: .alert)
                 alert.addTextField(configurationHandler: { [weak self] (textField) in
                     textField.setStyleToParagraph(withPlaceholderText: "name", withInitalText: self!.appDelegate.currentEmployer.name)
@@ -341,25 +408,43 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                     UIAlertActionInfo(title: "Rename", handler: { [weak self] (action) in
                         self!.appDelegate.currentEmployer.name = alert.inputField.text
                         self!.appDelegate.saveContext()
-                        self!.tableView.reloadRows(at: [Table.IndexPaths.RenameEmployerRow], with: .fade)
+                        self!.tableView.reloadRows(at: [Table.Employer.IndexPaths.RenameEmployerRow], with: .fade)
                     })
                 )
                 
                 self.present(alert, animated: true, completion: { [weak self] in
-                    self!.tableView.deselectRow(at: Table.IndexPaths.RenameEmployerRow, animated: true)
+                    self!.tableView.deselectRow(at: Table.Employer.IndexPaths.RenameEmployerRow, animated: true)
                 })
                 
-            } else if indexPath == Table.IndexPaths.SelectEmployerRow {
-                performSegue(withIdentifier: "show setting", sender: Table.IndexPaths.RenameEmployerRow)
             }
-        case .employers:
-            let employer = fetchedResultsController.object(at: indexPath) as! Employer
-            appDelegate.currentEmployer = employer
+        case .Employers, .Roles:
+            let row = fetchedResultsController.object(at: indexPath)
+            if hierarchy == .Employers {
+                appDelegate.currentEmployer = row as! Employer
+            } else {
+                appDelegate.currentRole = row as! Role
+            }
             self.navigationController?.popViewController(animated: true)
+        case .DetailRole:
+            if indexPath == Table.Role.IndexPaths.RenameRoleRow {
+                let alert = UIAlertController(title: "Rename Role", message: "enter a title", preferredStyle: .alert)
+                alert.addTextField(configurationHandler: { [weak self] (textField) in
+                    textField.setStyleToParagraph(withPlaceholderText: "title", withInitalText: self!.appDelegate.currentRole.title)
+                })
+                alert.addActions(actions:
+                    UIAlertActionInfo(title: "Rename", handler: { [weak self] (action) in
+                        self!.appDelegate.currentRole.title = alert.inputField.text
+                        self!.appDelegate.saveContext()
+                        self!.tableView.reloadRows(at: [Table.Role.IndexPaths.RenameRoleRow], with: .fade)
+                    })
+                )
+                
+                self.present(alert, animated: true, completion: { [weak self] in
+                    self!.tableView.deselectRow(at: Table.Role.IndexPaths.RenameRoleRow, animated: true)
+                })
+                
+            }
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -404,10 +489,10 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         super.viewDidLoad()
         
         switch hierarchy {
-        case .root:
-            break
-        case .employers:
+        case .Employers, .Roles:
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pressRightNav(_:)))
+        default:
+            break
         }
         
         updateTable()
@@ -427,7 +512,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         }
         
         DispatchQueue.once(token: "settings.viewWillAppear") {
-            if hierarchy == .root {
+            if hierarchy == .Root {
                 let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
                 let build = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
                 let labelVersion = UITextView(frame: CGRect(x: 0, y: 0, width: 0, height: 64))
