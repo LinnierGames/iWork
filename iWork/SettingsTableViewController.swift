@@ -105,7 +105,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         case .Root:
             switch section {
             case Table.Root.employerSection:
-                return "Current Employers and Roles"
+                return "Current Employer and Role"
             default:
                 return nil
             }
@@ -554,6 +554,19 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        switch hierarchy {
+        case .DetailEmployer:
+            title = "Employer Details"
+        case .Employers:
+            title = "Select an Employer"
+        case .DetailRole:
+            title = "Role Details"
+        case .Roles:
+            title = "Select a Role"
+        default:
+            break
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
