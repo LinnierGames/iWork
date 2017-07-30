@@ -105,6 +105,14 @@ extension Bool {
             self = true
         }
     }
+    
+    public var inverse: Bool {
+        if self == true {
+            return false
+        } else {
+            return true
+        }
+    }
 }
 
 extension String {
@@ -143,8 +151,16 @@ let CTDateComponentHour: TimeInterval = CTDateComponentMinute*60
 let CTDateComponentDay: TimeInterval = CTDateComponentHour*24
 
 extension DateComponents {
+    static let AllComponents: Set<Calendar.Component> = [.era,.year,.month,.day,.hour,.minute,.second,.weekday,.weekdayOrdinal,.quarter,.weekOfMonth,.weekOfYear,.yearForWeekOfYear,.nanosecond,.calendar,.timeZone]
+    static let DayComponents: Set<Calendar.Component> = [.year,.month,.day]
+    static let TimeComponents: Set<Calendar.Component> = [.hour,.minute,.second]
+    
     init(date: Date, forComponents components: Set<Calendar.Component>)  {
         self = Calendar.current.dateComponents(components, from: date)
+    }
+    
+    var dateValue: Date? {
+        return Calendar.current.date(from: self)
     }
     
     /// returns the length in time, seconds+mintues+hours only
@@ -187,6 +203,16 @@ extension DateComponents {
         } else {
             return nil
         }
+    }
+}
+
+extension Date {
+    init(timeIntervalSinceToday interval: TimeInterval) {
+        var components = DateComponents(date: Date(timeIntervalSinceNow: interval), forComponents: DateComponents.AllComponents)
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        self = components.dateValue!.addingTimeInterval(interval)
     }
 }
 
