@@ -382,24 +382,46 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.prepare(for: segue, object: sender! as! prepareSegueSender)
+        if let object = sender as? prepareSegueSender {
+            self.prepare(for: segue, object: object)
+        } else {
+            if let identifier = segue.identifier {
+                switch identifier {
+                case "show date":
+                    let dateVC = (segue.destination as! UINavigationController).viewControllers.first! as! DatePickerViewController
+                    switch sender as! String {
+                    case "employer start":
+                        dateVC.date = appDelegate.currentEmployer.startDate! as Date
+                    case "employer end":
+                        dateVC.date = appDelegate.currentEmployer.endDate as Date?
+                    case "role start":
+                        dateVC.date = appDelegate.currentRole.startDate! as Date
+                    case "role end":
+                        dateVC.date = appDelegate.currentRole.endDate as Date?
+                    default:
+                        break
+                    }
+                    
+                default:
+                    break
+                }
+            }
+        }
     }
     
     private func prepare(for segue: UIStoryboardSegue, object: prepareSegueSender) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "show setting":
-                let settingVC = segue.destination as! SettingsTableViewController
-                settingVC.hierarchy = object.hierarchy
-                
-                if object.options != nil {
-                    if let reloadingIndexPaths = object.options![CVNotificationViewDidAppear] {
-                        reloadIndexesOnViewDidAppear = (reloadingIndexPaths as! [IndexPath])
-                    }
+        switch segue.identifier! {
+        case "show setting":
+            let settingVC = segue.destination as! SettingsTableViewController
+            settingVC.hierarchy = object.hierarchy
+            
+            if object.options != nil {
+                if let reloadingIndexPaths = object.options![CVNotificationViewDidAppear] {
+                    reloadIndexesOnViewDidAppear = (reloadingIndexPaths as! [IndexPath])
                 }
-            default:
-                break
             }
+        default:
+            break
         }
     }
     
@@ -426,7 +448,8 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 break
             }
         case .DetailEmployer:
-            if indexPath == Table.Employer.IndexPaths.RenameEmployerRow {
+            switch indexPath {
+            case Table.Employer.IndexPaths.RenameEmployerRow:
                 let alert = UIAlertController(title: "Rename Employer", message: "enter a name", preferredStyle: .alert)
                 alert.addTextField(configurationHandler: { [weak self] (textField) in
                     textField.setStyleToParagraph(withPlaceholderText: "name", withInitalText: self!.appDelegate.currentEmployer.name)
@@ -442,7 +465,12 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 self.present(alert, animated: true, completion: { [weak self] in
                     self!.tableView.deselectRow(at: Table.Employer.IndexPaths.RenameEmployerRow, animated: true)
                 })
-                
+            case Table.Employer.IndexPaths.EmployerStartDateRow:
+                self.performSegue(withIdentifier: "show date", sender: "employer start")
+            case Table.Employer.IndexPaths.EmployerEndDateRow:
+                self.performSegue(withIdentifier: "show date", sender: "employer end")
+            default:
+                break
             }
         case .Employers, .Roles:
             let row = fetchedResultsController.object(at: indexPath)
@@ -453,7 +481,8 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             }
             self.navigationController?.popViewController(animated: true)
         case .DetailRole:
-            if indexPath == Table.Role.IndexPaths.RenameRoleRow {
+            switch indexPath {
+            case Table.Role.IndexPaths.RenameRoleRow:
                 let alert = UIAlertController(title: "Rename Role", message: "enter a title", preferredStyle: .alert)
                 alert.addTextField(configurationHandler: { [weak self] (textField) in
                     textField.setStyleToParagraph(withPlaceholderText: "title", withInitalText: self!.appDelegate.currentRole.title)
@@ -469,6 +498,12 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 self.present(alert, animated: true, completion: { [weak self] in
                     self!.tableView.deselectRow(at: Table.Role.IndexPaths.RenameRoleRow, animated: true)
                 })
+            case Table.Employer.IndexPaths.EmployerStartDateRow:
+                self.performSegue(withIdentifier: "show date", sender: "role start")
+            case Table.Employer.IndexPaths.EmployerEndDateRow:
+                self.performSegue(withIdentifier: "show date", sender: "role end")
+            default:
+                break
             }
         }
     }
