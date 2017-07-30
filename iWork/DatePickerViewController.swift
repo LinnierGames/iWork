@@ -25,6 +25,8 @@ struct DatePickerOptions {
     
     var pickerMode: UIDatePickerMode
     
+    var tag: Int8?
+    
     init() {
         canSetDate = true
         canSetTime = true
@@ -290,9 +292,8 @@ class DatePickerViewController: UIViewController {
     }
     
     @IBAction func pressDone(_ sender: Any) {
-        self.dismiss(animated: true) { [weak self] in
-            self!.delegate?.datePicker(self!, didFinishWithDate: self!.date, withTimeInterval: self!.timeInterval)
-        }
+        self.dismiss(animated: true, completion: nil)
+        self.delegate?.datePicker(self, didFinishWithDate: self.date, withTimeInterval: self.timeInterval)
         
     }
     

@@ -57,7 +57,7 @@ fileprivate struct Table {
 
 fileprivate let CVNotificationViewDidAppear = "onViewDidAppear"
 
-class SettingsTableViewController: FetchedResultsTableViewController, UITextFieldDelegate {
+class SettingsTableViewController: FetchedResultsTableViewController, UITextFieldDelegate, DatePickerDelegate {
     
     fileprivate var hierarchy: CDSettingsHierarchy = .Root
     
@@ -209,6 +209,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
                 cell.detailTextLabel!.text = String(appDelegate.currentEmployer.startDate!)
+                cell.accessoryType = .disclosureIndicator
                 
                 return cell
             case Table.Employer.IndexPaths.EmployerEndDateRow:
@@ -216,9 +217,12 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 cell.textLabel!.text = "End Date"
                 if let endDate = appDelegate.currentEmployer.endDate {
                     cell.detailTextLabel!.text = String(endDate)
+                    cell.detailTextLabel!.textColor = UIColor.black
                 } else {
-                    cell.detailTextLabel!.text = ""
+                    cell.detailTextLabel!.text = "None"
+                    cell.detailTextLabel!.textColor = UIColor.disabledState
                 }
+                cell.accessoryType = .disclosureIndicator
                 
                 return cell
             case Table.Employer.IndexPaths.LocationRow:
@@ -238,14 +242,15 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 
                 return cell
             case Table.Employer.IndexPaths.HolidayRow:
-                let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
+                let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Holiday Dates"
+                cell.detailTextLabel!.text = String(appDelegate.currentEmployer.holidayDates?.count ?? 0)
+                cell.accessoryType = .disclosureIndicator
                 
                 return cell
             case Table.Employer.IndexPaths.NotesRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelCaption.text = "Notes"
-                cell.textView.text = appDelegate.currentEmployer.notes
                 cell.textView.text = appDelegate.currentEmployer.notes ?? "None"
                 cell.textView.isEditable = false
                 cell.accessoryType = .disclosureIndicator
@@ -279,8 +284,10 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 cell.textLabel!.text = "End Date"
                 if let endDate = appDelegate.currentRole.endDate {
                     cell.detailTextLabel!.text = String(endDate)
+                    cell.detailTextLabel!.textColor = UIColor.black
                 } else {
-                    cell.detailTextLabel!.text = ""
+                    cell.detailTextLabel!.text = "None"
+                    cell.detailTextLabel!.textColor = UIColor.disabledState
                 }
                 
                 return cell
@@ -332,7 +339,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     // MARK: Text Field Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == cellManager.textField || textField == cellSupervisor.textField {
+        if textField == cellManager?.textField || textField == cellSupervisor?.textField {
             textField.resignFirstResponder()
         }
         
@@ -392,18 +399,46 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                     switch sender as! String {
                     case "employer start":
                         dateVC.date = appDelegate.currentEmployer.startDate! as Date
+                        dateVC.isTimeSet = true
+                        var options = DatePickerOptions()
+                        options.tag = 1
+                        dateVC.options = options
+                        dateVC.delegate = self
+                        reloadIndexesOnViewDidAppear = [Table.Employer.IndexPaths.EmployerStartDateRow]
                     case "employer end":
                         dateVC.date = appDelegate.currentEmployer.endDate as Date?
+                        var options = DatePickerOptions()
+                        options.tag = 2
+                        options.dateRanges = Range<Date>(uncheckedBounds: (lower: appDelegate.currentEmployer.startDate! as Date, upper: Date()))
+                        options.timeRanges = true
+                        options.dateRequired = false
+                        options.timeRequired = false
+                        dateVC.options = options
+                        dateVC.isTimeSet = true
+                        dateVC.delegate = self
+                        reloadIndexesOnViewDidAppear = [Table.Employer.IndexPaths.EmployerEndDateRow]
                     case "role start":
                         dateVC.date = appDelegate.currentRole.startDate! as Date
+                        var options = DatePickerOptions()
+                        options.tag = 1
+                        dateVC.options = options
+                        dateVC.delegate = self
+                        reloadIndexesOnViewDidAppear = [Table.Role.IndexPaths.RoleStartDateRow]
                     case "role end":
                         dateVC.date = appDelegate.currentRole.endDate as Date?
-                    default:
-                        break
+                        var options = DatePickerOptions()
+                        options.tag = 2
+                        options.dateRanges = Range<Date>(uncheckedBounds: (lower: appDelegate.currentRole.startDate! as Date, upper: Date()))
+                        options.timeRanges = true
+                        options.dateRequired = false
+                        options.timeRequired = false
+                        dateVC.options = options
+                        dateVC.isTimeSet = true
+                        dateVC.delegate = self
+                        reloadIndexesOnViewDidAppear = [Table.Role.IndexPaths.RoleEndDateRow]
+                    default: break
                     }
-                    
-                default:
-                    break
+                default: break
                 }
             }
         }
@@ -533,6 +568,29 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 appDelegate.currentRole.supervisor = textField.text
                 appDelegate.saveContext()
             }
+        default:
+            break
+        }
+    }
+    
+    // MARK: Date Picker Delegate
+    
+    func datePicker(_ picker: DatePickerViewController, didFinishWithDate date: Date?, withTimeInterval interval: TimeInterval?) {
+        switch hierarchy {
+        case .DetailEmployer:
+            if picker.options.tag! == 1 { //Start Date
+                appDelegate.currentEmployer.startDate = date as NSDate?
+            } else if picker.options.tag! == 2 { //End Date
+                appDelegate.currentEmployer.endDate = date as NSDate?
+            }
+            appDelegate.saveContext()
+        case .DetailRole:
+            if picker.options.tag! == 1 { //Start Date
+                appDelegate.currentRole.startDate = date as NSDate?
+            } else if picker.options.tag! == 2 { //End Date
+                appDelegate.currentRole.endDate = date as NSDate?
+            }
+            appDelegate.saveContext()
         default:
             break
         }
