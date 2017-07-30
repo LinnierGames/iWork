@@ -55,6 +55,8 @@ fileprivate struct Table {
     }
 }
 
+fileprivate let CVNotificationViewDidAppear = "onViewDidAppear"
+
 class SettingsTableViewController: FetchedResultsTableViewController, UITextFieldDelegate {
     
     fileprivate var hierarchy: CDSettingsHierarchy = .Root
@@ -391,7 +393,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 settingVC.hierarchy = object.hierarchy
                 
                 if object.options != nil {
-                    if let reloadingIndexPaths = object.options!["reloadOnViewDidAppear"] {
+                    if let reloadingIndexPaths = object.options![CVNotificationViewDidAppear] {
                         reloadIndexesOnViewDidAppear = (reloadingIndexPaths as! [IndexPath])
                     }
                 }
@@ -413,13 +415,13 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         case .Root:
             switch indexPath {
             case Table.Root.IndexPaths.EditEmployer:
-                self.performSegue(withHierarchy: .DetailEmployer, object: ["reloadOnViewDidAppear": [Table.Root.IndexPaths.EditEmployer]])
+                self.performSegue(withHierarchy: .DetailEmployer, object: [CVNotificationViewDidAppear: [Table.Root.IndexPaths.EditEmployer]])
             case Table.Root.IndexPaths.SelectEmployer:
-                self.performSegue(withHierarchy: .Employers, object: ["reloadOnViewDidAppear": [Table.Root.IndexPaths.EditEmployer, Table.Root.IndexPaths.EditRole]])
+                self.performSegue(withHierarchy: .Employers, object: [CVNotificationViewDidAppear: [Table.Root.IndexPaths.EditEmployer, Table.Root.IndexPaths.EditRole]])
             case Table.Root.IndexPaths.EditRole:
-                self.performSegue(withHierarchy: .DetailRole, object: ["reloadOnViewDidAppear": [Table.Root.IndexPaths.EditRole]])
+                self.performSegue(withHierarchy: .DetailRole, object: [CVNotificationViewDidAppear: [Table.Root.IndexPaths.EditRole]])
             case Table.Root.IndexPaths.SelectRole:
-                self.performSegue(withHierarchy: .Roles, object: ["reloadOnViewDidAppear": [Table.Root.IndexPaths.EditRole]])
+                self.performSegue(withHierarchy: .Roles, object: [CVNotificationViewDidAppear: [Table.Root.IndexPaths.EditRole]])
             default:
                 break
             }
@@ -575,7 +577,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             reloadIndexesOnViewDidAppear = nil
         }
         
-        DispatchQueue.once(token: "settings.viewWillAppear") {
+        DispatchQueue.once(token: DispatchQueue.SettingViewDidAppear) {
             if hierarchy == .Root {
                 let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
                 let build = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
