@@ -9,7 +9,8 @@
 import UIKit
 import CoreData
 
-class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, DatePickerDelegate {
+
     
     var shift: Shift!
     
@@ -89,8 +90,11 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         })]
         if fetchedResultsController.object(at: indexPath).punchType != .StartShift || fetchedResultsController.fetchedObjects!.count == 1 {
             actions.insert(UITableViewRowAction(style: .destructive, title: "Remove", handler: { [weak self] (action, indexPath) in
-                self!.container.viewContext.delete(self!.fetchedResultsController.object(at: indexPath))
+                let punch = self!.fetchedResultsController.object(at: indexPath)
+                self!.container.viewContext.delete(punch)
+                self!.updateNotifications(forDeletedPunch: punch)
                 self!.appDelegate.saveContext()
+                self!.updateInfo()
             }), at: 0)
         }
         
@@ -105,9 +109,9 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         let time = String(punch.timeStamp!, dateStyle: .none, timeStyle: .medium)
         if let duration = punch.duration {
             let stringTimeVariance = String(duration)
-            let cellDetailText = NSMutableAttributedString(string: "\(time) was \(stringTimeVariance) long")
+            let cellDetailText = NSMutableAttributedString(string: "\(time) was \(stringTimeVariance)")
             if duration >= TimeInterval(CTDateComponentHour*4+CTDateComponentMinute*30) { //4hours and 30minutes
-                cellDetailText.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: time.characters.count+5, length: stringTimeVariance.characters.count+5))
+                cellDetailText.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: time.characters.count+5, length: stringTimeVariance.characters.count))
             }
             cell.detailTextLabel!.attributedText = cellDetailText
         } else {
@@ -173,7 +177,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         if let punch = lastPunch {
             if punch.punchType != .EndShift {
                 let sum = Date().timeIntervalSince(punch.timeStamp! as Date)
-                labelLastPunch.text = "Last Punch: \(String(describing: punch.punchType)) was \(String(sum)) ago"
+                labelLastPunch.text = "Last Punch: \(String(describing: punch.punchType)), \(String(sum)) ago"
             } else {
                 labelLastPunch.text = "Last Punch: End Shift"
             }
@@ -186,7 +190,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                         labelFifthHour.textColor = UIColor.black
                     }
                     labelFifthHour.text = "\(String(intervalTillFithHour)) left"
-                    labelCaption.text = "until you hit a 5th hour"
+                    labelCaption.text = "until you hit a 5th hour at \(String(shift.fithHour!, dateStyle: .none, timeStyle: .long))"
                 } else {
                     labelFifthHour.text = "You've worked over 5 hours"
                     labelCaption.text = nil
@@ -198,9 +202,6 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             labelSum.text = "Sum: \(String(shift.continuousOnTheClockDuration!))"
             
             suggestedPunch = setSuggestedPunch()
-//            if punch.punchType == .EndShift {
-//                timer.invalidate()
-//            }
         } else {
             labelFifthHour.text = "Add a Punch"
             labelCaption.text = nil
@@ -211,9 +212,46 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    ///nofications for the fifth hour
+    private func updateNotifications(forAddedPunch insertPunch: TimePunch? = nil, forDeletedPunch deletePunch: TimePunch? = nil) {
+        if let punch = insertPunch {
+            if punch.punchType == .StartShift || punch.punchType == .EndLunch {
+                AppDelegate.userNotificationCenter.getNotificationSettings { (setting) in
+                    if setting.alertSetting == .enabled {
+                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: punch)
+                    }
+                }
+            } else if punch.punchType == .StartLunch || punch.punchType == .EndShift {
+                AppDelegate.userNotificationCenter.removePendingFifthHourNotificationRequests()
+            }
+        } else if let punch = deletePunch {
+            if punch.punchType == .StartLunch || punch.punchType == .EndShift {
+                AppDelegate.userNotificationCenter.getNotificationSettings { [weak shift] (setting) in
+                    if setting.alertSetting == .enabled {
+                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: shift!.onTheClockPunch!)
+                    }
+                }
+            } else if punch.punchType == .StartShift || punch.punchType == .EndLunch {
+                AppDelegate.userNotificationCenter.removePendingFifthHourNotificationRequests()
+            }
+        } else {
+            preconditionFailure("cannont have both punches set to nil to update the notification center")
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "show date":
+                let dateVC = (segue.destination as! UINavigationController).visibleViewController! as! DatePickerViewController
+                let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+                dateVC.date = fetchedResultsController.object(at: indexPath).timeStamp! as Date
+                dateVC.isTimeSet = true
+                dateVC.delegate = self
+            default:
+                break
+            }
+        }
     }
     
     // MARK: Text View Delegate
@@ -233,25 +271,23 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         }
     }
     
-    // MARK: Table View Delegate
+    // MARK: Date Picker Delegate
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
-        case .delete:
-            container.viewContext.delete(fetchedResultsController.object(at: indexPath))
+    func datePicker(_ picker: DatePickerViewController, didFinishWithDate date: Date?, withTimeInterval interval: TimeInterval?) {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let punch = fetchedResultsController.object(at: indexPath)
+            punch.timeStamp = date! as NSDate
             appDelegate.saveContext()
-            updateInfo()
-        default:
-            break
         }
     }
-    
+        
     // MARK: - IBACTIONS
     
     private func insert(punch: TimePunch.PunchType) {
         let newPunch = TimePunch(punch: punch, inContext: container.viewContext, forShift: shift)
         shift.addToPunches(newPunch)
         appDelegate.saveContext()
+        updateNotifications(forAddedPunch: newPunch)
         updateInfo()
     }
     
@@ -327,12 +363,20 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         })
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         timer.invalidate()
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        AppDelegate.userNotificationCenter.getPendingNotificationRequests(completionHandler: { (notes) in
+            for note in notes {
+                print(note)
+            }
+        })
     }
 }
 

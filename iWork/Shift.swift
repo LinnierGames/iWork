@@ -52,11 +52,11 @@ extension Shift {
         }
     }
     
-    public var fithHour: Date? {
+    public var onTheClockPunch: TimePunch? {
         if let punches = self.punches?.array as? [TimePunch] {
             for punch in punches.reversed() {
                 if punch.punchType == .StartShift || punch.punchType == .EndLunch {
-                    return (punch.timeStamp as Date?)?.addingTimeInterval( 5*CTDateComponentHour)
+                    return punch
                 }
             }
             
@@ -64,6 +64,10 @@ extension Shift {
         } else {
             return nil
         }
+    }
+    
+    public var fithHour: Date? {
+        return (self.onTheClockPunch?.timeStamp as Date?)!.addingTimeInterval( 5*CTDateComponentHour)
     }
     
     public var isCompletedShift: Bool? {
