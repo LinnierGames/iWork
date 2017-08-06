@@ -14,7 +14,7 @@
         <scene sceneID="3nd-t7-JNx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l5d-Jl-AL9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Task Manager" id="3qV-cQ-8U9"/>
+                    <tabBarItem key="tabBarItem" title="Task Manager" image="misc_icon" id="3qV-cQ-8U9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vPG-fz-KXU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -248,11 +248,11 @@
                                             <outletCollection property="gestureRecognizers" destination="uzq-Pd-ZlS" appends="YES" id="bGQ-4p-Lio"/>
                                         </connections>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Jj-vF-xHf">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Jj-vF-xHf">
                                         <rect key="frame" x="0.0" y="271.5" width="375" height="279.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="cell" textLabel="eNx-R6-8jC" detailTextLabel="kv5-mB-E29" style="IBUITableViewCellStyleValue2" id="Zx5-W2-hPd">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="cell" editingAccessoryType="disclosureIndicator" textLabel="eNx-R6-8jC" detailTextLabel="kv5-mB-E29" style="IBUITableViewCellStyleValue2" id="Zx5-W2-hPd">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zx5-W2-hPd" id="hnJ-Tv-yob">
@@ -275,6 +275,9 @@
                                                         </label>
                                                     </subviews>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <segue destination="2iM-K2-RAq" kind="showDetail" identifier="show date" id="D8H-CI-gKQ"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
@@ -337,6 +340,16 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3669.5999999999999" y="886.50674662668678"/>
+        </scene>
+        <!--dateVC-->
+        <scene sceneID="zld-8o-KGj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TaskManager" referencedIdentifier="dateVC" id="PK1-g9-f4l" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="l1W-BT-hUc"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zcx-yE-uPu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5300.8000000000002" y="885.1574212893554"/>
         </scene>
         <!--Settings-->
         <scene sceneID="lib-69-04t">
@@ -415,7 +428,7 @@
         <scene sceneID="IcW-8O-x3P">
             <objects>
                 <navigationController id="fZX-h6-Hyg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="uvb-2w-7sf"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="misc_icon" id="uvb-2w-7sf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sJB-AQ-Aoa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -432,7 +445,7 @@
         <scene sceneID="DBj-og-3aZ">
             <objects>
                 <navigationController id="Izn-sE-TRf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Utilities" id="lkA-H9-2Kx"/>
+                    <tabBarItem key="tabBarItem" title="Utilities" image="misc_icon" id="lkA-H9-2Kx"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hbu-qy-PSH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -475,5 +488,26 @@
             </objects>
             <point key="canvasLocation" x="2081" y="191"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rks-US-PRm">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2iM-K2-RAq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="b4O-ff-O6w">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PK1-g9-f4l" kind="relationship" relationship="rootViewController" id="cWx-j6-7tF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ion-gp-zc4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4585" y="887"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="misc_icon" width="25" height="25"/>
+    </resources>
 </document>
