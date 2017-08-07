@@ -22,7 +22,7 @@ extension UIViewController {
     }
     
     var container: NSPersistentContainer {
-        return appDelegate.persistentContainer
+        return AppDelegate.persistentContainer
     }
     
 }

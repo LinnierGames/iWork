@@ -10,15 +10,19 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+    
+    class var current: AppDelegate {
+        return UIApplication.shared.delegate! as! AppDelegate
+    }
     
     var currentEmployer: Employer {
         get {
             if let employer = UserDefaults.standard.string(forKey: "employer") { //Fetches the default employer
-                if let objectId = self.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: employer)!) {
-                    if let fetchedObject = self.persistentContainer.viewContext.object(with: objectId) as? Employer {
+                if let objectId = AppDelegate.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: employer)!) {
+                    if let fetchedObject = AppDelegate.persistentContainer.viewContext.object(with: objectId) as? Employer {
                         return fetchedObject
                     } else { //Not found, then remove the saved Id and create a new default
                         UserDefaults.standard.setValue(nil, forKey: "employer")
@@ -31,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return self.currentEmployer
                 }
             } else { //Assume there is no employer saved in context and create a new one
-                let defaultEmployer = Employer(inContext: self.persistentContainer.viewContext)
+                let defaultEmployer = Employer(inContext: AppDelegate.persistentContainer.viewContext)
                 self.saveContext()
                 self.currentEmployer = defaultEmployer
                 
@@ -53,33 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             currentEmployer.selectedRole = newValue
             saveContext()
         }
-//        get {
-//            if let role = UserDefaults.standard.string(forKey: "role") { //Fetches the default role
-//                if let objectId = self.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: role)!) {
-//                    if let fetchedObject = self.persistentContainer.viewContext.object(with: objectId) as? Role {
-//                        return fetchedObject
-//                    } else { //Not found, then remove the saved Id and create a new default
-//                        UserDefaults.standard.setValue(nil, forKey: "role")
-//                        
-//                        return self.currentRole
-//                    }
-//                } else { //Not found, then remove the saved Id and create a new default
-//                    UserDefaults.standard.setValue(nil, forKey: "role")
-//                    
-//                    return self.currentRole
-//                }
-//            } else { //Assume there is no role saved in context and create a new one
-//                let defaultRole = Role(inContext: self.persistentContainer.viewContext, forEmployer: currentEmployer)
-//                self.saveContext()
-//                self.currentRole = defaultRole
-//                
-//                return defaultRole
-//            }
-//        }
-//        set {
-//            UserDefaults.standard.setValue(newValue.objectID.uriRepresentation().absoluteString, forKey: "role")
-//            UserDefaults.standard.synchronize()
-//        }
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -90,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
+        AppDelegate.userNotificationCenter.configNotificationCategories(delegate: self)
         
         return true
     }
@@ -118,22 +96,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void) {
+        if response.notification.request.content.categoryIdentifier == "UTILS_PUNCH_CLOCK" {
+            if response.actionIdentifier == "ACT_PUNCH_NOW" {
+                
+            } else if response.actionIdentifier == "ACT_LUANCH" {
+                
+            } else if response.actionIdentifier == "ACT_PUNCH_MUTE" {
+                UNUserNotificationCenter.current().removePendingFifthHourNotificationRequests()
+            }
+        }
+        completionHandler()
+    }
+}
 
-    // MARK: - Core Data stack
+import CoreData
 
-    lazy var persistentContainer: NSPersistentContainer = {
+private typealias CoreData = AppDelegate
+extension CoreData {
+    
+    static let persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
-        */
+         */
         let container = NSPersistentContainer(name: "iWork")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
+                
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -147,11 +142,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-
+    
     // MARK: - Core Data Saving support
-
+    
     func saveContext () {
-        let context = persistentContainer.viewContext
+        let context = AppDelegate.persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
@@ -163,6 +158,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    }
+}
 
+import UserNotifications
+
+private typealias UserPermissions = AppDelegate
+extension UserPermissions {
+    public static let userNotificationCenter: UNUserNotificationCenter = UNUserNotificationCenter.current()
+    
+    private func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(UNNotificationPresentationOptions.sound)
+    }
+}
+
+extension UNUserNotificationCenter {
+    
+    public func configNotificationCategories(delegate: UNUserNotificationCenterDelegate?) {
+        let generalCategory = UNNotificationCategory(identifier: "GENERAL",
+                                                     actions: [],
+                                                     intentIdentifiers: [],
+                                                     options: .customDismissAction)
+        
+        let launchAction = UNNotificationAction(identifier: "ACT_LUANCH",
+                                                title: "Edit Punches",
+                                                options: .foreground)
+        let punchMute = UNNotificationAction(identifier: "ACT_PUNCH_MUTE",
+                                                title: "Mute")
+        let punchClock = UNNotificationCategory(identifier: "UTILS_PUNCH_CLOCK",
+                                                     actions: [launchAction, punchMute],
+                                                     intentIdentifiers: [],
+                                                     options: .init(rawValue: 0))
+        
+        UserPermissions.userNotificationCenter.setNotificationCategories([generalCategory,punchClock])
+        UserPermissions.userNotificationCenter.delegate = delegate
+    }
 }
 

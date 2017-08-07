@@ -55,7 +55,7 @@ class DatePickerViewController: UIViewController {
         }
     }
     
-    var timeInterval: TimeInterval? {
+    private var timeInterval: TimeInterval? {
         get {
             if date != nil {
                 if isTimeSet {
@@ -287,14 +287,13 @@ class DatePickerViewController: UIViewController {
         }
     }
     
-    @IBAction func pressCancel(_ sender: Any) {
+    @IBAction private func pressCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func pressDone(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         self.delegate?.datePicker(self, didFinishWithDate: self.date, withTimeInterval: self.timeInterval)
-        
     }
     
     // MARK: - LIFE CYCLE

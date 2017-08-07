@@ -21,9 +21,9 @@ extension Shift {
         return self.punches?.array.last as! TimePunch?
     }
     
-    /// This includes the duration of the last punch, excluding start lunch, till the current time
+    /// Sum of the shift excluding the duration from the last punch till the current time
     public var onTheClockDuration: TimeInterval? {
-        if let punches = self.punches?.array as? [TimePunch] {
+        if let punches = self.punches?.array as! [TimePunch]? {
             var duration: TimeInterval = 0
             var perviousPunch: TimePunch? = nil
             for punch in punches {
@@ -39,10 +39,19 @@ extension Shift {
         }
     }
     
+    public var onTheClock: Bool? {
+        if let punch = lastPunch {
+            return punch.punchType != .StartLunch && punch.punchType != .EndShift
+        } else {
+            return nil
+        }
+    }
+    
+    /// This includes the duration of the last punch, excluding start lunch, till the current time
     public var continuousOnTheClockDuration: TimeInterval? {
         if let onTheClockDuration = self.onTheClockDuration {
             let lastPunch = self.lastPunch!
-            if lastPunch.punchType != .StartLunch, lastPunch.punchType != .EndShift {
+            if self.onTheClock! {
                 return onTheClockDuration + Date().timeIntervalSince(lastPunch.timeStamp! as Date)
             } else {
                 return onTheClockDuration
@@ -52,11 +61,13 @@ extension Shift {
         }
     }
     
-    public var fithHour: Date? {
+    
+    /// Searches for the last punch that put the shift on the clock such as a start punch or an end lunch
+    public var onTheClockPunch: TimePunch? {
         if let punches = self.punches?.array as? [TimePunch] {
             for punch in punches.reversed() {
                 if punch.punchType == .StartShift || punch.punchType == .EndLunch {
-                    return (punch.timeStamp as Date?)?.addingTimeInterval( 5*CTDateComponentHour)
+                    return punch
                 }
             }
             
@@ -66,11 +77,42 @@ extension Shift {
         }
     }
     
-    public var isCompletedShift: Bool? {
-        if let punch = self.lastPunch {
-            return punch.punchType == .EndShift ? true : false
+    public var fithHour: Date? {
+        if let punch = self.onTheClockPunch {
+            return (punch.timeStamp as Date?)!.addingTimeInterval( 5*CTDateComponentHour)
         } else {
             return nil
+        }
+    }
+    
+    public var isCompletedShift: Bool? {
+        if let punch = self.lastPunch {
+            return punch.punchType == .EndShift
+        } else {
+            return nil
+        }
+    }
+    
+    /// Adds notifications, if the shift is on the clock, from the punch that sets the shift on the clock.
+    /// Used when switching employers or updating a time stamp
+    public func setNotificationsForFifthHour() {
+        if self.onTheClock != nil, self.onTheClock == true {
+            AppDelegate.userNotificationCenter.addLocalNotification(forPunch: self.onTheClockPunch!, forShift: self)
+        }
+    }
+}
+
+import UserNotifications
+extension Shift {
+    
+    /// Removes the collection of notifications only if the collection protatins to the shift
+    /// Using userInfo
+    public func removeNotificationForFifthHour() {
+        let objectID = self.objectID.uriRepresentation().absoluteString
+        AppDelegate.userNotificationCenter.getPendingNotificationRequests { (pendingNotifications) in
+            if pendingNotifications.contains(where: { $0.content.userInfo["shift"] as! String == objectID }) {
+                AppDelegate.userNotificationCenter.removePendingFifthHourNotificationRequests()
+            }
         }
     }
 }

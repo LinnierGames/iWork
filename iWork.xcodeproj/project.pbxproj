@@ -25,6 +25,7 @@
 		E94F4F101F08B177001DB22F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
 		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
 		E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */; };
+		E98259121F245392003CB2DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98259111F245392003CB2DD /* Localizable.strings */; };
 		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
 		E99349991F0C160500A27473 /* TaskNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349981F0C160500A27473 /* TaskNavigationController.swift */; };
@@ -85,6 +86,7 @@
 		E94F4F0F1F08B177001DB22F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E94F4F111F08B244001DB22F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		E98259111F245392003CB2DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		E99349981F0C160500A27473 /* TaskNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNavigationController.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */,
 				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
 				E94F4EDB1F088E8E001DB22F /* Info.plist */,
+				E98259111F245392003CB2DD /* Localizable.strings */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
 				E9D43E931F15C3990067FF44 /* TaskManager */,
 				E9D43E961F15C3B50067FF44 /* Punch Clock */,
@@ -272,6 +275,7 @@
 				E94F4EC51F088E8E001DB22F /* Sources */,
 				E94F4EC61F088E8E001DB22F /* Frameworks */,
 				E94F4EC71F088E8E001DB22F /* Resources */,
+				E98259161F246C30003CB2DD /* Warning Tags */,
 			);
 			buildRules = (
 			);
@@ -373,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94F4EDA1F088E8E001DB22F /* LaunchScreen.storyboard in Resources */,
+				E98259121F245392003CB2DD /* Localizable.strings in Resources */,
 				E9D43E8D1F15BA330067FF44 /* TaskManager.storyboard in Resources */,
 				E94F4ED71F088E8E001DB22F /* Assets.xcassets in Resources */,
 				E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */,
@@ -394,6 +399,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E98259161F246C30003CB2DD /* Warning Tags */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Warning Tags";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\nTAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E94F4EC51F088E8E001DB22F /* Sources */ = {
@@ -494,6 +516,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -545,6 +568,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -592,7 +616,7 @@
 				DEVELOPMENT_TEAM = 8U3L6K9JA6;
 				INFOPLIST_FILE = iWork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.linniergames.iWork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linniergames.iWorks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -605,7 +629,7 @@
 				DEVELOPMENT_TEAM = 8U3L6K9JA6;
 				INFOPLIST_FILE = iWork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.linniergames.iWork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linniergames.iWorks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

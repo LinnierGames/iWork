@@ -215,20 +215,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let rowItem = fetchedResultsController.object(at: indexPath) as! Directory
-        let alert = UIAlertController(title: "Update Title", message: "enter a new title", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.setStyleToParagraph(withInitalText: rowItem.info!.title)
-        }
-        alert.addActions(actions:
-            UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
-                rowItem.info!.title = alert.textFields!.first!.text
-                self!.appDelegate.saveContext()
-            })
-        )
-        
-        self.present(alert, animated: true, completion: nil)
-        
+        // TODO: CRUD Folders and Projects
     }
     
     // Override to support editing the table view.

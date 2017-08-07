@@ -511,6 +511,10 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             let row = fetchedResultsController.object(at: indexPath)
             if hierarchy == .Employers {
                 appDelegate.currentEmployer = row as! Employer
+                AppDelegate.userNotificationCenter.removePendingFifthHourNotificationRequests()
+                if let recentShift = appDelegate.currentEmployer.shifts?.array.last as! Shift? {
+                    recentShift.setNotificationsForFifthHour()
+                }
             } else {
                 appDelegate.currentRole = row as! Role
             }
