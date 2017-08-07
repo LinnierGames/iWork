@@ -126,6 +126,69 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         }
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    func exportDatabase() {
+        let exportString = createExportString()
+        saveAndExport(exportString: exportString)
+    }
+    
+    func saveAndExport(exportString: String) {
+        let exportFilePath = NSTemporaryDirectory() + "itemlist.csv"
+        let exportFileURL = NSURL(fileURLWithPath: exportFilePath)
+        FileManager.default.createFile(atPath: exportFilePath, contents: NSData() as Data, attributes: nil)
+        var fileHandle: FileHandle? = nil
+        do {
+            fileHandle = try FileHandle(forWritingTo: exportFileURL as URL)
+        } catch {
+            print("Error with fileHandle")
+        }
+        
+        if fileHandle != nil {
+            fileHandle!.seekToEndOfFile()
+            let csvData = exportString.data(using: String.Encoding.utf8, allowLossyConversion: false)
+            fileHandle!.write(csvData!)
+            
+            fileHandle!.closeFile()
+            
+            let firstActivityItem = NSURL(fileURLWithPath: exportFilePath)
+            let activityViewController : UIActivityViewController = UIActivityViewController(
+                activityItems: [firstActivityItem], applicationActivities: nil)
+            
+            activityViewController.excludedActivityTypes = [
+                UIActivityType.assignToContact,
+                UIActivityType.saveToCameraRoll,
+                UIActivityType.postToFlickr,
+                UIActivityType.postToVimeo,
+                UIActivityType.postToTencentWeibo
+            ]
+            
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func createExportString() -> String {
+        var export: String = ""
+        for shift in appDelegate.currentEmployer.shifts?.allObjects as! [Shift] {
+            let stringDate = String(shift.date!).replacingOccurrences(of: ",", with: "")
+            let stringNotes = shift.notes?.replacingOccurrences(of: "\n", with: " ").replacingOccurrences(of: ",", with: ";") ?? "No Notes"
+            export += "\(stringDate),\(stringNotes) \n"
+            for punch in shift.punches?.array as! [TimePunch] {
+                let stringPunchType = String(punch.punchType)
+                let stringPunchTime = String(punch.timeStamp!, dateStyle: .none, timeStyle: .long)
+                export += ", \(stringPunchType),\(stringPunchTime) \n"
+            }
+        }
+        print("This is what the app will export: \(export)")
+        return export
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        exportDatabase()
+    }
+    
     // MARK: - IBACTIONS
     
     @IBAction func pressAdd(_ sender: Any) {
