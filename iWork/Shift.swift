@@ -89,7 +89,8 @@ extension Shift {
         }
     }
     
-    /// Adds notifications if the shift is on the clock. Used when switching employers or updating a time stamp
+    /// Adds notifications, if the shift is on the clock, from the punch that sets the shift on the clock.
+    /// Used when switching employers or updating a time stamp
     public func setNotificationsForFifthHour() {
         if self.onTheClock != nil, self.onTheClock == true {
             AppDelegate.userNotificationCenter.addLocalNotification(forPunch: self.onTheClockPunch!)

@@ -79,6 +79,7 @@ extension UserNotifications {
     
     /// used to mark the fifth hour fire date in user notifications
     func addLocalNotification(forPunch punch: TimePunch) {
+        //TODO: only add if each notification is still current, not in the past
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour_title", arguments: nil)
         content.subtitle = AppDelegate.current.currentEmployer.name!
@@ -143,6 +144,7 @@ extension UserNotifications {
         }
     }
     
+    /// Clears all consecutive notifcations, if any
     func removePendingFifthHourNotificationRequests() {
         let identifiers = ["note_fifth_hour-30","note_fifth_hour-15","note_fifth_hour-10","note_fifth_hour-5","note_fifth_hour-1"]
         self.removePendingNotificationRequests(withIdentifiers: identifiers)
