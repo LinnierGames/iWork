@@ -92,6 +92,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void) {
+        if response.notification.request.content.categoryIdentifier == "UTILS_PUNCH_CLOCK" {
+            if response.actionIdentifier == "ACT_PUNCH_NOW" {
+                
+            } else if response.actionIdentifier == "ACT_LUANCH" {
+                
+            } else if response.actionIdentifier == "ACT_PUNCH_MUTE" {
+                UNUserNotificationCenter.current().removePendingFifthHourNotificationRequests()
+            }
+        }
+        completionHandler()
+    }
 }
 
 import CoreData
@@ -159,16 +172,6 @@ extension UserPermissions {
     private func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(UNNotificationPresentationOptions.sound)
     }
-    
-    private func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.content.categoryIdentifier == "UTILS_PUNCH_CLOCK" {
-            // Handle the actions for the expired timer.
-            if response.actionIdentifier == "ACT_PUNCH_NOW" {
-            }
-            else if response.actionIdentifier == "ACT_LUANCH" {
-            }
-        }
-    }
 }
 
 extension UNUserNotificationCenter {
@@ -179,14 +182,13 @@ extension UNUserNotificationCenter {
                                                      intentIdentifiers: [],
                                                      options: .customDismissAction)
         
-        let punchAction = UNNotificationAction(identifier: "ACT_PUNCH_NOW",
-                                                title: "Punch Now",
-                                                options: .destructive)
-        let luanchAction = UNNotificationAction(identifier: "ACT_LUANCH",
-                                              title: "Edit Punches",
-                                              options: .foreground)
+        let launchAction = UNNotificationAction(identifier: "ACT_LUANCH",
+                                                title: "Edit Punches",
+                                                options: .foreground)
+        let punchMute = UNNotificationAction(identifier: "ACT_PUNCH_MUTE",
+                                                title: "Mute")
         let punchClock = UNNotificationCategory(identifier: "UTILS_PUNCH_CLOCK",
-                                                     actions: [punchAction, luanchAction],
+                                                     actions: [launchAction, punchMute],
                                                      intentIdentifiers: [],
                                                      options: .init(rawValue: 0))
         
