@@ -119,7 +119,9 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            container.viewContext.delete(fetchedResultsController.object(at: indexPath))
+            let deletingShift: Shift? = fetchedResultsController.object(at: indexPath)
+            deletingShift!.removeNotificationForFifthHour()
+            container.viewContext.delete(deletingShift!)
             appDelegate.saveContext()
         default:
             break

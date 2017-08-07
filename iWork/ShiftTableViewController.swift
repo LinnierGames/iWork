@@ -212,13 +212,13 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         }
     }
     
-    ///nofications for the fifth hour
+    /// nofications for the fifth hour
     private func updateNotifications(forAddedPunch insertPunch: TimePunch? = nil, forDeletedPunch deletePunch: TimePunch? = nil) {
         if let punch = insertPunch {
             if punch.punchType == .StartShift || punch.punchType == .EndLunch {
-                AppDelegate.userNotificationCenter.getNotificationSettings { (setting) in
+                AppDelegate.userNotificationCenter.getNotificationSettings { [weak shift] (setting) in
                     if setting.alertSetting == .enabled {
-                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: punch)
+                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: punch, forShift: shift!)
                     }
                 }
             } else if punch.punchType == .StartLunch || punch.punchType == .EndShift {
@@ -228,7 +228,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             if punch.punchType == .StartLunch || punch.punchType == .EndShift {
                 AppDelegate.userNotificationCenter.getNotificationSettings { [weak shift] (setting) in
                     if setting.alertSetting == .enabled {
-                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: shift!.onTheClockPunch!)
+                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: shift!.onTheClockPunch!, forShift: shift!)
                     }
                 }
             } else if punch.punchType == .StartShift || punch.punchType == .EndLunch {
@@ -278,6 +278,9 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             let punch = fetchedResultsController.object(at: indexPath)
             punch.timeStamp = date! as NSDate
             appDelegate.saveContext()
+            if punch.punchType == .StartShift || punch.punchType == .EndLunch { //Updates notifications based on the new date set
+                AppDelegate.userNotificationCenter.addLocalNotification(forPunch: punch, forShift: shift)
+            }
         }
     }
         

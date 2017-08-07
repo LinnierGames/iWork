@@ -40,7 +40,11 @@ extension Shift {
     }
     
     public var onTheClock: Bool? {
-        return (lastPunch?.punchType != .StartLunch && lastPunch?.punchType != .EndShift ? true : false) ?? nil
+        if let punch = lastPunch {
+            return punch.punchType != .StartLunch && punch.punchType != .EndShift
+        } else {
+            return nil
+        }
     }
     
     /// This includes the duration of the last punch, excluding start lunch, till the current time
@@ -93,7 +97,22 @@ extension Shift {
     /// Used when switching employers or updating a time stamp
     public func setNotificationsForFifthHour() {
         if self.onTheClock != nil, self.onTheClock == true {
-            AppDelegate.userNotificationCenter.addLocalNotification(forPunch: self.onTheClockPunch!)
+            AppDelegate.userNotificationCenter.addLocalNotification(forPunch: self.onTheClockPunch!, forShift: self)
+        }
+    }
+}
+
+import UserNotifications
+extension Shift {
+    
+    /// Removes the collection of notifications only if the collection protatins to the shift
+    /// Using userInfo
+    public func removeNotificationForFifthHour() {
+        let objectID = self.objectID.uriRepresentation().absoluteString
+        AppDelegate.userNotificationCenter.getPendingNotificationRequests { (pendingNotifications) in
+            if pendingNotifications.contains(where: { $0.content.userInfo["shift"] as! String == objectID }) {
+                AppDelegate.userNotificationCenter.removePendingFifthHourNotificationRequests()
+            }
         }
     }
 }

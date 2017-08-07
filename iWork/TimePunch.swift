@@ -78,13 +78,14 @@ private typealias UserNotifications = UNUserNotificationCenter
 extension UserNotifications {
     
     /// used to mark the fifth hour fire date in user notifications
-    func addLocalNotification(forPunch punch: TimePunch) {
+    func addLocalNotification(forPunch punch: TimePunch, forShift shift: Shift) {
         //TODO: only add if each notification is still current, not in the past
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour_title", arguments: nil)
         content.subtitle = AppDelegate.current.currentEmployer.name!
         content.categoryIdentifier = "UTILS_PUNCH_CLOCK"
         content.sound = UNNotificationSound.default()
+        content.userInfo = ["shift": shift.objectID.uriRepresentation().absoluteString]
         
         let fifthHour = String(punch.timeStamp!.addingTimeInterval(CTDateComponentHour*5), dateStyle: .none, timeStyle: .long)
         
