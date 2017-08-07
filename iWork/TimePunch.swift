@@ -81,6 +81,7 @@ extension UserNotifications {
     func addLocalNotification(forPunch punch: TimePunch) {
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour_title", arguments: nil)
+        content.subtitle = AppDelegate.current.currentEmployer.name!
         content.categoryIdentifier = "UTILS_PUNCH_CLOCK"
         content.sound = UNNotificationSound.default()
         

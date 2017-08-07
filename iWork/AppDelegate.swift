@@ -14,6 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     
+    class var current: AppDelegate {
+        return UIApplication.shared.delegate! as! AppDelegate
+    }
+    
     var currentEmployer: Employer {
         get {
             if let employer = UserDefaults.standard.string(forKey: "employer") { //Fetches the default employer
