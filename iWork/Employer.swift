@@ -10,10 +10,11 @@ import Foundation
 import CoreData
 
 extension Employer {
-    convenience init(name: String = "Untitled Employer", inContext context: NSManagedObjectContext) {
+    convenience init(name: String = "Untitled Employer", startDate: NSDate = NSDate(), inContext context: NSManagedObjectContext) {
         self.init(context: context)
         
         self.name = name
+        self.startDate = startDate
         
         //Adds a new Role
         let newRole = Role(inContext: context, forEmployer: self)

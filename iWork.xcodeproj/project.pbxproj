@@ -27,7 +27,6 @@
 		E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */; };
 		E98259121F245392003CB2DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98259111F245392003CB2DD /* Localizable.strings */; };
 		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
-		E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349941F09C4A800A27473 /* RolesTableViewController.swift */; };
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
 		E99349991F0C160500A27473 /* TaskNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349981F0C160500A27473 /* TaskNavigationController.swift */; };
 		E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993499A1F0C171600A27473 /* TaskViewController.swift */; };
@@ -89,7 +88,6 @@
 		E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		E98259111F245392003CB2DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		E99349941F09C4A800A27473 /* RolesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RolesTableViewController.swift; sourceTree = "<group>"; };
 		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		E99349981F0C160500A27473 /* TaskNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNavigationController.swift; sourceTree = "<group>"; };
 		E993499A1F0C171600A27473 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
@@ -190,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */,
-				E99349941F09C4A800A27473 /* RolesTableViewController.swift */,
 				E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */,
 				E99349A91F0F46EF00A27473 /* InboxTableViewController.swift */,
 				E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */,
@@ -443,7 +440,6 @@
 				E9D43E951F15C3A90067FF44 /* Shift.swift in Sources */,
 				E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
-				E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */,
 				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
 				E9D43E8F1F15BDB20067FF44 /* UtilitiesTableViewController.swift in Sources */,
 				E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */,

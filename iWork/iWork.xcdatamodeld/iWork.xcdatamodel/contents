@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Dates" representedClassName="Dates" syncable="YES" codeGenerationType="class">
+        <attribute name="value" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="employer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employers" inverseName="holidayDates" inverseEntity="Employers" syncable="YES"/>
+    </entity>
     <entity name="Directories" representedClassName="Directory" syncable="YES" codeGenerationType="class">
         <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Directories" inverseName="parent" inverseEntity="Directories" syncable="YES"/>
         <relationship name="info" maxCount="1" deletionRule="Cascade" destinationEntity="DirectoryInfos" inverseName="directory" inverseEntity="DirectoryInfos" syncable="YES"/>
@@ -11,7 +15,14 @@
         <relationship name="directory" maxCount="1" deletionRule="Cascade" destinationEntity="Directories" inverseName="info" inverseEntity="Directories" syncable="YES"/>
     </entity>
     <entity name="Employers" representedClassName="Employer" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="manager" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="Untitled Employer" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneNumbers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="holidayDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dates" inverseName="employer" inverseEntity="Dates" syncable="YES"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Roles" inverseName="employer" inverseEntity="Roles" syncable="YES"/>
         <relationship name="selectedRole" maxCount="1" deletionRule="Nullify" destinationEntity="Roles" inverseName="isSelected" inverseEntity="Roles" syncable="YES"/>
         <relationship name="shifts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Shifts" inverseName="employer" inverseEntity="Shifts" syncable="YES"/>
@@ -21,6 +32,12 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tasks" inverseName="project" inverseEntity="Tasks" syncable="YES"/>
     </entity>
     <entity name="Roles" representedClassName="Role" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="overtime" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="regularRate" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="startDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="supervisor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeAndHalf" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" defaultValueString="Untitled Role" syncable="YES"/>
         <relationship name="directories" toMany="YES" deletionRule="Cascade" destinationEntity="Directories" inverseName="role" inverseEntity="Directories" syncable="YES"/>
         <relationship name="employer" maxCount="1" deletionRule="Nullify" destinationEntity="Employers" inverseName="roles" inverseEntity="Employers" syncable="YES"/>
@@ -52,14 +69,15 @@
         <relationship name="shift" maxCount="1" deletionRule="Nullify" destinationEntity="Shifts" inverseName="punches" inverseEntity="Shifts" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Dates" positionX="-27" positionY="117" width="128" height="75"/>
         <element name="Directories" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="DirectoryInfos" positionX="-54" positionY="-9" width="128" height="75"/>
-        <element name="Employers" positionX="-36" positionY="63" width="128" height="105"/>
+        <element name="Employers" positionX="-36" positionY="63" width="128" height="210"/>
         <element name="Folders" positionX="-36" positionY="9" width="128" height="45"/>
         <element name="Projects" positionX="0" positionY="90" width="128" height="60"/>
-        <element name="Roles" positionX="-18" positionY="81" width="128" height="103"/>
-        <element name="Tasks" positionX="-27" positionY="36" width="128" height="225"/>
+        <element name="Roles" positionX="-18" positionY="81" width="128" height="195"/>
         <element name="Shifts" positionX="-36" positionY="108" width="128" height="105"/>
+        <element name="Tasks" positionX="-27" positionY="36" width="128" height="225"/>
         <element name="TimePunches" positionX="-27" positionY="117" width="128" height="90"/>
     </elements>
 </model>
