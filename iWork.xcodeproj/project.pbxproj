@@ -24,6 +24,9 @@
 		E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0C1F08B130001DB22F /* Constants.swift */; };
 		E94F4F101F08B177001DB22F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
 		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
+		E982590C1F1F10DC003CB2DD /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F011F08A994001DB22F /* Categories.swift */; };
+		E982590D1F1F10FC003CB2DD /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E941F15C3A90067FF44 /* Shift.swift */; };
+		E982590E1F1F10FC003CB2DD /* TimePunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E971F15C42C0067FF44 /* TimePunch.swift */; };
 		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
 		E99349951F09C4A800A27473 /* RolesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349941F09C4A800A27473 /* RolesTableViewController.swift */; };
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
@@ -52,6 +55,7 @@
 		E9DB72F01F1C567900FF1016 /* WatchKit.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E9DB72D01F1C567800FF1016 /* WatchKit.app */; };
 		E9DB72FA1F1C5AA500FF1016 /* WKCustomTableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB72F91F1C5AA500FF1016 /* WKCustomTableRow.swift */; };
 		E9DB72FC1F1C675100FF1016 /* PunchClockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB72FB1F1C675100FF1016 /* PunchClockController.swift */; };
+		E9DB72FD1F1D9F7B00FF1016 /* iWork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -626,11 +630,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9DB72E81F1C567900FF1016 /* NotificationController.swift in Sources */,
+				E982590C1F1F10DC003CB2DD /* Categories.swift in Sources */,
 				E9DB72EA1F1C567900FF1016 /* ComplicationController.swift in Sources */,
 				E9DB72FA1F1C5AA500FF1016 /* WKCustomTableRow.swift in Sources */,
+				E982590D1F1F10FC003CB2DD /* Shift.swift in Sources */,
 				E9DB72E61F1C567900FF1016 /* ExtensionDelegate.swift in Sources */,
 				E9DB72E41F1C567900FF1016 /* InterfaceController.swift in Sources */,
+				E9DB72FD1F1D9F7B00FF1016 /* iWork.xcdatamodeld in Sources */,
 				E9DB72FC1F1C675100FF1016 /* PunchClockController.swift in Sources */,
+				E982590E1F1F10FC003CB2DD /* TimePunch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -990,6 +998,7 @@
 				E9DB72F41F1C567900FF1016 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E9DB72F71F1C567900FF1016 /* Build configuration list for PBXNativeTarget "WatchKit" */ = {
 			isa = XCConfigurationList;
@@ -998,6 +1007,7 @@
 				E9DB72F21F1C567900FF1016 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

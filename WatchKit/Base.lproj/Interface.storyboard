@@ -1,50 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--Utilities-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WatchKit" customModuleProvider="target">
+                <controller title="Utilities" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WatchKit" customModuleProvider="target">
                     <items>
-                        <table alignment="left" id="SOV-so-1lp">
-                            <items>
-                                <tableRow identifier="row" id="XqD-dB-AGc" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
-                                    <group key="rootItem" width="1" alignment="left" id="wDT-Dc-7LP">
-                                        <items>
-                                            <label width="1" alignment="left" verticalAlignment="center" text="Task Manager" id="6Bq-NH-11n"/>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="textLabel" destination="6Bq-NH-11n" id="jeq-uK-WP6"/>
-                                        <segue destination="Yjn-GV-HgL" kind="push" identifier="show task" id="7ym-VG-NUC"/>
-                                    </connections>
-                                </tableRow>
-                                <tableRow identifier="row" id="9J5-vX-ih2" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
-                                    <group key="rootItem" width="1" alignment="left" id="zRA-ra-afh">
-                                        <items>
-                                            <label width="1" alignment="left" verticalAlignment="center" text="Punch Clock" id="TRE-iR-LIZ"/>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="textLabel" destination="TRE-iR-LIZ" id="ykI-gL-9Mv"/>
-                                        <segue destination="1v7-qy-r3F" kind="push" identifier="show punch clock" id="91Y-ON-PSY"/>
-                                    </connections>
-                                </tableRow>
-                            </items>
-                        </table>
-                        <table alignment="left" id="3tg-L3-wtf"/>
+                        <button width="1" alignment="left" title="Task Manager" id="yla-9p-9rP">
+                            <connections>
+                                <segue destination="Yjn-GV-HgL" kind="modal" id="DUi-sH-TvT"/>
+                            </connections>
+                        </button>
+                        <button width="1" alignment="left" title="Punch Clock" id="AAV-5s-grx">
+                            <connections>
+                                <segue destination="1v7-qy-r3F" kind="modal" id="m8E-xG-ywl"/>
+                            </connections>
+                        </button>
                     </items>
-                    <connections>
-                        <outlet property="tableView" destination="SOV-so-1lp" id="Xrb-vI-sYm"/>
-                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
@@ -70,6 +50,10 @@
             <objects>
                 <controller id="1v7-qy-r3F" customClass="PunchClockController" customModule="WatchKit_Extension">
                     <items>
+                        <label width="1" alignment="left" text="Label" textAlignment="center" id="gbM-N6-yhi">
+                            <color key="textColor" red="0.0" green="1" blue="0.13037923579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
                         <label width="1" alignment="left" text="time till 5th hour" textAlignment="right" id="goE-cv-8Do">
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                         </label>
@@ -83,14 +67,30 @@
                         <label width="1" alignment="left" text="4h 59m 59s ago" textAlignment="right" id="IVi-SP-jRg">
                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                         </label>
-                        <separator alignment="left" alpha="0.45000000000000001" id="EI6-Ou-jan"/>
                         <label width="1" alignment="left" text="Sum" textAlignment="right" id="E8L-6B-ijI">
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                         </label>
                         <label width="1" alignment="left" text="7h 59m 59s" textAlignment="right" id="eh2-sX-nWx">
                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                         </label>
-                        <separator alignment="left" alpha="0.45000000000000001" id="lo1-t8-DoI"/>
+                    </items>
+                    <connections>
+                        <outlet property="labelDebug" destination="gbM-N6-yhi" id="XQs-bZ-QlK"/>
+                        <outlet property="labelLastPunch" destination="IVi-SP-jRg" id="9cf-Db-WnW"/>
+                        <outlet property="labelLastPunchTitle" destination="VDR-YQ-OdO" id="ocW-Xv-mLV"/>
+                        <outlet property="labelSum" destination="eh2-sX-nWx" id="3ST-RE-q9L"/>
+                        <outlet property="labelTimeLeft" destination="lPm-Ws-gF8" id="egz-wu-HN5"/>
+                        <segue destination="n5u-bS-HAo" kind="relationship" relationship="nextPage" id="GhD-L2-cmV"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="585" y="492"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="vll-m5-MJA">
+            <objects>
+                <controller id="n5u-bS-HAo">
+                    <items>
                         <table alignment="left" id="0Vc-qr-g9H">
                             <items>
                                 <tableRow identifier="row" id="Ypp-a3-CZp" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
@@ -114,16 +114,9 @@
                             </items>
                         </table>
                     </items>
-                    <connections>
-                        <outlet property="labelLastPunch" destination="IVi-SP-jRg" id="9cf-Db-WnW"/>
-                        <outlet property="labelLastPunchTitle" destination="VDR-YQ-OdO" id="ocW-Xv-mLV"/>
-                        <outlet property="labelSum" destination="eh2-sX-nWx" id="3ST-RE-q9L"/>
-                        <outlet property="labelTimeLeft" destination="lPm-Ws-gF8" id="egz-wu-HN5"/>
-                        <outlet property="tableView" destination="0Vc-qr-g9H" id="lnk-FR-wKB"/>
-                    </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="585" y="492"/>
+            <point key="canvasLocation" x="859" y="488"/>
         </scene>
         <!--Interface Controller-->
         <scene sceneID="mXW-8x-d5h">

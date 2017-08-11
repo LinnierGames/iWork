@@ -8,9 +8,10 @@
 
 import UIKit
 import CoreData
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
     var window: UIWindow?
     
@@ -90,6 +91,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
+        if WCSession.isSupported() {
+            watchKitSession.delegate = self
+            watchKitSession.activate()
+        }
         
         return true
     }
@@ -163,6 +168,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    // MARK: - WatchKit Delegate
+    
+    private var watchKitSession: WCSession {
+        return WCSession.default()
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        switch activationState {
+        case .activated:
+            print("activated")
+        case .notActivated:
+            print("notActivated")
+        case .inactive:
+            print("inactive")
+        }
+        
+    }
+    
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        if session.isReachable {
+            watchKitSession.sendMessage(["object1":"Welcome!"], replyHandler: nil, errorHandler: { (error) in
+                print(error.localizedDescription)
+            })
+//            let shift = Shift(inContext: persistentContainer.viewContext, forEmployer: currentEmployer)
+//            watchKitSession!.sendMessageData(NSKeyedArchiver.archivedData(withRootObject: shift), replyHandler: nil, errorHandler: nil)
+//            saveContext()
+        }
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        watchKitSession.activate()
+    }
 }
 

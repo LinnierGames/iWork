@@ -9,93 +9,95 @@
 import UIKit
 import CoreData
 
-extension UITabBarController {
-    var taskManager: TaskManagerTableViewController {
-        return (self.viewControllers![0] as! UINavigationController).viewControllers.first as! TaskManagerTableViewController
-    }
-}
-
-extension UIViewController {
-    
-    var appDelegate: AppDelegate {
-        return (UIApplication.shared.delegate as! AppDelegate)
+#if os(iOS)
+    extension UITabBarController {
+        var taskManager: TaskManagerTableViewController {
+            return (self.viewControllers![0] as! UINavigationController).viewControllers.first as! TaskManagerTableViewController
+        }
     }
     
-    var container: NSPersistentContainer {
-        return appDelegate.persistentContainer
-    }
-    
-}
-
-extension UITableView {
-    
-    func returnCell(forIdentifier identifier: String = "cell", atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        cell.textLabel?.text = nil
-        cell.textLabel?.textColor = UIColor.black
-        cell.detailTextLabel?.text = nil
-        cell.detailTextLabel?.textColor = UIColor.black
-        cell.accessoryType = .none
+    extension UIViewController {
         
-        return cell
-    }
-}
-
-extension UITableViewCell {
-    
-    func setState(enabled: Bool) {
-        if enabled {
-            self.textLabel!.alpha = 1
-            self.detailTextLabel!.alpha = 1
-            self.isUserInteractionEnabled = true
-        } else {
-            self.textLabel!.alpha = 0.3
-            self.detailTextLabel!.alpha = 0.3
-            self.isUserInteractionEnabled = false
+        var appDelegate: AppDelegate {
+            return (UIApplication.shared.delegate as! AppDelegate)
         }
-    }
-}
-
-public struct UIAlertActionInfo {
-    var title: String?
-    var style: UIAlertActionStyle
-    var handler: ((UIAlertAction) -> Swift.Void)?
-    
-    init(title: String?, style: UIAlertActionStyle = .default, handler: ((UIAlertAction) -> Swift.Void)?) {
-        self.title = title
-        self.style = style
-        self.handler = handler
-    }
-}
-
-extension UIAlertController {
-    open func addActions(cancelButton cancel: String? = "Cancel", alertStyle: UIAlertControllerStyle = .alert, actions: UIAlertActionInfo...) {
-        for action in actions {
-            self.addAction(UIAlertAction(title: action.title, style: action.style, handler: action.handler))
+        
+        var container: NSPersistentContainer {
+            return appDelegate.persistentContainer
         }
-        if cancel != nil {
-            self.addAction(UIAlertAction(title: cancel, style: .cancel, handler: nil))
-        }
-    }
-}
-
-extension UITextField {
-    open func setStyleToParagraph(withPlaceholderText placeholder: String? = "", withInitalText text: String? = "") {
-        self.autocorrectionType = .default
-        self.autocapitalizationType = .words
-        self.text = text
-        self.placeholder = placeholder
         
     }
     
-}
-
-extension UIAlertController {
-    var inputField: UITextField {
-        return self.textFields!.first!
+    extension UITableView {
+        
+        func returnCell(forIdentifier identifier: String = "cell", atIndexPath indexPath: IndexPath) -> UITableViewCell {
+            let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+            cell.textLabel?.text = nil
+            cell.textLabel?.textColor = UIColor.black
+            cell.detailTextLabel?.text = nil
+            cell.detailTextLabel?.textColor = UIColor.black
+            cell.accessoryType = .none
+            
+            return cell
+        }
     }
     
-}
+    extension UITableViewCell {
+        
+        func setState(enabled: Bool) {
+            if enabled {
+                self.textLabel!.alpha = 1
+                self.detailTextLabel!.alpha = 1
+                self.isUserInteractionEnabled = true
+            } else {
+                self.textLabel!.alpha = 0.3
+                self.detailTextLabel!.alpha = 0.3
+                self.isUserInteractionEnabled = false
+            }
+        }
+    }
+    
+    public struct UIAlertActionInfo {
+        var title: String?
+        var style: UIAlertActionStyle
+        var handler: ((UIAlertAction) -> Swift.Void)?
+        
+        init(title: String?, style: UIAlertActionStyle = .default, handler: ((UIAlertAction) -> Swift.Void)?) {
+            self.title = title
+            self.style = style
+            self.handler = handler
+        }
+    }
+    
+    extension UIAlertController {
+        open func addActions(cancelButton cancel: String? = "Cancel", alertStyle: UIAlertControllerStyle = .alert, actions: UIAlertActionInfo...) {
+            for action in actions {
+                self.addAction(UIAlertAction(title: action.title, style: action.style, handler: action.handler))
+            }
+            if cancel != nil {
+                self.addAction(UIAlertAction(title: cancel, style: .cancel, handler: nil))
+            }
+        }
+    }
+    
+    extension UITextField {
+        open func setStyleToParagraph(withPlaceholderText placeholder: String? = "", withInitalText text: String? = "") {
+            self.autocorrectionType = .default
+            self.autocapitalizationType = .words
+            self.text = text
+            self.placeholder = placeholder
+            
+        }
+        
+    }
+    
+    extension UIAlertController {
+        var inputField: UITextField {
+            return self.textFields!.first!
+        }
+        
+    }
+#endif
 
 extension Bool {
     public mutating func invert() {
