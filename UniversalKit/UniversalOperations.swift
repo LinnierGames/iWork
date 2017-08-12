@@ -10,6 +10,10 @@ import Foundation
 
 public struct UniversalOperations {
     
+    public static var `default` = UniversalOperations()
+    
+    public var value = 5
+    
     public static let sharedAppGroup: String = "group.linniergames.iWorks"
     
     public static let groupContainerPath: URL? = {

@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-import UniversalKitiOS
+import UniversalKit_iOS
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
