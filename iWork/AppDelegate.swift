@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UniversalKitiOS
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -99,6 +100,8 @@ import CoreData
 private typealias CoreData = AppDelegate
 extension CoreData {
     
+    // MARK: - Core Data Saving support
+    
     static let persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -106,7 +109,9 @@ extension CoreData {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
          */
+        let description = NSPersistentStoreDescription(url: UniversalOperations.groupContainerPath!.appendingPathComponent("Model.sqlite"))
         let container = NSPersistentContainer(name: "iWork")
+        container.persistentStoreDescriptions = [description]
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -125,8 +130,6 @@ extension CoreData {
         })
         return container
     }()
-    
-    // MARK: - Core Data Saving support
     
     func saveContext () {
         let context = AppDelegate.persistentContainer.viewContext
