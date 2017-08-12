@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E989D4851F3E80AF0065670E"
-               BuildableName = "UniversalKitiOS.framework"
-               BlueprintName = "UniversalKitiOS"
+               BlueprintIdentifier = "E989D52B1F3E88200065670E"
+               BuildableName = "UniversalKit_iOS.framework"
+               BlueprintName = "UniversalKit_iOS"
                ReferencedContainer = "container:UniversalKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E989D48E1F3E80AF0065670E"
-               BuildableName = "UniversalKitiOSTests.xctest"
-               BlueprintName = "UniversalKitiOSTests"
+               BlueprintIdentifier = "E989D5331F3E88200065670E"
+               BuildableName = "UniversalKit_iOSTests.xctest"
+               BlueprintName = "UniversalKit_iOSTests"
                ReferencedContainer = "container:UniversalKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E989D4851F3E80AF0065670E"
-            BuildableName = "UniversalKitiOS.framework"
-            BlueprintName = "UniversalKitiOS"
+            BlueprintIdentifier = "E989D52B1F3E88200065670E"
+            BuildableName = "UniversalKit_iOS.framework"
+            BlueprintName = "UniversalKit_iOS"
             ReferencedContainer = "container:UniversalKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E989D4851F3E80AF0065670E"
-            BuildableName = "UniversalKitiOS.framework"
-            BlueprintName = "UniversalKitiOS"
+            BlueprintIdentifier = "E989D52B1F3E88200065670E"
+            BuildableName = "UniversalKit_iOS.framework"
+            BlueprintName = "UniversalKit_iOS"
             ReferencedContainer = "container:UniversalKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E989D4851F3E80AF0065670E"
-            BuildableName = "UniversalKitiOS.framework"
-            BlueprintName = "UniversalKitiOS"
+            BlueprintIdentifier = "E989D52B1F3E88200065670E"
+            BuildableName = "UniversalKit_iOS.framework"
+            BlueprintName = "UniversalKit_iOS"
             ReferencedContainer = "container:UniversalKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

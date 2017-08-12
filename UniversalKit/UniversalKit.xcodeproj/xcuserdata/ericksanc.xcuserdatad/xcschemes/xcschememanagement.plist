@@ -4,15 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>UniversalKit-ios.xcscheme</key>
+		<key>UniversalKit_iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>6</integer>
 		</dict>
-		<key>UniversalKit-watchos.xcscheme</key>
+		<key>UniversalKit_watchOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -33,6 +33,21 @@
 			<true/>
 		</dict>
 		<key>E989D4AA1F3E80BC0065670E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E989D51E1F3E87990065670E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E989D52B1F3E88200065670E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E989D5331F3E88200065670E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

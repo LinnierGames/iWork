@@ -1,15 +1,15 @@
 //
-//  UniversalKit_iosTests.swift
-//  UniversalKit-iosTests
+//  UniversalKit_iOSTests.swift
+//  UniversalKit_iOSTests
 //
 //  Created by Erick Sanchez on 8/11/17.
 //
 //
 
 import XCTest
-@testable import UniversalKit_ios
+@testable import UniversalKit_iOS
 
-class UniversalKit_iosTests: XCTestCase {
+class UniversalKit_iOSTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

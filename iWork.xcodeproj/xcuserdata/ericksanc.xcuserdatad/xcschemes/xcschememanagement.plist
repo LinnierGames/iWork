@@ -4,6 +4,21 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>WatchUtitlity (Complication).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>WatchUtitlity (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>WatchUtitlity.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>iWork.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>E94F4EEA1F088E8E001DB22F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E989D4C41F3E82B70065670E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

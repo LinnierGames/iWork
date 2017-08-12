@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E989D4A21F3E80BB0065670E"
-               BuildableName = "UniversalKitwatchOS.framework"
-               BlueprintName = "UniversalKitwatchOS"
+               BlueprintIdentifier = "E989D51E1F3E87990065670E"
+               BuildableName = "UniversalKit_watchOS.framework"
+               BlueprintName = "UniversalKit_watchOS"
                ReferencedContainer = "container:UniversalKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E989D4AA1F3E80BC0065670E"
-               BuildableName = "UniversalKitwatchOSTests.xctest"
-               BlueprintName = "UniversalKitwatchOSTests"
-               ReferencedContainer = "container:UniversalKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E989D4A21F3E80BB0065670E"
-            BuildableName = "UniversalKitwatchOS.framework"
-            BlueprintName = "UniversalKitwatchOS"
-            ReferencedContainer = "container:UniversalKit.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E989D4A21F3E80BB0065670E"
-            BuildableName = "UniversalKitwatchOS.framework"
-            BlueprintName = "UniversalKitwatchOS"
+            BlueprintIdentifier = "E989D51E1F3E87990065670E"
+            BuildableName = "UniversalKit_watchOS.framework"
+            BlueprintName = "UniversalKit_watchOS"
             ReferencedContainer = "container:UniversalKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E989D4A21F3E80BB0065670E"
-            BuildableName = "UniversalKitwatchOS.framework"
-            BlueprintName = "UniversalKitwatchOS"
+            BlueprintIdentifier = "E989D51E1F3E87990065670E"
+            BuildableName = "UniversalKit_watchOS.framework"
+            BlueprintName = "UniversalKit_watchOS"
             ReferencedContainer = "container:UniversalKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
