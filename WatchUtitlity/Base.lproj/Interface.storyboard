@@ -1,14 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModuleProvider="target"/>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WatchUtitlity" customModuleProvider="target">
+                    <items>
+                        <button width="1" alignment="left" title="Punch Clock" id="jpj-Rk-zPh">
+                            <connections>
+                                <segue destination="glv-hu-Plc" kind="modal" identifier="show punch clock" id="JXf-ul-8I0"/>
+                            </connections>
+                        </button>
+                    </items>
+                </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
         </scene>
@@ -31,9 +43,82 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModuleProvider="target"/>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="WatchUtitlity" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+        <!--Punch Clock Controller-->
+        <scene sceneID="arQ-g6-A5v">
+            <objects>
+                <controller id="glv-hu-Plc" customClass="PunchClockController" customModule="WatchUtitlity_Extension">
+                    <items>
+                        <label width="1" alignment="left" text="Label" textAlignment="center" id="rz1-sH-7vh">
+                            <color key="textColor" red="0.0" green="1" blue="0.13037923579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label width="1" alignment="left" text="time till 5th hour" textAlignment="right" id="yan-AH-dPn">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label width="1" height="34" alignment="left" text="9:99:99" textAlignment="center" id="1yD-vF-eJK">
+                            <fontDescription key="font" type="system" pointSize="34"/>
+                        </label>
+                        <separator alignment="left" alpha="0.45000000000000001" id="s5n-Yw-ZVo"/>
+                        <label width="1" alignment="left" text="Last Punch" textAlignment="right" id="jGK-vp-iI7">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label width="1" alignment="left" text="4h 59m 59s ago" textAlignment="right" id="uml-2n-wfV">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <label width="1" alignment="left" text="Sum" textAlignment="right" id="rJW-br-Jqh">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label width="1" alignment="left" text="7h 59m 59s" textAlignment="right" id="aR6-ek-aNN">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                    </items>
+                    <connections>
+                        <outlet property="labelDebug" destination="rz1-sH-7vh" id="d5N-z8-iyT"/>
+                        <outlet property="labelLastPunch" destination="uml-2n-wfV" id="diM-1w-oOC"/>
+                        <outlet property="labelLastPunchTitle" destination="jGK-vp-iI7" id="6Cu-f1-bTl"/>
+                        <outlet property="labelSum" destination="aR6-ek-aNN" id="Kjy-sj-WAB"/>
+                        <outlet property="labelTimeLeft" destination="1yD-vF-eJK" id="Cxm-Pf-XTV"/>
+                        <segue destination="gZI-Tm-jyk" kind="relationship" relationship="nextPage" id="58W-we-Jug"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="468" y="353"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="ufL-RH-JIe">
+            <objects>
+                <controller id="gZI-Tm-jyk">
+                    <items>
+                        <table alignment="left" id="ch0-Wz-eIX">
+                            <items>
+                                <tableRow identifier="row" id="D5V-Vo-MXb" customClass="WKCustomTableRow" customModule="WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" id="uiG-hn-eIH">
+                                        <items>
+                                            <label width="0.20000000000000001" height="1" alignment="left" text="SS" id="X5X-ay-Hj3">
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                            <label width="0.45000000000000001" height="1" alignment="left" text="10:09p" minimumScaleFactor="0.5" id="WPg-UX-7I5"/>
+                                            <label width="0.34999999999999998" height="1" alignment="left" text="5h 0m" minimumScaleFactor="0.5" id="PX7-gB-jXM">
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="interval" destination="PX7-gB-jXM" id="Zsr-78-7ue"/>
+                                        <outlet property="punchPrefix" destination="X5X-ay-Hj3" id="RB3-cD-kpg"/>
+                                        <outlet property="timeStamp" destination="WPg-UX-7I5" id="Sum-x7-oTi"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="742" y="349"/>
         </scene>
     </scenes>
 </document>

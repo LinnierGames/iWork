@@ -14,11 +14,13 @@ public struct UniversalOperations {
     
     public var value = 5
     
-    public static let sharedAppGroup: String = "group.linniergames.iWorks"
+    public static var appGroupIdentifier: String {
+        return "group.linniergames.iworks"
+    }
     
-    public static let groupContainerPath: URL? = {
-        return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: UniversalOperations.sharedAppGroup)
-    }()
+    public static var groupDirectory: URL? {
+        return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: UniversalOperations.appGroupIdentifier)
+    }
     
     //    public static let groupContainerForCoreDataModel: URL? = {
     //        let proxyBundle = Bundle(identifier: "com.linniergames.iWorks")

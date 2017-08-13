@@ -109,9 +109,9 @@ extension CoreData {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
          */
-        let description = NSPersistentStoreDescription(url: UniversalOperations.groupContainerPath!.appendingPathComponent("Model.sqlite"))
+        // let description = NSPersistentStoreDescription(url: UniversalOperations.groupDirectory!.appendingPathComponent("Model.sqlite"))
         let container = NSPersistentContainer(name: "iWork")
-        container.persistentStoreDescriptions = [description]
+        // container.persistentStoreDescriptions = [description]
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

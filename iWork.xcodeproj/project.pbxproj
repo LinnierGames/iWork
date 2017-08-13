@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E91C1A4A1F3E9D0D002D62E0 /* PunchClockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1A491F3E9D0D002D62E0 /* PunchClockController.swift */; };
+		E91C1A4B1F3E9DF3002D62E0 /* iWork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */; };
 		E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */; };
 		E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED01F088E8E001DB22F /* Main.storyboard */; };
 		E94F4ED51F088E8E001DB22F /* iWork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */; };
@@ -26,6 +28,13 @@
 		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
 		E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */; };
 		E98259121F245392003CB2DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98259111F245392003CB2DD /* Localizable.strings */; };
+		E98545B51F3F672100F8052C /* Employer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A51F0DCD3F00A27473 /* Employer.swift */; };
+		E98545B61F3F672100F8052C /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
+		E98545B71F3F672100F8052C /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EFF1F08A4EC001DB22F /* Directory.swift */; };
+		E98545B81F3F672100F8052C /* DirectoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349A71F0DE3D500A27473 /* DirectoryInfo.swift */; };
+		E98545B91F3F672100F8052C /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
+		E98545BA1F3F672100F8052C /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
+		E98545BB1F3F672100F8052C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
 		E989D4C91F3E82B70065670E /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E989D4C71F3E82B70065670E /* Interface.storyboard */; };
 		E989D4CB1F3E82B70065670E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E989D4CA1F3E82B70065670E /* Assets.xcassets */; };
 		E989D4D21F3E82B80065670E /* WatchUtitlity Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E989D4D11F3E82B80065670E /* WatchUtitlity Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -137,6 +146,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E91C1A491F3E9D0D002D62E0 /* PunchClockController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PunchClockController.swift; sourceTree = "<group>"; };
 		E94F4EC91F088E8E001DB22F /* iWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E94F4ED11F088E8E001DB22F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -317,10 +327,18 @@
 				E94F4EDB1F088E8E001DB22F /* Info.plist */,
 				E98259111F245392003CB2DD /* Localizable.strings */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
-				E9D43E931F15C3990067FF44 /* TaskManager */,
+				E9D43E931F15C3990067FF44 /* CoreData */,
 				E9D43E961F15C3B50067FF44 /* Punch Clock */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E98545B21F3F648D00F8052C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E989D4DA1F3E82B80065670E /* ExtensionDelegate.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		E989D4C61F3E82B70065670E /* WatchUtitlity */ = {
@@ -336,8 +354,9 @@
 		E989D4D51F3E82B80065670E /* WatchUtitlity Extension */ = {
 			isa = PBXGroup;
 			children = (
+				E98545B21F3F648D00F8052C /* Controllers */,
 				E989D4D81F3E82B80065670E /* InterfaceController.swift */,
-				E989D4DA1F3E82B80065670E /* ExtensionDelegate.swift */,
+				E91C1A491F3E9D0D002D62E0 /* PunchClockController.swift */,
 				E989D4DC1F3E82B80065670E /* NotificationController.swift */,
 				E989D4DE1F3E82B80065670E /* ComplicationController.swift */,
 				E989D4E01F3E82B80065670E /* Assets.xcassets */,
@@ -384,7 +403,7 @@
 			name = Utitlities;
 			sourceTree = "<group>";
 		};
-		E9D43E931F15C3990067FF44 /* TaskManager */ = {
+		E9D43E931F15C3990067FF44 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				E99349A51F0DCD3F00A27473 /* Employer.swift */,
@@ -395,7 +414,7 @@
 				E99349921F09B78000A27473 /* Project.swift */,
 				E94F4F0F1F08B177001DB22F /* Task.swift */,
 			);
-			name = TaskManager;
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 		E9D43E961F15C3B50067FF44 /* Punch Clock */ = {
@@ -693,10 +712,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91C1A4B1F3E9DF3002D62E0 /* iWork.xcdatamodeld in Sources */,
 				E989D4DD1F3E82B80065670E /* NotificationController.swift in Sources */,
 				E989D4DF1F3E82B80065670E /* ComplicationController.swift in Sources */,
+				E98545B81F3F672100F8052C /* DirectoryInfo.swift in Sources */,
+				E98545BA1F3F672100F8052C /* Project.swift in Sources */,
 				E989D4DB1F3E82B80065670E /* ExtensionDelegate.swift in Sources */,
+				E98545B61F3F672100F8052C /* Role.swift in Sources */,
+				E91C1A4A1F3E9D0D002D62E0 /* PunchClockController.swift in Sources */,
+				E98545B51F3F672100F8052C /* Employer.swift in Sources */,
 				E989D4D91F3E82B80065670E /* InterfaceController.swift in Sources */,
+				E98545B71F3F672100F8052C /* Directory.swift in Sources */,
+				E98545BB1F3F672100F8052C /* Task.swift in Sources */,
+				E98545B91F3F672100F8052C /* Folder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
