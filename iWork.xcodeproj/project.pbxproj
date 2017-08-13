@@ -35,6 +35,8 @@
 		E98545B91F3F672100F8052C /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
 		E98545BA1F3F672100F8052C /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
 		E98545BB1F3F672100F8052C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
+		E988255B1F3FEC04006D57A6 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E941F15C3A90067FF44 /* Shift.swift */; };
+		E988255C1F3FEC04006D57A6 /* TimePunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D43E971F15C42C0067FF44 /* TimePunch.swift */; };
 		E989D4C91F3E82B70065670E /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E989D4C71F3E82B70065670E /* Interface.storyboard */; };
 		E989D4CB1F3E82B70065670E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E989D4CA1F3E82B70065670E /* Assets.xcassets */; };
 		E989D4D21F3E82B80065670E /* WatchUtitlity Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E989D4D11F3E82B80065670E /* WatchUtitlity Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -722,9 +724,11 @@
 				E91C1A4A1F3E9D0D002D62E0 /* PunchClockController.swift in Sources */,
 				E98545B51F3F672100F8052C /* Employer.swift in Sources */,
 				E989D4D91F3E82B80065670E /* InterfaceController.swift in Sources */,
+				E988255B1F3FEC04006D57A6 /* Shift.swift in Sources */,
 				E98545B71F3F672100F8052C /* Directory.swift in Sources */,
 				E98545BB1F3F672100F8052C /* Task.swift in Sources */,
 				E98545B91F3F672100F8052C /* Folder.swift in Sources */,
+				E988255C1F3FEC04006D57A6 /* TimePunch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

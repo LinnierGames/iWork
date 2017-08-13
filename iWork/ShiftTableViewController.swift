@@ -8,6 +8,11 @@
 
 import UIKit
 import CoreData
+#if os(iOS)
+    import UniversalKit_iOS
+#elseif os(watchOS)
+    import UniversalKit_watchOS
+#endif
 
 class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, DatePickerDelegate {
 

@@ -7,6 +7,11 @@
 //
 
 import UIKit
+#if os(iOS)
+    import UniversalKit_iOS
+#elseif os(watchOS)
+    import UniversalKit_watchOS
+#endif
 
 protocol DatePickerDelegate {
     func datePicker(_ picker: DatePickerViewController, didFinishWithDate date: Date?, withTimeInterval interval: TimeInterval?)

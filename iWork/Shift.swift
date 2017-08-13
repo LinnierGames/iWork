@@ -8,6 +8,11 @@
 
 import Foundation
 import CoreData
+#if os(iOS)
+    import UniversalKit_iOS
+#elseif os(watchOS)
+    import UniversalKit_watchOS
+#endif
 
 extension Shift {
     convenience init(date: Date = Date(), inContext context: NSManagedObjectContext, forEmployer employer: Employer) {

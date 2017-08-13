@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E91C1A451F3E9A52002D62E0 /* UniversalOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1A441F3E9A52002D62E0 /* UniversalOperations.swift */; };
 		E91C1A461F3E9A52002D62E0 /* UniversalOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1A441F3E9A52002D62E0 /* UniversalOperations.swift */; };
+		E988255E1F3FED26006D57A6 /* TimeInterval+Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988255D1F3FED26006D57A6 /* TimeInterval+Class.swift */; };
+		E988255F1F3FED26006D57A6 /* TimeInterval+Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988255D1F3FED26006D57A6 /* TimeInterval+Class.swift */; };
 		E989D5231F3E87990065670E /* UniversalKit_watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E989D5211F3E87990065670E /* UniversalKit_watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E989D5351F3E88200065670E /* UniversalKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E989D52C1F3E88200065670E /* UniversalKit_iOS.framework */; };
 		E989D53A1F3E88200065670E /* UniversalKit_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989D5391F3E88200065670E /* UniversalKit_iOSTests.swift */; };
@@ -27,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		E91C1A441F3E9A52002D62E0 /* UniversalOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalOperations.swift; sourceTree = "<group>"; };
+		E988255D1F3FED26006D57A6 /* TimeInterval+Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Class.swift"; sourceTree = "<group>"; };
 		E989D51F1F3E87990065670E /* UniversalKit_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UniversalKit_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E989D5211F3E87990065670E /* UniversalKit_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversalKit_watchOS.h; sourceTree = "<group>"; };
 		E989D5221F3E87990065670E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				E91C1A441F3E9A52002D62E0 /* UniversalOperations.swift */,
+				E988255D1F3FED26006D57A6 /* TimeInterval+Class.swift */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -272,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E988255F1F3FED26006D57A6 /* TimeInterval+Class.swift in Sources */,
 				E91C1A461F3E9A52002D62E0 /* UniversalOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E988255E1F3FED26006D57A6 /* TimeInterval+Class.swift in Sources */,
 				E91C1A451F3E9A52002D62E0 /* UniversalOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

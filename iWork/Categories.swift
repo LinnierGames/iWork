@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UniversalKit_iOS
 
 extension UITabBarController {
     var taskManager: TaskManagerTableViewController {
@@ -137,10 +138,6 @@ extension String {
         self = string
     }
 }
-
-let CTDateComponentMinute: TimeInterval = 60
-let CTDateComponentHour: TimeInterval = CTDateComponentMinute*60
-let CTDateComponentDay: TimeInterval = CTDateComponentHour*24
 
 extension DateComponents {
     init(date: Date, forComponents components: Set<Calendar.Component>)  {
