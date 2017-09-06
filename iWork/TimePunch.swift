@@ -89,9 +89,20 @@ extension UserNotifications {
         
         let fifthHour = String(punch.timeStamp!.addingTimeInterval(CTDateComponentHour*5), dateStyle: .none, timeStyle: .long)
         
+        let dateInfo60 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*4), forComponents: [.day, .month, .year, .hour, .minute, .second])
+        content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["1h", fifthHour])
+        var trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo60, repeats: false)
+        
+        // Create the request object.
+        self.add(UNNotificationRequest(identifier: "note_fifth_hour-60", content: content, trigger: trigger)) { (error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
+        
         let dateInfo30 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*30), forComponents: [.day, .month, .year, .hour, .minute, .second])
         content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["30m", fifthHour])
-        var trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo30, repeats: false)
+        trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo30, repeats: false)
         
         // Create the request object.
         self.add(UNNotificationRequest(identifier: "note_fifth_hour-30", content: content, trigger: trigger)) { (error) in
@@ -147,7 +158,7 @@ extension UserNotifications {
     
     /// Clears all consecutive notifcations, if any
     func removePendingFifthHourNotificationRequests() {
-        let identifiers = ["note_fifth_hour-30","note_fifth_hour-15","note_fifth_hour-10","note_fifth_hour-5","note_fifth_hour-1"]
+        let identifiers = ["note_fifth_hour-60","note_fifth_hour-30","note_fifth_hour-15","note_fifth_hour-10","note_fifth_hour-5","note_fifth_hour-1"]
         self.removePendingNotificationRequests(withIdentifiers: identifiers)
         self.removeDeliveredNotifications(withIdentifiers: identifiers)
     }
