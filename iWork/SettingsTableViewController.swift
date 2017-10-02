@@ -63,7 +63,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     private var cellManager: CustomTableViewCells! {
         didSet {
-            cellManager.textField.setStyleToParagraph(withPlaceholderText: "Name", withInitalText: appDelegate.currentEmployer.manager)
+            cellManager.textField.setStyleToParagraph(withPlaceholderText: "Name", withInitalText: AppDelegate.sharedInstance.currentEmployer.manager)
             cellManager.textField.returnKeyType = .done
             cellManager.textField.delegate = self
         }
@@ -71,7 +71,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     private var cellSupervisor: CustomTableViewCells! {
         didSet {
-            cellSupervisor.textField.setStyleToParagraph(withPlaceholderText: "Name", withInitalText: appDelegate.currentRole.supervisor)
+            cellSupervisor.textField.setStyleToParagraph(withPlaceholderText: "Name", withInitalText: AppDelegate.sharedInstance.currentRole.supervisor)
             cellSupervisor.textField.returnKeyType = .done
             cellSupervisor.textField.delegate = self
         }
@@ -79,7 +79,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     private var cellRegularRate: CustomTableViewCells! {
         didSet {
-            cellRegularRate.textField.setStyleToParagraph(withPlaceholderText: "Rate", withInitalText: appDelegate.currentRole.regularRate!.currencyValue)
+            cellRegularRate.textField.setStyleToParagraph(withPlaceholderText: "Rate", withInitalText: AppDelegate.sharedInstance.currentRole.regularRate!.currencyValue)
             cellRegularRate.textField.returnKeyType = .done
             cellRegularRate.textField.delegate = self
         }
@@ -137,9 +137,9 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch hierarchy {
         case .Employers:
-            return (fetchedResultsController.object(at: indexPath).objectID != appDelegate.currentEmployer.objectID)
+            return (fetchedResultsController.object(at: indexPath).objectID != AppDelegate.sharedInstance.currentEmployer.objectID)
         case .Roles:
-            return (fetchedResultsController.object(at: indexPath).objectID != appDelegate.currentRole.objectID)
+            return (fetchedResultsController.object(at: indexPath).objectID != AppDelegate.sharedInstance.currentRole.objectID)
         default:
             return false
         }
@@ -167,7 +167,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             switch indexPath {
             case Table.Root.IndexPaths.EditEmployer:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
-                cell.textLabel!.text = appDelegate.currentEmployer.name
+                cell.textLabel!.text = AppDelegate.sharedInstance.currentEmployer.name
                 cell.accessoryType = .disclosureIndicator
                 
                 return cell
@@ -179,7 +179,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 return cell
             case Table.Root.IndexPaths.EditRole:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
-                cell.textLabel!.text = appDelegate.currentRole.title
+                cell.textLabel!.text = AppDelegate.sharedInstance.currentRole.title
                 cell.accessoryType = .disclosureIndicator
                 
                 return cell
@@ -196,26 +196,26 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             switch indexPath {
             case Table.Employer.IndexPaths.RenameEmployerRow:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
-                cell.textLabel!.text = appDelegate.currentEmployer.name
+                cell.textLabel!.text = AppDelegate.sharedInstance.currentEmployer.name
                 
                 return cell
             case Table.Employer.IndexPaths.EmployerManagerRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Manager"
-                cell.textField.text = appDelegate.currentEmployer.manager
+                cell.textField.text = AppDelegate.sharedInstance.currentEmployer.manager
                 
                 cellManager = cell; return cell
             case Table.Employer.IndexPaths.EmployerStartDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
-                cell.detailTextLabel!.text = String(appDelegate.currentEmployer.startDate!)
+                cell.detailTextLabel!.text = String(AppDelegate.sharedInstance.currentEmployer.startDate!)
                 cell.accessoryType = .disclosureIndicator
                 
                 return cell
             case Table.Employer.IndexPaths.EmployerEndDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "End Date"
-                if let endDate = appDelegate.currentEmployer.endDate {
+                if let endDate = AppDelegate.sharedInstance.currentEmployer.endDate {
                     cell.detailTextLabel!.text = String(endDate)
                     cell.detailTextLabel!.textColor = UIColor.black
                 } else {
@@ -228,7 +228,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Employer.IndexPaths.LocationRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelCaption.text = "Location"
-                cell.textView.text = appDelegate.currentEmployer.location
+                cell.textView.text = AppDelegate.sharedInstance.currentEmployer.location
                 cell.textView.isEditable = false
                 cell.accessoryType = .disclosureIndicator
                 
@@ -236,7 +236,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Employer.IndexPaths.PhoneNumbersRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelCaption.text = "Phone Numbers"
-                cell.textView.text = appDelegate.currentEmployer.phoneNumbers ?? "None"
+                cell.textView.text = AppDelegate.sharedInstance.currentEmployer.phoneNumbers ?? "None"
                 cell.textView.isEditable = false
                 cell.accessoryType = .disclosureIndicator
                 
@@ -244,14 +244,14 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Employer.IndexPaths.HolidayRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Holiday Dates"
-                cell.detailTextLabel!.text = String(appDelegate.currentEmployer.holidayDates?.count ?? 0)
+                cell.detailTextLabel!.text = String(AppDelegate.sharedInstance.currentEmployer.holidayDates?.count ?? 0)
                 cell.accessoryType = .disclosureIndicator
                 
                 return cell
             case Table.Employer.IndexPaths.NotesRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelCaption.text = "Notes"
-                cell.textView.text = appDelegate.currentEmployer.notes ?? "None"
+                cell.textView.text = AppDelegate.sharedInstance.currentEmployer.notes ?? "None"
                 cell.textView.isEditable = false
                 cell.accessoryType = .disclosureIndicator
                 
@@ -263,26 +263,26 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             switch indexPath {
             case Table.Role.IndexPaths.RenameRoleRow:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
-                cell.textLabel!.text = appDelegate.currentRole.title
+                cell.textLabel!.text = AppDelegate.sharedInstance.currentRole.title
                 
                 return cell
             case Table.Role.IndexPaths.RoleSupervisorRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Supervisor"
-                cell.textField.text = appDelegate.currentRole.supervisor
+                cell.textField.text = AppDelegate.sharedInstance.currentRole.supervisor
                 //cell.accessoryType = .none
                 
                 cellSupervisor = cell; return cell
             case Table.Role.IndexPaths.RoleStartDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
-                cell.detailTextLabel!.text = String(appDelegate.currentRole.startDate!)
+                cell.detailTextLabel!.text = String(AppDelegate.sharedInstance.currentRole.startDate!)
                 
                 return cell
             case Table.Role.IndexPaths.RoleEndDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "End Date"
-                if let endDate = appDelegate.currentRole.endDate {
+                if let endDate = AppDelegate.sharedInstance.currentRole.endDate {
                     cell.detailTextLabel!.text = String(endDate)
                     cell.detailTextLabel!.textColor = UIColor.black
                 } else {
@@ -294,7 +294,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Role.IndexPaths.RoleRegularRateRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Regular Pay Rate"
-                cell.textField.text = appDelegate.currentRole.regularRate!.currencyValue
+                cell.textField.text = AppDelegate.sharedInstance.currentRole.regularRate!.currencyValue
                 
                 cellRegularRate = cell; return cell
             case Table.Role.IndexPaths.RoleTimeAndHalfRow:
@@ -315,7 +315,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             let employer = fetchedResultsController.object(at: indexPath) as! Employer
             cell.textLabel!.text = String("\(employer.name!) - \(employer.selectedRole!.title!)")
             cell.detailTextLabel!.text = String("Number of Roles: \(employer.roles?.count ?? 0)")
-            if employer.objectID == appDelegate.currentEmployer.objectID {
+            if employer.objectID == AppDelegate.sharedInstance.currentEmployer.objectID {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
@@ -326,7 +326,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             let cell = tableView.returnCell(forIdentifier: "subtitle", atIndexPath: indexPath)
             let role = fetchedResultsController.object(at: indexPath) as! Role
             cell.textLabel!.text = role.title!
-            if role.objectID == appDelegate.currentRole.objectID {
+            if role.objectID == AppDelegate.sharedInstance.currentRole.objectID {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
@@ -355,12 +355,12 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         case .Employers:
             let fetch: NSFetchRequest<Employer> = Employer.fetchRequest()
             fetch.sortDescriptors = [CTSortDescriptor(key: "name")]
-            fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+            fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: AppDelegate.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         case .Roles:
             let fetch: NSFetchRequest<Role> = Role.fetchRequest()
-            fetch.predicate = NSPredicate(format: "employer == %@", appDelegate.currentEmployer)
+            fetch.predicate = NSPredicate(format: "employer == %@", AppDelegate.sharedInstance.currentEmployer)
             fetch.sortDescriptors = [CTSortDescriptor(key: "title")]
-            fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+            fetchedResultsController = NSFetchedResultsController<NSManagedObject>(fetchRequest: fetch as! NSFetchRequest<NSManagedObject>, managedObjectContext: AppDelegate.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         default:
             break
         }
@@ -384,7 +384,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                     let dateVC = (segue.destination as! UINavigationController).viewControllers.first! as! DatePickerViewController
                     switch sender as! String {
                     case "employer start":
-                        dateVC.date = appDelegate.currentEmployer.startDate! as Date
+                        dateVC.date = AppDelegate.sharedInstance.currentEmployer.startDate! as Date
                         dateVC.isTimeSet = true
                         var options = DatePickerOptions()
                         options.tag = 1
@@ -392,10 +392,10 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                         dateVC.delegate = self
                         reloadIndexesOnViewDidAppear = [Table.Employer.IndexPaths.EmployerStartDateRow]
                     case "employer end":
-                        dateVC.date = appDelegate.currentEmployer.endDate as Date?
+                        dateVC.date = AppDelegate.sharedInstance.currentEmployer.endDate as Date?
                         var options = DatePickerOptions()
                         options.tag = 2
-                        options.dateRanges = Range<Date>(uncheckedBounds: (lower: appDelegate.currentEmployer.startDate! as Date, upper: Date()))
+                        options.dateRanges = Range<Date>(uncheckedBounds: (lower: AppDelegate.sharedInstance.currentEmployer.startDate! as Date, upper: Date()))
                         options.timeRanges = true
                         options.dateRequired = false
                         options.timeRequired = false
@@ -404,17 +404,17 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                         dateVC.delegate = self
                         reloadIndexesOnViewDidAppear = [Table.Employer.IndexPaths.EmployerEndDateRow]
                     case "role start":
-                        dateVC.date = appDelegate.currentRole.startDate! as Date
+                        dateVC.date = AppDelegate.sharedInstance.currentRole.startDate! as Date
                         var options = DatePickerOptions()
                         options.tag = 1
                         dateVC.options = options
                         dateVC.delegate = self
                         reloadIndexesOnViewDidAppear = [Table.Role.IndexPaths.RoleStartDateRow]
                     case "role end":
-                        dateVC.date = appDelegate.currentRole.endDate as Date?
+                        dateVC.date = AppDelegate.sharedInstance.currentRole.endDate as Date?
                         var options = DatePickerOptions()
                         options.tag = 2
-                        options.dateRanges = Range<Date>(uncheckedBounds: (lower: appDelegate.currentRole.startDate! as Date, upper: Date()))
+                        options.dateRanges = Range<Date>(uncheckedBounds: (lower: AppDelegate.sharedInstance.currentRole.startDate! as Date, upper: Date()))
                         options.timeRanges = true
                         options.dateRequired = false
                         options.timeRequired = false
@@ -473,12 +473,12 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Employer.IndexPaths.RenameEmployerRow:
                 let alert = UIAlertController(title: "Rename Employer", message: "enter a name", preferredStyle: .alert)
                 alert.addTextField(configurationHandler: { [weak self] (textField) in
-                    textField.setStyleToParagraph(withPlaceholderText: "name", withInitalText: self!.appDelegate.currentEmployer.name)
+                    textField.setStyleToParagraph(withPlaceholderText: "name", withInitalText: AppDelegate.sharedInstance.currentEmployer.name)
                 })
                 alert.addActions(actions:
                     UIAlertActionInfo(title: "Rename", handler: { [weak self] (action) in
-                        self!.appDelegate.currentEmployer.name = alert.inputField.text
-                        self!.appDelegate.saveContext()
+                        AppDelegate.sharedInstance.currentEmployer.name = alert.inputField.text
+                        AppDelegate.sharedInstance.saveContext()
                         self!.tableView.reloadRows(at: [Table.Employer.IndexPaths.RenameEmployerRow], with: .fade)
                     })
                 )
@@ -496,9 +496,9 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         case .Employers, .Roles:
             let row = fetchedResultsController.object(at: indexPath)
             if hierarchy == .Employers {
-                appDelegate.currentEmployer = row as! Employer
+                AppDelegate.sharedInstance.currentEmployer = row as! Employer
             } else {
-                appDelegate.currentRole = row as! Role
+                AppDelegate.sharedInstance.currentRole = row as! Role
             }
             self.navigationController?.popViewController(animated: true)
         case .DetailRole:
@@ -506,13 +506,13 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Role.IndexPaths.RenameRoleRow:
                 let alert = UIAlertController(title: "Rename Role", message: "enter a title", preferredStyle: .alert)
                 alert.addTextField(configurationHandler: { [weak self] (textField) in
-                    textField.setStyleToParagraph(withPlaceholderText: "title", withInitalText: self!.appDelegate.currentRole.title)
+                    textField.setStyleToParagraph(withPlaceholderText: "title", withInitalText: AppDelegate.sharedInstance.currentRole.title)
                 })
                 alert.addActions(actions:
                     UIAlertActionInfo(title: "Rename", handler: { [weak self] (action) in
-                        self!.appDelegate.currentRole.title = alert.inputField.text
-                        self!.appDelegate.saveContext()
-                        self!.tableView.reloadRows(at: [Table.Role.IndexPaths.RenameRoleRow], with: .fade)
+                        AppDelegate.sharedInstance.currentRole.title = alert.inputField.text
+                        AppDelegate.sharedInstance.saveContext()
+                        tableView.reloadRows(at: [Table.Role.IndexPaths.RenameRoleRow], with: .fade)
                     })
                 )
                 
@@ -533,8 +533,8 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         switch editingStyle {
         case .delete:
             let row = fetchedResultsController.object(at: indexPath)
-            container.viewContext.delete(row)
-            appDelegate.saveContext()
+            AppDelegate.viewContext.delete(row)
+            AppDelegate.sharedInstance.saveContext()
         default:
             break
         }
@@ -546,13 +546,13 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         switch hierarchy {
         case .DetailEmployer:
             if textField == cellManager.textField {
-                appDelegate.currentEmployer.manager = textField.text
-                appDelegate.saveContext()
+                AppDelegate.sharedInstance.currentEmployer.manager = textField.text
+                AppDelegate.sharedInstance.saveContext()
             }
         case .DetailRole:
             if textField == cellSupervisor.textField {
-                appDelegate.currentRole.supervisor = textField.text
-                appDelegate.saveContext()
+                AppDelegate.sharedInstance.currentRole.supervisor = textField.text
+                AppDelegate.sharedInstance.saveContext()
             }
         default:
             break
@@ -565,18 +565,18 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         switch hierarchy {
         case .DetailEmployer:
             if picker.options.tag! == 1 { //Start Date
-                appDelegate.currentEmployer.startDate = date as NSDate?
+                AppDelegate.sharedInstance.currentEmployer.startDate = date as NSDate?
             } else if picker.options.tag! == 2 { //End Date
-                appDelegate.currentEmployer.endDate = date as NSDate?
+                AppDelegate.sharedInstance.currentEmployer.endDate = date as NSDate?
             }
-            appDelegate.saveContext()
+            AppDelegate.sharedInstance.saveContext()
         case .DetailRole:
             if picker.options.tag! == 1 { //Start Date
-                appDelegate.currentRole.startDate = date as NSDate?
+                AppDelegate.sharedInstance.currentRole.startDate = date as NSDate?
             } else if picker.options.tag! == 2 { //End Date
-                appDelegate.currentRole.endDate = date as NSDate?
+                AppDelegate.sharedInstance.currentRole.endDate = date as NSDate?
             }
-            appDelegate.saveContext()
+            AppDelegate.sharedInstance.saveContext()
         default:
             break
         }
@@ -593,8 +593,8 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             }
             alert.addActions(actions:
                 UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
-                    _ = Employer(name: alert.inputField.text!, inContext: self!.container.viewContext)
-                    self!.appDelegate.saveContext()
+                    _ = Employer(name: alert.inputField.text!, inContext: AppDelegate.viewContext)
+                    AppDelegate.sharedInstance.saveContext()
                 })
             )
             self.present(alert, animated: true, completion: nil)
@@ -605,8 +605,8 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             }
             alert.addActions(actions:
                 UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
-                    _ = Role(title: alert.inputField.text!, inContext: self!.container.viewContext, forEmployer: self!.appDelegate.currentEmployer)
-                    self!.appDelegate.saveContext()
+                    _ = Role(title: alert.inputField.text!, inContext: AppDelegate.viewContext, forEmployer: AppDelegate.sharedInstance.currentEmployer)
+                    AppDelegate.sharedInstance.saveContext()
                 })
             )
             self.present(alert, animated: true, completion: nil)

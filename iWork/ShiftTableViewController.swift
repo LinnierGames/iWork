@@ -86,14 +86,14 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         var actions = [UITableViewRowAction(style: .normal, title: "Refresh", handler: { [weak self] (action, indexPath) in
             self!.fetchedResultsController.object(at: indexPath).timeStamp = NSDate()
-            self!.appDelegate.saveContext()
+            AppDelegate.sharedInstance.saveContext()
         })]
         if fetchedResultsController.object(at: indexPath).punchType != .StartShift || fetchedResultsController.fetchedObjects!.count == 1 {
             actions.insert(UITableViewRowAction(style: .destructive, title: "Remove", handler: { [weak self] (action, indexPath) in
                 let punch = self!.fetchedResultsController.object(at: indexPath)
-                self!.container.viewContext.delete(punch)
+                AppDelegate.viewContext.delete(punch)
                 self!.updateNotifications(forDeletedPunch: punch)
-                self!.appDelegate.saveContext()
+                AppDelegate.sharedInstance.saveContext()
                 self!.updateInfo()
             }), at: 0)
         }
@@ -129,7 +129,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         fetch.sortDescriptors = [NSSortDescriptor(key: "timeStamp", ascending: false)]
         fetchedResultsController = NSFetchedResultsController<TimePunch>(
             fetchRequest: fetch,
-            managedObjectContext: container.viewContext,
+            managedObjectContext: AppDelegate.viewContext,
             sectionNameKeyPath: nil, cacheName: nil
         )
         buttonDate.setTitle(String(shift.date!, dateStyle: .full), for: .normal)
@@ -262,7 +262,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
     
     func textViewDidEndEditing(_ textView: UITextView) {
         shift.notes = textView.text
-        appDelegate.saveContext()
+        AppDelegate.sharedInstance.saveContext()
         
         if textView.text == "" {
             labelNotes.isHidden = false
@@ -277,16 +277,16 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         if let indexPath = tableView.indexPathForSelectedRow {
             let punch = fetchedResultsController.object(at: indexPath)
             punch.timeStamp = date! as NSDate
-            appDelegate.saveContext()
+            AppDelegate.sharedInstance.saveContext()
         }
     }
         
     // MARK: - IBACTIONS
     
     private func insert(punch: TimePunch.PunchType) {
-        let newPunch = TimePunch(punch: punch, inContext: container.viewContext, forShift: shift)
+        let newPunch = TimePunch(punch: punch, inContext: AppDelegate.viewContext, forShift: shift)
         shift.addToPunches(newPunch)
-        appDelegate.saveContext()
+        AppDelegate.sharedInstance.saveContext()
         updateNotifications(forAddedPunch: newPunch)
         updateInfo()
     }

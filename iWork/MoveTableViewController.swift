@@ -67,7 +67,7 @@ class MoveTableViewController: UITableViewController {
         if currentDirectory != nil {
             arrayM = currentDirectory?.children?.allObjects as! [Directory]
         } else {
-            arrayM = Directory.fetchDirectoryWithParentDirectory(currentDirectory, in: container.viewContext, forRole: appDelegate.currentRole)
+            arrayM = Directory.fetchDirectoryWithParentDirectory(currentDirectory, in: AppDelegate.viewContext, forRole: AppDelegate.sharedInstance.currentRole)
         }
         
         tableView.reloadData()
@@ -97,7 +97,7 @@ class MoveTableViewController: UITableViewController {
             for item in items {
                 item.parent = currentDirectory
             }
-            appDelegate.saveContext()
+            AppDelegate.sharedInstance.saveContext()
             navController.parentDelegate?.controller(moveTableView: self, didCompleteWithParentDestination: currentDirectory)
             self.dismiss(animated: true, completion: nil)
         }

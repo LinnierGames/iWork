@@ -14,11 +14,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     
+    class var sharedInstance: AppDelegate {
+        return UIApplication.shared.delegate! as! AppDelegate
+    }
+    
+    class var viewContext: NSManagedObjectContext {
+        return AppDelegate.sharedInstance.persistentContainer.viewContext
+    }
+    
     var currentEmployer: Employer {
         get {
             if let employer = UserDefaults.standard.string(forKey: "employer") { //Fetches the default employer
-                if let objectId = AppDelegate.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: employer)!) {
-                    if let fetchedObject = AppDelegate.persistentContainer.viewContext.object(with: objectId) as? Employer {
+                if let objectId = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: employer)!) {
+                    if let fetchedObject = persistentContainer.viewContext.object(with: objectId) as? Employer {
                         return fetchedObject
                     } else { //Not found, then remove the saved Id and create a new default
                         UserDefaults.standard.setValue(nil, forKey: "employer")
@@ -31,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     return self.currentEmployer
                 }
             } else { //Assume there is no employer saved in context and create a new one
-                let defaultEmployer = Employer(inContext: AppDelegate.persistentContainer.viewContext)
+                let defaultEmployer = Employer(inContext: persistentContainer.viewContext)
                 self.saveContext()
                 self.currentEmployer = defaultEmployer
                 
@@ -44,7 +52,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    /// Well call saveContext() on set
+    lazy var persistentContainer: NSPersistentContainer = {
+        /*
+         The persistent container for the application. This implementation
+         creates and returns a container, having loaded the store for the
+         application to it. This property is optional since there are legitimate
+         error conditions that could cause the creation of the store to fail.
+         */
+        let container = NSPersistentContainer(name: "iWork")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    // MARK: - Core Data Saving support
+    
+    func saveContext () {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
+    /// Will call saveContext() on set
     var currentRole: Role {
         get {
             return currentEmployer.selectedRole!
@@ -99,53 +150,11 @@ import CoreData
 private typealias CoreData = AppDelegate
 extension CoreData {
     
-    static let persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
-        let container = NSPersistentContainer(name: "iWork")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-    
-    // MARK: - Core Data Saving support
-    
-    func saveContext () {
-        let context = AppDelegate.persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
     override var canBecomeFirstResponder: Bool {
         return true
     }
     
+    //Debuging
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
     }
 }

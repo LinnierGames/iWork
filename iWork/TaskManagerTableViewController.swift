@@ -38,12 +38,12 @@ class TaskManagerTableViewController: FetchedResultsTableViewController {
         let dateTo = calendar.date(from: components)!
         
         let fetch: NSFetchRequest<Task> = Task.fetchRequest()
-        fetch.predicate = NSPredicate(format: "directory.role == %@ AND isCompleted == FALSE AND (%@ <= dueDate) AND (dueDate < %@) OR (%@ <= startDate) AND (startDate < %@)", appDelegate.currentRole, dateFrom as NSDate, dateTo as NSDate, dateFrom as NSDate, dateTo as NSDate)
+        fetch.predicate = NSPredicate(format: "directory.role == %@ AND isCompleted == FALSE AND (%@ <= dueDate) AND (dueDate < %@) OR (%@ <= startDate) AND (startDate < %@)", AppDelegate.sharedInstance.currentRole, dateFrom as NSDate, dateTo as NSDate, dateFrom as NSDate, dateTo as NSDate)
         fetch.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true), NSSortDescriptor(key: "dueDate", ascending: true), CTSortDescriptor(key: "title")]
         
         fetchedResultsController = NSFetchedResultsController<NSManagedObject>(
             fetchRequest: fetch as! NSFetchRequest<NSManagedObject>,
-            managedObjectContext: container.viewContext,
+            managedObjectContext: AppDelegate.viewContext,
             sectionNameKeyPath: nil, cacheName: nil
         )
         
@@ -82,13 +82,13 @@ class TaskManagerTableViewController: FetchedResultsTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        saveHandler = appDelegate.saveContext
+        saveHandler = AppDelegate.sharedInstance.saveContext
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear( animated)
         
-        self.navigationItem.title = appDelegate.currentRole.title
+        self.navigationItem.title = AppDelegate.sharedInstance.currentRole.title
         
         updateUI()
     }

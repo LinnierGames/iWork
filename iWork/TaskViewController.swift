@@ -302,13 +302,13 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     func pressLeftNav(_ sender: Any) {
         self.dismiss()
         if navController.option == .update {
-            appDelegate.saveContext()
+            AppDelegate.sharedInstance.saveContext()
         }
     }
     
     func pressRightNav(_ sender: Any) {
         self.dismiss()
-        appDelegate.saveContext()
+        AppDelegate.sharedInstance.saveContext()
     }
     
     @IBAction func pressAssignedBy(_ sender: Any) {
@@ -330,7 +330,7 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
         
         if navController.task == nil {
             navController.option = .insert
-            navController.task = Task(titleTask: "", parent: navController.parentDirectory, inContext: container.viewContext, forRole: appDelegate.currentRole)
+            navController.task = Task(titleTask: "", parent: navController.parentDirectory, inContext: AppDelegate.viewContext, forRole: AppDelegate.sharedInstance.currentRole)
         } else {
             navController.option = .update
             hasInitialTitle = true

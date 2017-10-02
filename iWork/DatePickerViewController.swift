@@ -125,7 +125,8 @@ class DatePickerViewController: UIViewController {
             let todaysDay = DateComponents(date: Date(), forComponents: [.weekday])
             let tomorrowsDay = DateComponents(date: Date(timeIntervalSinceNow: CTDateComponentDay), forComponents: [.weekday])
             for preset in options.datePresets {
-                let presetComponent = DateComponents(date: Date(timeIntervalSinceNow: preset), forComponents: [.weekday])
+                var presetComponent = DateComponents(date: Date(timeIntervalSinceNow: preset), forComponents: [.weekday])
+                presetComponent.calendar = Calendar.current
                 let buttonTitle: String
                 if presetComponent == todaysDay {
                     buttonTitle = "Today"

@@ -66,22 +66,23 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
     
     private func updateUI() {
         let request: NSFetchRequest<NSFetchRequestResult>
+        let currentRole = AppDelegate.sharedInstance.currentRole
         if currentDirectory == nil {
             request = Folder.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "directory.info.title", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))]
-            request.predicate = NSPredicate(format: "directory.role == %@ AND directory.parent = nil", appDelegate.currentRole)
+            request.predicate = NSPredicate(format: "directory.role == %@ AND directory.parent = nil", currentRole)
         } else {
             request = Directory.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "info.title", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))]
             if let hierarchy = currentDirectory {
-                request.predicate = NSPredicate(format: "role == %@ AND parent == %@", appDelegate.currentRole, hierarchy)
+                request.predicate = NSPredicate(format: "role == %@ AND parent == %@", currentRole, hierarchy)
             } else {
-                request.predicate = NSPredicate(format: "role == %@ AND parent = nil", appDelegate.currentRole)
+                request.predicate = NSPredicate(format: "role == %@ AND parent = nil", currentRole)
             }
         }
         fetchedResultsController = NSFetchedResultsController<NSManagedObject>(
             fetchRequest: request as! NSFetchRequest<NSManagedObject>,
-            managedObjectContext: container.viewContext,
+            managedObjectContext: AppDelegate.viewContext,
             sectionNameKeyPath: nil,
             cacheName: nil
         )
@@ -95,10 +96,10 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak self] (action) in
             let newClass: DirectoryInfo
-            let context = self!.container.viewContext
+            let context = AppDelegate.viewContext
             let text = alert.inputField.text!
             let parent = self!.currentDirectory
-            let role = self!.appDelegate.currentRole
+            let role = AppDelegate.sharedInstance.currentRole
             
             if type is Folder.Type {
                 newClass = Folder(title: text, parent: parent, inContext: context, forRole: role)
@@ -113,7 +114,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
             
             willComplete(newClass as! T)
             
-            self!.appDelegate.saveContext()
+            AppDelegate.sharedInstance.saveContext()
             
             didComplete(newClass as! T)
         }))
@@ -272,7 +273,7 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         }
         self.navigationItem.rightBarButtonItem = self.editButtonItem
 
-        saveHandler = appDelegate.saveContext
+        saveHandler = AppDelegate.sharedInstance.saveContext
         // self.clearsSelectionOnViewWillAppear = true
         
     }

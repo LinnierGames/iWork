@@ -69,11 +69,11 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     
     private func updateUI() {
         let fetch: NSFetchRequest<Shift> = Shift.fetchRequest()
-        fetch.predicate = NSPredicate(format: "employer == %@", appDelegate.currentEmployer)
+        fetch.predicate = NSPredicate(format: "employer == %@", AppDelegate.sharedInstance.currentEmployer)
         fetch.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         fetchedResultsController = NSFetchedResultsController<NSManagedObject>(
             fetchRequest: fetch as! NSFetchRequest<NSManagedObject>,
-            managedObjectContext: container.viewContext,
+            managedObjectContext: AppDelegate.viewContext,
             sectionNameKeyPath: "week", cacheName: nil
         )
     }
@@ -104,8 +104,8 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     // MARK: - IBACTIONS
     
     @IBAction func pressAdd(_ sender: Any) {
-        _ = Shift(inContext: container.viewContext, forEmployer: appDelegate.currentEmployer)
-        appDelegate.saveContext()
+        _ = Shift(inContext: AppDelegate.viewContext, forEmployer: AppDelegate.sharedInstance.currentEmployer)
+        AppDelegate.sharedInstance.saveContext()
     }
     
     // MARK: - LIFE CYCLE
@@ -116,10 +116,10 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         self.clearsSelectionOnViewWillAppear = true
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        self.title = appDelegate.currentEmployer.name
+        self.title = AppDelegate.sharedInstance.currentEmployer.name
         updateUI()
         
-        saveHandler = appDelegate.saveContext
+        saveHandler = AppDelegate.sharedInstance.saveContext
     }
     
     override func viewDidAppear(_ animated: Bool) {

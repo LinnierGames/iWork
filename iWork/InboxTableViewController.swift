@@ -28,11 +28,11 @@ class InboxTableViewController: FetchedResultsTableViewController {
     
     private func updateUI() {
         let fetch: NSFetchRequest<Task> = Task.fetchRequest()
-        fetch.predicate = NSPredicate(format: "directory.parent = nil AND directory.role == %@", appDelegate.currentRole)
+        fetch.predicate = NSPredicate(format: "directory.parent = nil AND directory.role == %@", AppDelegate.sharedInstance.currentRole)
         fetch.sortDescriptors = [CTSortDescriptor(key: "title")]
         fetchedResultsController = NSFetchedResultsController<NSManagedObject>(
             fetchRequest: fetch as! NSFetchRequest<NSManagedObject>,
-            managedObjectContext: container.viewContext,
+            managedObjectContext: AppDelegate.viewContext,
             sectionNameKeyPath: nil, cacheName: nil
         )
     }
@@ -71,6 +71,6 @@ class InboxTableViewController: FetchedResultsTableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         updateUI()
         
-        saveHandler = appDelegate.saveContext
+        saveHandler = AppDelegate.sharedInstance.saveContext
     }
 }
