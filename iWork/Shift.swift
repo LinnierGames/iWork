@@ -21,6 +21,10 @@ extension Shift {
         return self.punches?.array.last as! TimePunch?
     }
     
+    public var week: Int {
+        return DateComponents(date: date! as Date, forComponents: [.weekOfYear]).weekOfYear!
+    }
+    
     /// This includes the duration of the last punch, excluding start lunch, till the current time
     public var onTheClockDuration: TimeInterval? {
         if let punches = self.punches?.array as? [TimePunch] {

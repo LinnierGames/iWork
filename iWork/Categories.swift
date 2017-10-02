@@ -56,65 +56,6 @@ extension UITableViewCell {
     }
 }
 
-public struct UIAlertActionInfo {
-    var title: String?
-    var style: UIAlertActionStyle
-    var handler: ((UIAlertAction) -> Swift.Void)?
-    
-    init(title: String?, style: UIAlertActionStyle = .default, handler: ((UIAlertAction) -> Swift.Void)?) {
-        self.title = title
-        self.style = style
-        self.handler = handler
-    }
-}
-
-extension UIAlertController {
-    open func addActions(cancelButton cancel: String? = "Cancel", alertStyle: UIAlertControllerStyle = .alert, actions: UIAlertActionInfo...) {
-        for action in actions {
-            self.addAction(UIAlertAction(title: action.title, style: action.style, handler: action.handler))
-        }
-        if cancel != nil {
-            self.addAction(UIAlertAction(title: cancel, style: .cancel, handler: nil))
-        }
-    }
-}
-
-extension UITextField {
-    open func setStyleToParagraph(withPlaceholderText placeholder: String? = "", withInitalText text: String? = "") {
-        self.autocorrectionType = .default
-        self.autocapitalizationType = .words
-        self.text = text
-        self.placeholder = placeholder
-        
-    }
-    
-}
-
-extension UIAlertController {
-    var inputField: UITextField {
-        return self.textFields!.first!
-    }
-    
-}
-
-extension Bool {
-    public mutating func invert() {
-        if self == true {
-            self = false
-        } else {
-            self = true
-        }
-    }
-    
-    public var inverse: Bool {
-        if self == true {
-            return false
-        } else {
-            return true
-        }
-    }
-}
-
 extension String {
     init(_ date: NSDate, dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .none) {
         self.init(DateFormatter.localizedString(from: date as Date, dateStyle: dateStyle, timeStyle: timeStyle))!

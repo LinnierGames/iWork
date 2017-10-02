@@ -37,6 +37,24 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let shift = fetchedResultsController.object(at: IndexPath(row: 0, section: section))
+        var weekSum: TimeInterval = 0
+        if let shifts = fetchedResultsController.sections?[section].objects as! [Shift]? {
+            for shift in shifts {
+                if let duration = shift.onTheClockDuration {
+                    weekSum += duration
+                } else {
+                    weekSum += 0
+                }
+            }
+        } else {
+            weekSum = 0
+        }
+        
+        return "Week \(shift.week) hours: \(String(weekSum))"
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchedResultsController.sections, sections.count > 0 {
             return sections[section].numberOfObjects
@@ -89,7 +107,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         fetchedResultsController = NSFetchedResultsController<Shift>(
             fetchRequest: fetch,
             managedObjectContext: container.viewContext,
-            sectionNameKeyPath: nil, cacheName: nil
+            sectionNameKeyPath: "week", cacheName: nil
         )
     }
     
