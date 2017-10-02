@@ -105,6 +105,14 @@ extension Bool {
             self = true
         }
     }
+    
+    public var inverse: Bool {
+        if self == true {
+            return false
+        } else {
+            return true
+        }
+    }
 }
 
 extension String {
@@ -143,8 +151,16 @@ let CTDateComponentHour: TimeInterval = CTDateComponentMinute*60
 let CTDateComponentDay: TimeInterval = CTDateComponentHour*24
 
 extension DateComponents {
+    static let AllComponents: Set<Calendar.Component> = [.era,.year,.month,.day,.hour,.minute,.second,.weekday,.weekdayOrdinal,.quarter,.weekOfMonth,.weekOfYear,.yearForWeekOfYear,.nanosecond,.calendar,.timeZone]
+    static let DayComponents: Set<Calendar.Component> = [.year,.month,.day]
+    static let TimeComponents: Set<Calendar.Component> = [.hour,.minute,.second]
+    
     init(date: Date, forComponents components: Set<Calendar.Component>)  {
         self = Calendar.current.dateComponents(components, from: date)
+    }
+    
+    var dateValue: Date? {
+        return Calendar.current.date(from: self)
     }
     
     /// returns the length in time, seconds+mintues+hours only
@@ -190,6 +206,16 @@ extension DateComponents {
     }
 }
 
+extension Date {
+    init(timeIntervalSinceToday interval: TimeInterval) {
+        var components = DateComponents(date: Date(timeIntervalSinceNow: interval), forComponents: DateComponents.AllComponents)
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        self = components.dateValue!.addingTimeInterval(interval)
+    }
+}
+
 extension UIColor {
     
     static var defaultButtonTint: UIColor { return UIColor(red: 0, green: 122/255, blue: 1, alpha: 1) }
@@ -198,9 +224,20 @@ extension UIColor {
     static var disabledStateOpacity: CGFloat { return 0.35 }
 }
 
+extension NSDecimalNumber {
+    public var currencyValue: String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        
+        return formatter.string(from: NSNumber(value: self.doubleValue))
+    }
+}
+
 public extension DispatchQueue {
     
     private static var _onceTracker = [String]()
+    
+    static let SettingViewDidAppear = "settings.viewDidAppear"
     
     /**
      Executes a block of code, associated with a unique token, only once.  The code is thread safe and will
