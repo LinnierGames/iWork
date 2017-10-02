@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E949B3FB1F81E6CD00FD4422 /* UniversalExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949B3FA1F81E6CD00FD4422 /* UniversalExtentions.swift */; };
+		E949B3FF1F82996200FD4422 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949B3FE1F82996200FD4422 /* FetchedResultsTableViewController.swift */; };
 		E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */; };
 		E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED01F088E8E001DB22F /* Main.storyboard */; };
 		E94F4ED51F088E8E001DB22F /* iWork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */; };
@@ -19,7 +20,6 @@
 		E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4EFF1F08A4EC001DB22F /* Directory.swift */; };
 		E94F4F021F08A994001DB22F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F011F08A994001DB22F /* Categories.swift */; };
 		E94F4F041F08B0DA001DB22F /* OrganizeTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */; };
-		E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */; };
 		E94F4F091F08B0F2001DB22F /* MoveNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */; };
 		E94F4F0A1F08B0F2001DB22F /* MoveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */; };
 		E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0C1F08B130001DB22F /* Constants.swift */; };
@@ -64,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		E949B3FA1F81E6CD00FD4422 /* UniversalExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UniversalExtentions.swift; path = "../../../../iLogs/Universal/iLogs - Swift/iLogs - Swift/UniversalExtentions.swift"; sourceTree = "<group>"; };
+		E949B3FE1F82996200FD4422 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FetchedResultsTableViewController.swift; path = "../../../../iLogs/Universal/iLogs - Swift/iLogs - Swift/FetchedResultsTableViewController.swift"; sourceTree = "<group>"; };
 		E94F4EC91F088E8E001DB22F /* iWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E94F4ED11F088E8E001DB22F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		E94F4EFF1F08A4EC001DB22F /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
 		E94F4F011F08A994001DB22F /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeTableTableViewController.swift; sourceTree = "<group>"; };
-		E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
 		E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveNavigationController.swift; sourceTree = "<group>"; };
 		E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTableViewController.swift; sourceTree = "<group>"; };
 		E94F4F0C1F08B130001DB22F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -193,7 +193,6 @@
 				E94F4EFD1F089AAD001DB22F /* TaskManagerTableViewController.swift */,
 				E94F4F031F08B0DA001DB22F /* OrganizeTableTableViewController.swift */,
 				E99349A91F0F46EF00A27473 /* InboxTableViewController.swift */,
-				E94F4F051F08B0F2001DB22F /* FetchedResultsTableViewController.swift */,
 				E94F4F061F08B0F2001DB22F /* MoveNavigationController.swift */,
 				E94F4F071F08B0F2001DB22F /* MoveTableViewController.swift */,
 				E99349981F0C160500A27473 /* TaskNavigationController.swift */,
@@ -206,10 +205,11 @@
 		E94F4F0E1F08B167001DB22F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E94F4EDB1F088E8E001DB22F /* Info.plist */,
 				E94F4ED61F088E8E001DB22F /* Assets.xcassets */,
 				E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */,
 				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
-				E94F4EDB1F088E8E001DB22F /* Info.plist */,
+				E949B3FE1F82996200FD4422 /* FetchedResultsTableViewController.swift */,
 				E98259111F245392003CB2DD /* Localizable.strings */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
 				E9D43E931F15C3990067FF44 /* TaskManager */,
@@ -441,8 +441,8 @@
 				E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */,
 				E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */,
 				E9D43E951F15C3A90067FF44 /* Shift.swift in Sources */,
+				E949B3FF1F82996200FD4422 /* FetchedResultsTableViewController.swift in Sources */,
 				E949B3FB1F81E6CD00FD4422 /* UniversalExtentions.swift in Sources */,
-				E94F4F081F08B0F2001DB22F /* FetchedResultsTableViewController.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
 				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
 				E9D43E8F1F15BDB20067FF44 /* UtilitiesTableViewController.swift in Sources */,

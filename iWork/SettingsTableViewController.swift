@@ -350,20 +350,6 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
     
     private var reloadIndexesOnViewDidAppear: [IndexPath]?
     
-    private var fetchedResultsController: NSFetchedResultsController<NSManagedObject>! {
-        didSet {
-            if fetchedResultsController != nil {
-                do {
-                    try fetchedResultsController.performFetch()
-                    fetchedResultsController.delegate = self
-                    tableView.reloadData()
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-    
     private func updateTable() {
         switch hierarchy {
         case .Employers:

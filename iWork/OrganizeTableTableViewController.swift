@@ -21,20 +21,6 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         }
     }
     
-    fileprivate var fetchedResultsController: NSFetchedResultsController<NSManagedObject>! {
-        didSet {
-            if let controller = fetchedResultsController {
-                controller.delegate = self
-                do {
-                    try controller.performFetch()
-                } catch {
-                    print(error.localizedDescription)
-                }
-                tableView.reloadData()
-            }
-        }
-    }
-    
     open var currentDirectory: Directory? { didSet { updateUI() } }
     
     // MARK: - RETURN VALUES
@@ -218,21 +204,6 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         // TODO: CRUD Folders and Projects
     }
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            let row = fetchedResultsController.object(at: indexPath)
-            
-            container.viewContext.delete(row)
-            
-            appDelegate.saveContext()
-            
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
-    }
-    
     /*
      // Override to support rearranging the table view.
      override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -295,13 +266,13 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         updateUI()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: currentDirectory?.info!.title ?? "Top", style: .plain, target: self, action: #selector(dismiss(animated:completion:)))
-        
         if currentDirectory != nil {
             self.navigationItem.leftBarButtonItem = nil
             self.title = nil
         }
         self.navigationItem.rightBarButtonItem = self.editButtonItem
 
+        saveHandler = appDelegate.saveContext
         // self.clearsSelectionOnViewWillAppear = true
         
     }

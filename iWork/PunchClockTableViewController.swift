@@ -11,34 +11,12 @@ import CoreData
 
 class PunchClockTableViewController: FetchedResultsTableViewController {
     
-    private var fetchedResultsController: NSFetchedResultsController<Shift>! {
-        didSet {
-            if let controller = fetchedResultsController {
-                do {
-                    try controller.performFetch()
-                    controller.delegate = self
-                    tableView.reloadData()
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-    
     // MARK: - RETURN VALUES
     
     // MARK: Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        if let sections = fetchedResultsController.sections?.count {
-            return sections
-        } else {
-            return 0
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let shift = fetchedResultsController.object(at: IndexPath(row: 0, section: section))
+        let shift = fetchedResultsController.shift(at: IndexPath(row: 0, section: section))
         var weekSum: TimeInterval = 0
         if let shifts = fetchedResultsController.sections?[section].objects as! [Shift]? {
             for shift in shifts {
@@ -52,21 +30,13 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
             weekSum = 0
         }
         
-        return "Week \(shift.week) hours: \(String(weekSum))"
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = fetchedResultsController.sections, sections.count > 0 {
-            return sections[section].numberOfObjects
-        } else {
-            return 0
-        }
+        return "Week \(shift.week): \(String(weekSum))"
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.returnCell(atIndexPath: indexPath)
         
-        let shift = fetchedResultsController!.object(at: indexPath)
+        let shift = fetchedResultsController.shift(at: indexPath)
         cell.textLabel!.text = String(shift.date!, dateStyle: .full)
         cell.accessoryType = .detailDisclosureButton
         if shift.isCompletedShift ?? false {
@@ -75,21 +45,18 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
             if shift.punches!.count > 0 {
                 cell.detailTextLabel!.text = "Loading"
                 cell.detailTextLabel!.textColor = UIColor.blue
-                Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak cell, weak shift] (timer) in
+                let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak cell, weak shift] (timer) in
                     if let lastPunch = shift?.lastPunch {
                         if shift!.isCompletedShift! {
                             timer.invalidate()
                         } else {
-                            if let duration = lastPunch.duration {
-                                cell?.detailTextLabel!.text = "Sum: \(String(shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType) for \(String(duration))"
-                            } else {
-                                cell?.detailTextLabel!.text = "Sum: \(String(shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType)"
-                            }
+                            cell?.detailTextLabel!.text = "Sum: \(String(shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType)"
                         }
                     } else {
                         timer.invalidate()
                     }
                 })
+                timer.fire()
             } else {
                 cell.detailTextLabel!.text = "No recorded punches"
             }
@@ -104,8 +71,8 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         let fetch: NSFetchRequest<Shift> = Shift.fetchRequest()
         fetch.predicate = NSPredicate(format: "employer == %@", appDelegate.currentEmployer)
         fetch.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        fetchedResultsController = NSFetchedResultsController<Shift>(
-            fetchRequest: fetch,
+        fetchedResultsController = NSFetchedResultsController<NSManagedObject>(
+            fetchRequest: fetch as! NSFetchRequest<NSManagedObject>,
             managedObjectContext: container.viewContext,
             sectionNameKeyPath: "week", cacheName: nil
         )
@@ -134,16 +101,6 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         performSegue(withIdentifier: "show shift", sender: fetchedResultsController.object(at: indexPath))
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
-        case .delete:
-            container.viewContext.delete(fetchedResultsController.object(at: indexPath))
-            appDelegate.saveContext()
-        default:
-            break
-        }
-    }
-    
     // MARK: - IBACTIONS
     
     @IBAction func pressAdd(_ sender: Any) {
@@ -161,6 +118,8 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         
         self.title = appDelegate.currentEmployer.name
         updateUI()
+        
+        saveHandler = appDelegate.saveContext
     }
     
     override func viewDidAppear(_ animated: Bool) {

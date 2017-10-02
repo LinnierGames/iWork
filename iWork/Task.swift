@@ -53,3 +53,9 @@ extension Task {
         }
     }
 }
+
+extension NSFetchedResultsController {
+    func task(at indexPath: IndexPath) -> Task {
+        return object(at: indexPath) as! Task
+    }
+}

@@ -10,46 +10,16 @@ import UIKit
 import CoreData
 
 class InboxTableViewController: FetchedResultsTableViewController {
-    
-    private var fetchedResultsController: NSFetchedResultsController<Task>! {
-        didSet {
-            if fetchedResultsController != nil {
-                do {
-                    try fetchedResultsController.performFetch()
-                    fetchedResultsController.delegate = self
-                    tableView.reloadData()
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
 
     // MARK: - RETURN VALUES
     
     // MARK: Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        if let sections = fetchedResultsController.sections?.count {
-            return sections
-        } else {
-            return 0
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = fetchedResultsController.sections, sections.count > 0 {
-            return sections[section].numberOfObjects
-        } else {
-            return 0
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        let row = fetchedResultsController.object(at: indexPath)
-        cell.textLabel!.text = row.title
+        let task = fetchedResultsController.task(at: indexPath)
+        cell.textLabel!.text = task.title
         
         return cell
     }
@@ -60,8 +30,8 @@ class InboxTableViewController: FetchedResultsTableViewController {
         let fetch: NSFetchRequest<Task> = Task.fetchRequest()
         fetch.predicate = NSPredicate(format: "directory.parent = nil AND directory.role == %@", appDelegate.currentRole)
         fetch.sortDescriptors = [CTSortDescriptor(key: "title")]
-        fetchedResultsController = NSFetchedResultsController<Task>(
-            fetchRequest: fetch,
+        fetchedResultsController = NSFetchedResultsController<NSManagedObject>(
+            fetchRequest: fetch as! NSFetchRequest<NSManagedObject>,
             managedObjectContext: container.viewContext,
             sectionNameKeyPath: nil, cacheName: nil
         )
@@ -72,7 +42,7 @@ class InboxTableViewController: FetchedResultsTableViewController {
             switch identifier {
             case "show task":
                 let taskNC = segue.destination as! TaskNavigationController
-                let task = fetchedResultsController.object(at: tableView.indexPath(for: sender as! UITableViewCell)!)
+                let task = fetchedResultsController.task(at: tableView.indexPath(for: sender as! UITableViewCell)!)
                 taskNC.task = task
             default:
                 break
@@ -81,17 +51,6 @@ class InboxTableViewController: FetchedResultsTableViewController {
     }
     
     // MARK: Table View Delegate
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
-        case .delete:
-            let task = fetchedResultsController.object(at: indexPath)
-            container.viewContext.delete(task)
-            appDelegate.saveContext()
-        default:
-            break
-        }
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -111,5 +70,7 @@ class InboxTableViewController: FetchedResultsTableViewController {
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         updateUI()
+        
+        saveHandler = appDelegate.saveContext
     }
 }

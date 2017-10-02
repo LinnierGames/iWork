@@ -82,3 +82,9 @@ extension Shift {
         }
     }
 }
+
+extension NSFetchedResultsController {
+    func shift(at indexPath: IndexPath) -> Shift {
+        return object(at: indexPath) as! Shift
+    }
+}

@@ -11,52 +11,14 @@ import CoreData
 
 class TaskManagerTableViewController: FetchedResultsTableViewController {
     
-    private var fetchedResultsController: NSFetchedResultsController<Task>? {
-        didSet {
-            if let controller = fetchedResultsController {
-                do {
-                    try controller.performFetch()
-                    controller.delegate = self
-                    tableView.reloadData()
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-    
     // MARK: - RETURN VALUES
     
     // MARK: Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        if let sections = fetchedResultsController?.sections?.count {
-            return sections
-        } else {
-            return 0
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = fetchedResultsController?.sections, sections.count > 0 {
-            return sections[section].numberOfObjects
-        } else {
-            return 0
-        }
-    }
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "task", for: indexPath)
         
-        let row = fetchedResultsController!.object(at: indexPath)
+        let row = fetchedResultsController.task(at: indexPath)
         
         cell.textLabel!.text = row.title
         
@@ -79,8 +41,8 @@ class TaskManagerTableViewController: FetchedResultsTableViewController {
         fetch.predicate = NSPredicate(format: "directory.role == %@ AND isCompleted == FALSE AND (%@ <= dueDate) AND (dueDate < %@) OR (%@ <= startDate) AND (startDate < %@)", appDelegate.currentRole, dateFrom as NSDate, dateTo as NSDate, dateFrom as NSDate, dateTo as NSDate)
         fetch.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true), NSSortDescriptor(key: "dueDate", ascending: true), CTSortDescriptor(key: "title")]
         
-        fetchedResultsController = NSFetchedResultsController<Task>(
-            fetchRequest: fetch,
+        fetchedResultsController = NSFetchedResultsController<NSManagedObject>(
+            fetchRequest: fetch as! NSFetchRequest<NSManagedObject>,
             managedObjectContext: container.viewContext,
             sectionNameKeyPath: nil, cacheName: nil
         )
@@ -109,18 +71,6 @@ class TaskManagerTableViewController: FetchedResultsTableViewController {
         performSegue(withIdentifier: "show task", sender: fetchedResultsController!.object(at: indexPath))
     }
     
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
     // MARK: - IBACTIONS
     
     @IBAction func pressAdd(_ sender: Any) {
@@ -131,6 +81,8 @@ class TaskManagerTableViewController: FetchedResultsTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        saveHandler = appDelegate.saveContext
     }
     
     override func viewWillAppear(_ animated: Bool) {
