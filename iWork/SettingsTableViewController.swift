@@ -368,16 +368,17 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         tableView.reloadData()
     }
     
-    private typealias prepareSegueSender = (hierarchy: CDSettingsHierarchy, options: [String:Any]?)
+    private typealias PrepareSegueSender = (hierarchy: CDSettingsHierarchy, options: [String:Any]?)
     
+    //Use this method to fire segues into a deeper hierarchy
     private func performSegue(withHierarchy hierarchy: CDSettingsHierarchy, object: [String:Any]? = nil) {
-        self.performSegue(withIdentifier: "show setting", sender: (hierarchy, object))
+        self.performSegue(withIdentifier: "show setting", sender: (hierarchy, object)) //fire a genuine segue
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let object = sender as? prepareSegueSender {
+        if let object = sender as? PrepareSegueSender { //internal segue (moving deeper into the settings heirarchy)
             self.prepare(for: segue, object: object)
-        } else {
+        } else { //external segues (e.g. date pickers)
             if let identifier = segue.identifier {
                 switch identifier {
                 case "show date":
@@ -388,6 +389,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                         dateVC.isTimeSet = true
                         var options = DatePickerOptions()
                         options.tag = 1
+                        options.timeRequired = false
                         dateVC.options = options
                         dateVC.delegate = self
                         reloadIndexesOnViewDidAppear = [Table.Employer.IndexPaths.EmployerStartDateRow]
@@ -405,8 +407,10 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                         reloadIndexesOnViewDidAppear = [Table.Employer.IndexPaths.EmployerEndDateRow]
                     case "role start":
                         dateVC.date = AppDelegate.sharedInstance.currentRole.startDate! as Date
+                        dateVC.isTimeSet = true
                         var options = DatePickerOptions()
                         options.tag = 1
+                        options.timeRequired = false
                         dateVC.options = options
                         dateVC.delegate = self
                         reloadIndexesOnViewDidAppear = [Table.Role.IndexPaths.RoleStartDateRow]
@@ -430,15 +434,15 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         }
     }
     
-    private func prepare(for segue: UIStoryboardSegue, object: prepareSegueSender) {
+    private func prepare(for segue: UIStoryboardSegue, object: PrepareSegueSender) {
         switch segue.identifier! {
         case "show setting":
             let settingVC = segue.destination as! SettingsTableViewController
             settingVC.hierarchy = object.hierarchy
             
             if object.options != nil {
-                if let reloadingIndexPaths = object.options![CVNotificationViewDidAppear] {
-                    reloadIndexesOnViewDidAppear = (reloadingIndexPaths as! [IndexPath])
+                if let reloadingIndexPaths = object.options![CVNotificationViewDidAppear] as! [IndexPath]? {
+                    reloadIndexesOnViewDidAppear = (reloadingIndexPaths)
                 }
             }
         default:
@@ -472,7 +476,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             switch indexPath {
             case Table.Employer.IndexPaths.RenameEmployerRow:
                 let alert = UIAlertController(title: "Rename Employer", message: "enter a name", preferredStyle: .alert)
-                alert.addTextField(configurationHandler: { [weak self] (textField) in
+                alert.addTextField(configurationHandler: { (textField) in
                     textField.setStyleToParagraph(withPlaceholderText: "name", withInitalText: AppDelegate.sharedInstance.currentEmployer.name)
                 })
                 alert.addActions(actions:
@@ -505,11 +509,11 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             switch indexPath {
             case Table.Role.IndexPaths.RenameRoleRow:
                 let alert = UIAlertController(title: "Rename Role", message: "enter a title", preferredStyle: .alert)
-                alert.addTextField(configurationHandler: { [weak self] (textField) in
+                alert.addTextField(configurationHandler: { (textField) in
                     textField.setStyleToParagraph(withPlaceholderText: "title", withInitalText: AppDelegate.sharedInstance.currentRole.title)
                 })
                 alert.addActions(actions:
-                    UIAlertActionInfo(title: "Rename", handler: { [weak self] (action) in
+                    UIAlertActionInfo(title: "Rename", handler: { (action) in
                         AppDelegate.sharedInstance.currentRole.title = alert.inputField.text
                         AppDelegate.sharedInstance.saveContext()
                         tableView.reloadRows(at: [Table.Role.IndexPaths.RenameRoleRow], with: .fade)
@@ -592,7 +596,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 textField.setStyleToParagraph()
             }
             alert.addActions(actions:
-                UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
+                UIAlertActionInfo(title: "Save", handler: { (action) in
                     _ = Employer(name: alert.inputField.text!, inContext: AppDelegate.viewContext)
                     AppDelegate.sharedInstance.saveContext()
                 })
@@ -604,7 +608,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 textField.setStyleToParagraph()
             }
             alert.addActions(actions:
-                UIAlertActionInfo(title: "Save", handler: { [weak self] (action) in
+                UIAlertActionInfo(title: "Save", handler: { (action) in
                     _ = Role(title: alert.inputField.text!, inContext: AppDelegate.viewContext, forEmployer: AppDelegate.sharedInstance.currentEmployer)
                     AppDelegate.sharedInstance.saveContext()
                 })

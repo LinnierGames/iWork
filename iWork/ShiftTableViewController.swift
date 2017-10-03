@@ -61,8 +61,6 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
     
     // MARK: Table view data source
     
-    // MARK: Table view data source
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         if let sections = fetchedResultsController.sections?.count {
             return sections
@@ -197,6 +195,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                 }
             } else { //Starting a lunch or ended a shift
                 labelFifthHour.text = "Currently off the Clock"
+                labelFifthHour.textColor = UIColor.black
                 labelCaption.text = nil
             }
             labelSum.text = "Sum: \(String(shift.continuousOnTheClockDuration!))"

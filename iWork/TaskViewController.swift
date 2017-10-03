@@ -188,6 +188,8 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
                 let dateVC = (segue.destination as! UINavigationController).topViewController as! DatePickerViewController
                 dateVC.date = info.date
                 dateVC.isTimeSet = info.time
+                dateVC.options.dateRequired = false
+                dateVC.options.timeRequired = false
                 dateVC.delegate = self
                 if info.picker == "due date" {
                     pickerDueDate = dateVC

@@ -13,14 +13,22 @@ protocol DatePickerDelegate {
 }
 
 struct DatePickerOptions {
+    /** allow date to be set */
     var canSetDate: Bool
+    /** allow date to none */
     var dateRequired: Bool
+    /** an array of TimeIntervals, from today's date */
     var datePresets: [TimeInterval]
+    /** a range of dates to set as the mins and max */
     var dateRanges: Range<Date>?
+    /** apply the times from the date ranges as the min and max of the timer picker */
     var timeRanges: Bool
     
+    /** allow time to be set */
     var canSetTime: Bool
+    /** allow time to be none */
     var timeRequired: Bool
+    /** an array of TimeIntervals, from today's date */
     var timePresets: [TimeInterval]
     
     var pickerMode: UIDatePickerMode
@@ -72,6 +80,7 @@ class DatePickerViewController: UIViewController {
         }
     }
     
+    /** if true, the time from the .date will be set to the time picker */
     var isTimeSet: Bool = false
     
     private var pickerMode: UIDatePickerMode? {
@@ -122,15 +131,17 @@ class DatePickerViewController: UIViewController {
         if pickerMode == .date {
             var buttonTag = 0
             self.toolbarItems!.removeAll()
-            let todaysDay = DateComponents(date: Date(), forComponents: [.weekday])
-            let tomorrowsDay = DateComponents(date: Date(timeIntervalSinceNow: CTDateComponentDay), forComponents: [.weekday])
+            var todaysDay = DateComponents(date: Date(), forComponents: [.weekday])
+            todaysDay.calendar = Calendar.current
+            var tomorrowsDay = DateComponents(date: Date(timeIntervalSinceNow: CTDateComponentDay), forComponents: [.weekday])
+            tomorrowsDay.calendar = Calendar.current
             for preset in options.datePresets {
                 var presetComponent = DateComponents(date: Date(timeIntervalSinceNow: preset), forComponents: [.weekday])
                 presetComponent.calendar = Calendar.current
                 let buttonTitle: String
-                if presetComponent == todaysDay {
+                if presetComponent.weekday! == todaysDay.weekday! {
                     buttonTitle = "Today"
-                } else if presetComponent == tomorrowsDay {
+                } else if presetComponent.weekday! == tomorrowsDay.weekday! {
                     buttonTitle = "Tomorrow"
                 } else {
                     buttonTitle = presetComponent.weekdayTitle!
