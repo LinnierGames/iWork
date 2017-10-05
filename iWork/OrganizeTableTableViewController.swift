@@ -105,8 +105,6 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
                 newClass = Folder(title: text, parent: parent, inContext: context, forRole: role)
             } else if type is Project.Type {
                 newClass = Project(titleProject: text, parent: parent, inContext: context, forRole: role)
-            } else if type is Task.Type {
-                newClass = Task(titleTask: text, inContext: context, forRole: role)
             } else {
                 newClass = DirectoryInfo(context: context)
             }
@@ -147,24 +145,24 @@ class OrganizeTableTableViewController: FetchedResultsTableViewController, MoveT
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: Table view
-    
     override func setEditing(_ editing: Bool, animated: Bool) {
         if (navigationItem.rightBarButtonItem!.title == "Next") {
             self.performSegue(withIdentifier: "show move", sender: nil)
         } else {
             super.setEditing(editing, animated: animated)
             
-            let editingInvert = editing ? false : true
-            buttonAddItem.isEnabled = editingInvert
+            buttonAddItem.isEnabled = editing.inverse
+            self.navigationItem.leftBarButtonItem?.isEnabled = editing.inverse
             self.navigationItem.setHidesBackButton(editing, animated: true)
         }
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Table view
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing {

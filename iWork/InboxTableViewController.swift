@@ -42,12 +42,24 @@ class InboxTableViewController: FetchedResultsTableViewController {
             switch identifier {
             case "show task":
                 let taskNC = segue.destination as! TaskNavigationController
-                let task = fetchedResultsController.task(at: tableView.indexPath(for: sender as! UITableViewCell)!)
+                let task: Task?
+                if let cell = sender as? UITableViewCell { //Detail a task
+                    task = fetchedResultsController.task(at: tableView.indexPath(for: cell)!)
+                } else { //sender was buttonAdd, thus create a new task
+                    task = nil
+                }
                 taskNC.task = task
             default:
                 break
             }
         }
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        buttonAddItem.isEnabled = editing.inverse
+        self.navigationItem.leftBarButtonItem!.isEnabled = editing.inverse
     }
     
     // MARK: Table View Delegate
@@ -58,6 +70,10 @@ class InboxTableViewController: FetchedResultsTableViewController {
     }
     
     // MARK: - IBACTIONS
+    
+    @IBOutlet weak var buttonAddItem: UIBarButtonItem!
+    @IBAction func pressAdd(_ sender: Any) {
+    }
     
     @IBAction func pressDone(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

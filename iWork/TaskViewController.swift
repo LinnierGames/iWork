@@ -202,7 +202,7 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
         }
     }
     
-    private func dismiss() {
+    private func dismissFirstResponder() {
         if cellTitle.textField.isFirstResponder {
             cellTitle.textField.resignFirstResponder()
         }
@@ -302,14 +302,16 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     // MARK: - IBACTIONS
     
     func pressLeftNav(_ sender: Any) {
-        self.dismiss()
+        self.dismissFirstResponder()
         if navController.option == .update {
             AppDelegate.sharedInstance.saveContext()
+        } else if navController.option == .insert {
+            AppDelegate.viewContext.rollback()
         }
     }
     
     func pressRightNav(_ sender: Any) {
-        self.dismiss()
+        self.dismissFirstResponder()
         AppDelegate.sharedInstance.saveContext()
     }
     
@@ -319,7 +321,7 @@ class TaskViewController: UITableViewController, UITextFieldDelegate, DatePicker
     }
     
     @IBAction func pressDone(_ sender: Any) {
-        self.dismiss()
+        self.dismissFirstResponder()
     }
     
     // MARK: - LIFE CYCLE

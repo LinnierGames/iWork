@@ -78,6 +78,13 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         )
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        buttonAdd.isEnabled = editing.inverse
+        self.navigationItem.setHidesBackButton(editing, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -103,6 +110,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     
     // MARK: - IBACTIONS
     
+    @IBOutlet weak var buttonAdd: UIBarButtonItem!
     @IBAction func pressAdd(_ sender: Any) {
         _ = Shift(inContext: AppDelegate.viewContext, forEmployer: AppDelegate.sharedInstance.currentEmployer)
         AppDelegate.sharedInstance.saveContext()

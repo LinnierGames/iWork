@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E949B3FB1F81E6CD00FD4422 /* UniversalExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949B3FA1F81E6CD00FD4422 /* UniversalExtentions.swift */; };
-		E949B3FF1F82996200FD4422 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949B3FE1F82996200FD4422 /* FetchedResultsTableViewController.swift */; };
 		E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */; };
 		E94F4ED21F088E8E001DB22F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E94F4ED01F088E8E001DB22F /* Main.storyboard */; };
 		E94F4ED51F088E8E001DB22F /* iWork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */; };
@@ -27,6 +25,8 @@
 		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
 		E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */; };
 		E98259121F245392003CB2DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98259111F245392003CB2DD /* Localizable.strings */; };
+		E98E9ED11F842FF300B684D9 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98E9ED01F842FF300B684D9 /* FetchedResultsTableViewController.swift */; };
+		E98E9ED31F842FFA00B684D9 /* UniversalExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98E9ED21F842FF900B684D9 /* UniversalExtentions.swift */; };
 		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
 		E99349991F0C160500A27473 /* TaskNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349981F0C160500A27473 /* TaskNavigationController.swift */; };
@@ -63,8 +63,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E949B3FA1F81E6CD00FD4422 /* UniversalExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UniversalExtentions.swift; path = "../../../../iLogs/Universal/iLogs - Swift/iLogs - Swift/UniversalExtentions.swift"; sourceTree = "<group>"; };
-		E949B3FE1F82996200FD4422 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FetchedResultsTableViewController.swift; path = "../../../../iLogs/Universal/iLogs - Swift/iLogs - Swift/FetchedResultsTableViewController.swift"; sourceTree = "<group>"; };
 		E94F4EC91F088E8E001DB22F /* iWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E94F4ED11F088E8E001DB22F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -89,6 +87,8 @@
 		E94F4F111F08B244001DB22F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		E98259111F245392003CB2DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		E98E9ED01F842FF300B684D9 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FetchedResultsTableViewController.swift; path = "../../../../Swift Source Files/FetchedResultsTableViewController.swift"; sourceTree = "<group>"; };
+		E98E9ED21F842FF900B684D9 /* UniversalExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UniversalExtentions.swift; path = "../../../../Swift Source Files/UniversalExtentions.swift"; sourceTree = "<group>"; };
 		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		E99349981F0C160500A27473 /* TaskNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNavigationController.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			children = (
 				E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */,
 				E94F4F011F08A994001DB22F /* Categories.swift */,
-				E949B3FA1F81E6CD00FD4422 /* UniversalExtentions.swift */,
+				E98E9ED21F842FF900B684D9 /* UniversalExtentions.swift */,
 				E94F4F0C1F08B130001DB22F /* Constants.swift */,
 				E94F4F0B1F08B0F7001DB22F /* Task Manager */,
 				E9D43E901F15BDB60067FF44 /* Utitlities */,
@@ -208,8 +208,8 @@
 				E94F4EDB1F088E8E001DB22F /* Info.plist */,
 				E94F4ED61F088E8E001DB22F /* Assets.xcassets */,
 				E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */,
+				E98E9ED01F842FF300B684D9 /* FetchedResultsTableViewController.swift */,
 				E94F4ED81F088E8E001DB22F /* LaunchScreen.storyboard */,
-				E949B3FE1F82996200FD4422 /* FetchedResultsTableViewController.swift */,
 				E98259111F245392003CB2DD /* Localizable.strings */,
 				E94F4ED31F088E8E001DB22F /* iWork.xcdatamodeld */,
 				E9D43E931F15C3990067FF44 /* TaskManager */,
@@ -441,10 +441,10 @@
 				E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */,
 				E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */,
 				E9D43E951F15C3A90067FF44 /* Shift.swift in Sources */,
-				E949B3FF1F82996200FD4422 /* FetchedResultsTableViewController.swift in Sources */,
-				E949B3FB1F81E6CD00FD4422 /* UniversalExtentions.swift in Sources */,
+				E98E9ED31F842FFA00B684D9 /* UniversalExtentions.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
 				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
+				E98E9ED11F842FF300B684D9 /* FetchedResultsTableViewController.swift in Sources */,
 				E9D43E8F1F15BDB20067FF44 /* UtilitiesTableViewController.swift in Sources */,
 				E993499B1F0C171600A27473 /* TaskViewController.swift in Sources */,
 				E99349A81F0DE3D500A27473 /* DirectoryInfo.swift in Sources */,
