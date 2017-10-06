@@ -13,15 +13,15 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-    
+
     class var sharedInstance: AppDelegate {
         return UIApplication.shared.delegate! as! AppDelegate
     }
-    
+
     class var viewContext: NSManagedObjectContext {
         return AppDelegate.sharedInstance.persistentContainer.viewContext
     }
-    
+
     var currentEmployer: Employer {
         get {
             if let employer = UserDefaults.standard.string(forKey: "employer") { //Fetches the default employer
@@ -30,19 +30,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         return fetchedObject
                     } else { //Not found, then remove the saved Id and create a new default
                         UserDefaults.standard.setValue(nil, forKey: "employer")
-                        
+
                         return self.currentEmployer
                     }
                 } else { //Not found, then remove the saved Id and create a new default
                     UserDefaults.standard.setValue(nil, forKey: "employer")
-                    
+
                     return self.currentEmployer
                 }
             } else { //Assume there is no employer saved in context and create a new one
                 let defaultEmployer = Employer(inContext: persistentContainer.viewContext)
                 self.saveContext()
                 self.currentEmployer = defaultEmployer
-                
+
                 return defaultEmployer
             }
         }
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             UserDefaults.standard.synchronize()
         }
     }
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
+
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -78,9 +78,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         })
         return container
     }()
-    
+
     // MARK: - Core Data Saving support
-    
+
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
     }
-    
+
     /// Will call saveContext() on set
     var currentRole: Role {
         get {
@@ -108,14 +108,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+
         // if the application has NOT already launched, then set up first-time settings
         if (UserDefaults.standard.value(forKey: "hasAlreadyLaunched") as? Bool ?? false) == false {
-            
+
         }
-        
+
         AppDelegate.userNotificationCenter.configNotificationCategories(delegate: self)
-        
+
         return true
     }
 
@@ -143,17 +143,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void) {
+        if response.notification.request.content.categoryIdentifier == "UTILS_PUNCH_CLOCK" {
+            if response.actionIdentifier == "ACT_PUNCH_NOW" {
+
+            } else if response.actionIdentifier == "ACT_LUANCH" {
+
+            } else if response.actionIdentifier == "ACT_PUNCH_MUTE" {
+                UNUserNotificationCenter.current().removePendingFifthHourNotificationRequests()
+            }
+        }
+        completionHandler()
+    }
 }
 
 import CoreData
 
 private typealias CoreData = AppDelegate
 extension CoreData {
-    
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
-    
+
     //Debuging
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
     }
@@ -164,43 +177,31 @@ import UserNotifications
 private typealias UserPermissions = AppDelegate
 extension UserPermissions {
     public static let userNotificationCenter: UNUserNotificationCenter = UNUserNotificationCenter.current()
-    
+
     private func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(UNNotificationPresentationOptions.sound)
-    }
-    
-    private func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.content.categoryIdentifier == "UTILS_PUNCH_CLOCK" {
-            // Handle the actions for the expired timer.
-            if response.actionIdentifier == "ACT_PUNCH_NOW" {
-            }
-            else if response.actionIdentifier == "ACT_LUANCH" {
-            }
-        }
     }
 }
 
 extension UNUserNotificationCenter {
-    
+
     public func configNotificationCategories(delegate: UNUserNotificationCenterDelegate?) {
         let generalCategory = UNNotificationCategory(identifier: "GENERAL",
                                                      actions: [],
                                                      intentIdentifiers: [],
                                                      options: .customDismissAction)
-        
-        let punchAction = UNNotificationAction(identifier: "ACT_PUNCH_NOW",
-                                                title: "Punch Now",
-                                                options: .destructive)
-        let luanchAction = UNNotificationAction(identifier: "ACT_LUANCH",
-                                              title: "Edit Punches",
-                                              options: .foreground)
+
+        let launchAction = UNNotificationAction(identifier: "ACT_LUANCH",
+                                                title: "Edit Punches",
+                                                options: .foreground)
+        let punchMute = UNNotificationAction(identifier: "ACT_PUNCH_MUTE",
+                                                title: "Mute")
         let punchClock = UNNotificationCategory(identifier: "UTILS_PUNCH_CLOCK",
-                                                     actions: [punchAction, luanchAction],
+                                                     actions: [launchAction, punchMute],
                                                      intentIdentifiers: [],
                                                      options: .init(rawValue: 0))
-        
+
         UserPermissions.userNotificationCenter.setNotificationCategories([generalCategory,punchClock])
         UserPermissions.userNotificationCenter.delegate = delegate
     }
 }
-

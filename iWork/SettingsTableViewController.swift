@@ -58,9 +58,9 @@ fileprivate struct Table {
 fileprivate let CVNotificationViewDidAppear = "onViewDidAppear"
 
 class SettingsTableViewController: FetchedResultsTableViewController, UITextFieldDelegate, DatePickerDelegate {
-    
+
     fileprivate var hierarchy: CDSettingsHierarchy = .Root
-    
+
     private var cellManager: CustomTableViewCells! {
         didSet {
             cellManager.textField.setStyleToParagraph(withPlaceholderText: "Name", withInitalText: AppDelegate.sharedInstance.currentEmployer.manager)
@@ -68,7 +68,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             cellManager.textField.delegate = self
         }
     }
-    
+
     private var cellSupervisor: CustomTableViewCells! {
         didSet {
             cellSupervisor.textField.setStyleToParagraph(withPlaceholderText: "Name", withInitalText: AppDelegate.sharedInstance.currentRole.supervisor)
@@ -76,7 +76,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             cellSupervisor.textField.delegate = self
         }
     }
-    
+
     private var cellRegularRate: CustomTableViewCells! {
         didSet {
             cellRegularRate.textField.setStyleToParagraph(withPlaceholderText: "Rate", withInitalText: AppDelegate.sharedInstance.currentRole.regularRate!.currencyValue)
@@ -84,13 +84,13 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             cellRegularRate.textField.delegate = self
         }
     }
-    
+
     var array: [Any]!
-    
+
     // MARK: - RETURN VALUES
-    
+
     // MARK: Table view data source
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         switch hierarchy {
         case .Root:
@@ -101,7 +101,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             return 1
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch hierarchy {
         case .Root:
@@ -115,7 +115,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             return nil
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch hierarchy {
         case .Root:
@@ -133,7 +133,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             return 7
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch hierarchy {
         case .Employers:
@@ -144,7 +144,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             return false
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch hierarchy {
         case .Root:
@@ -160,7 +160,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             return 44
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch hierarchy {
         case .Root:
@@ -169,25 +169,25 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = AppDelegate.sharedInstance.currentEmployer.name
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             case Table.Root.IndexPaths.SelectEmployer:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = "Switch Employers"
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             case Table.Root.IndexPaths.EditRole:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = AppDelegate.sharedInstance.currentRole.title
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             case Table.Root.IndexPaths.SelectRole:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = "Switch Roles"
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             default:
                 return UITableViewCell() //None
@@ -197,20 +197,20 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Employer.IndexPaths.RenameEmployerRow:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = AppDelegate.sharedInstance.currentEmployer.name
-                
+
                 return cell
             case Table.Employer.IndexPaths.EmployerManagerRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Manager"
                 cell.textField.text = AppDelegate.sharedInstance.currentEmployer.manager
-                
+
                 cellManager = cell; return cell
             case Table.Employer.IndexPaths.EmployerStartDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
                 cell.detailTextLabel!.text = String(AppDelegate.sharedInstance.currentEmployer.startDate!)
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             case Table.Employer.IndexPaths.EmployerEndDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
@@ -223,7 +223,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                     cell.detailTextLabel!.textColor = UIColor.disabledState
                 }
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             case Table.Employer.IndexPaths.LocationRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
@@ -231,7 +231,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 cell.textView.text = AppDelegate.sharedInstance.currentEmployer.location
                 cell.textView.isEditable = false
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             case Table.Employer.IndexPaths.PhoneNumbersRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
@@ -239,14 +239,14 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 cell.textView.text = AppDelegate.sharedInstance.currentEmployer.phoneNumbers ?? "None"
                 cell.textView.isEditable = false
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             case Table.Employer.IndexPaths.HolidayRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Holiday Dates"
                 cell.detailTextLabel!.text = String(AppDelegate.sharedInstance.currentEmployer.holidayDates?.count ?? 0)
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             case Table.Employer.IndexPaths.NotesRow:
                 let cell = tableView.returnCell(forIdentifier: "captionTextView", atIndexPath: indexPath) as! CustomTableViewCells
@@ -254,7 +254,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 cell.textView.text = AppDelegate.sharedInstance.currentEmployer.notes ?? "None"
                 cell.textView.isEditable = false
                 cell.accessoryType = .disclosureIndicator
-                
+
                 return cell
             default:
                 return UITableViewCell() //None
@@ -264,20 +264,20 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Role.IndexPaths.RenameRoleRow:
                 let cell = tableView.returnCell(forIdentifier: "title", atIndexPath: indexPath)
                 cell.textLabel!.text = AppDelegate.sharedInstance.currentRole.title
-                
+
                 return cell
             case Table.Role.IndexPaths.RoleSupervisorRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Supervisor"
                 cell.textField.text = AppDelegate.sharedInstance.currentRole.supervisor
                 //cell.accessoryType = .none
-                
+
                 cellSupervisor = cell; return cell
             case Table.Role.IndexPaths.RoleStartDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
                 cell.detailTextLabel!.text = String(AppDelegate.sharedInstance.currentRole.startDate!)
-                
+
                 return cell
             case Table.Role.IndexPaths.RoleEndDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
@@ -289,23 +289,23 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                     cell.detailTextLabel!.text = "None"
                     cell.detailTextLabel!.textColor = UIColor.disabledState
                 }
-                
+
                 return cell
             case Table.Role.IndexPaths.RoleRegularRateRow:
                 let cell = tableView.returnCell(forIdentifier: "titleTextField", atIndexPath: indexPath) as! CustomTableViewCells
                 cell.labelTitle.text = "Regular Pay Rate"
                 cell.textField.text = AppDelegate.sharedInstance.currentRole.regularRate!.currencyValue
-                
+
                 cellRegularRate = cell; return cell
             case Table.Role.IndexPaths.RoleTimeAndHalfRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Time and a Half"
-                
+
                 return cell
             case Table.Role.IndexPaths.RoleOvertimeRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Overtime"
-                
+
                 return cell
             default:
                 return UITableViewCell()
@@ -320,7 +320,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             } else {
                 cell.accessoryType = .none
             }
-            
+
             return cell
         case .Roles:
             let cell = tableView.returnCell(forIdentifier: "subtitle", atIndexPath: indexPath)
@@ -331,25 +331,25 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             } else {
                 cell.accessoryType = .none
             }
-            
+
             return cell
         }
     }
-    
+
     // MARK: Text Field Delegate
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == cellManager?.textField || textField == cellSupervisor?.textField {
             textField.resignFirstResponder()
         }
-        
+
         return false
     }
-    
+
     // MARK: - VOID METHODS
-    
+
     private var reloadIndexesOnViewDidAppear: [IndexPath]?
-    
+
     private func updateTable() {
         switch hierarchy {
         case .Employers:
@@ -364,17 +364,17 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
         default:
             break
         }
-    
+
         tableView.reloadData()
     }
-    
+
     private typealias PrepareSegueSender = (hierarchy: CDSettingsHierarchy, options: [String:Any]?)
-    
+
     //Use this method to fire segues into a deeper hierarchy
     private func performSegue(withHierarchy hierarchy: CDSettingsHierarchy, object: [String:Any]? = nil) {
         self.performSegue(withIdentifier: "show setting", sender: (hierarchy, object)) //fire a genuine segue
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let object = sender as? PrepareSegueSender { //internal segue (moving deeper into the settings heirarchy)
             self.prepare(for: segue, object: object)
@@ -433,13 +433,13 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             }
         }
     }
-    
+
     private func prepare(for segue: UIStoryboardSegue, object: PrepareSegueSender) {
         switch segue.identifier! {
         case "show setting":
             let settingVC = segue.destination as! SettingsTableViewController
             settingVC.hierarchy = object.hierarchy
-            
+
             if object.options != nil {
                 if let reloadingIndexPaths = object.options![CVNotificationViewDidAppear] as! [IndexPath]? {
                     reloadIndexesOnViewDidAppear = (reloadingIndexPaths)
@@ -449,14 +449,14 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             break
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     // MARK: Table View Delegate
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch hierarchy {
         case .Root:
@@ -486,7 +486,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                         self!.tableView.reloadRows(at: [Table.Employer.IndexPaths.RenameEmployerRow], with: .fade)
                     })
                 )
-                
+
                 self.present(alert, animated: true, completion: { [weak self] in
                     self!.tableView.deselectRow(at: Table.Employer.IndexPaths.RenameEmployerRow, animated: true)
                 })
@@ -501,6 +501,11 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             let row = fetchedResultsController.object(at: indexPath)
             if hierarchy == .Employers {
                 AppDelegate.sharedInstance.currentEmployer = row as! Employer
+                AppDelegate.userNotificationCenter.removePendingFifthHourNotificationRequests()
+                //TODO most recent shit using sort descriptor, find active shifts vs using the first
+                if let recentShift = AppDelegate.sharedInstance.currentEmployer.shifts?.array.last as! Shift? {
+                    recentShift.setNotificationsForFifthHour()
+                }
             } else {
                 AppDelegate.sharedInstance.currentRole = row as! Role
             }
@@ -519,7 +524,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                         tableView.reloadRows(at: [Table.Role.IndexPaths.RenameRoleRow], with: .fade)
                     })
                 )
-                
+
                 self.present(alert, animated: true, completion: { [weak self] in
                     self!.tableView.deselectRow(at: Table.Role.IndexPaths.RenameRoleRow, animated: true)
                 })
@@ -532,7 +537,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             }
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
@@ -543,9 +548,9 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             break
         }
     }
-    
+
     // MARK: Text Field Delegate
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch hierarchy {
         case .DetailEmployer:
@@ -562,9 +567,9 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             break
         }
     }
-    
+
     // MARK: Date Picker Delegate
-    
+
     func datePicker(_ picker: DatePickerViewController, didFinishWithDate date: Date?, withTimeInterval interval: TimeInterval?) {
         switch hierarchy {
         case .DetailEmployer:
@@ -585,9 +590,9 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             break
         }
     }
-    
+
     // MARK: - IBACTIONS
-    
+
     internal func pressRightNav(_ sender: Any) {
         switch hierarchy {
         case .Employers:
@@ -618,28 +623,28 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             break
         }
     }
-    
+
     // MARK: - LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         switch hierarchy {
         case .Employers, .Roles:
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pressRightNav(_:)))
         default:
             break
         }
-        
+
         updateTable()
 
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = true
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         switch hierarchy {
         case .DetailEmployer:
             title = "Employer Details"
@@ -653,29 +658,29 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             break
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         if let indexesToReload = reloadIndexesOnViewDidAppear {
             tableView.reloadRows(at: indexesToReload, with: .fade)
             reloadIndexesOnViewDidAppear = nil
         }
-        
+
         DispatchQueue.once(token: DispatchQueue.SettingViewDidAppear) {
             if hierarchy == .Root {
                 let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
                 let build = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
                 let labelVersion = UITextView(frame: CGRect(x: 0, y: 0, width: 0, height: 64))
                 labelVersion.translatesAutoresizingMaskIntoConstraints = false
-                
+
                 labelVersion.text = "iWork (Linnier__Games)\nv\(version) (\(build))"
                 labelVersion.textAlignment = .center
                 labelVersion.textColor = UIColor.lightGray
                 labelVersion.isEditable = false
                 labelVersion.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
                 tableView.addSubview(labelVersion)
-                
+
                 let margins = labelVersion.superview!.readableContentGuide
-                
+
                 labelVersion.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
                 labelVersion.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
                 labelVersion.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0).isActive = true

@@ -11,13 +11,13 @@ import CoreData
 
 class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, DatePickerDelegate {
 
-    
+
     var shift: Shift!
-    
+
     var lastPunch: TimePunch? {
         return fetchedResultsController.fetchedObjects?.first
     }
-    
+
     var fetchedResultsController: NSFetchedResultsController<TimePunch>! {
         didSet {
             if let controller = fetchedResultsController {
@@ -31,9 +31,9 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             }
         }
     }
-    
+
     @IBOutlet weak var tableView: UITableView!
-    
+
     @IBOutlet weak var labelFifthHour: UILabel!
     @IBOutlet weak var labelLastPunch: UILabel!
     @IBOutlet weak var labelCaption: UILabel!
@@ -54,13 +54,13 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             textViewNotes.resignFirstResponder()
         }
     }
-    
+
     private var timer: Timer!
-    
+
     // MARK: - RETURN VALUES
-    
+
     // MARK: Table view data source
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         if let sections = fetchedResultsController.sections?.count {
             return sections
@@ -68,11 +68,11 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Punches"
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchedResultsController.sections, sections.count > 0 {
             return sections[section].numberOfObjects
@@ -80,7 +80,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         var actions = [UITableViewRowAction(style: .normal, title: "Refresh", handler: { [weak self] (action, indexPath) in
             self!.fetchedResultsController.object(at: indexPath).timeStamp = NSDate()
@@ -95,13 +95,13 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                 self!.updateInfo()
             }), at: 0)
         }
-        
+
         return actions
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
+
         let punch = fetchedResultsController.object(at: indexPath)
         cell.textLabel!.text = String(describing: punch.punchType)
         let time = String(punch.timeStamp!, dateStyle: .none, timeStyle: .medium)
@@ -115,12 +115,12 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         } else {
             cell.detailTextLabel!.text = "\(time)"
         }
-        
+
         return cell
     }
-    
+
     // MARK: - VOID METHODS
-    
+
     private func updateUI() {
         let fetch: NSFetchRequest<TimePunch> = TimePunch.fetchRequest()
         fetch.predicate = NSPredicate(format: "shift == %@", shift)
@@ -133,14 +133,14 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         buttonDate.setTitle(String(shift.date!, dateStyle: .full), for: .normal)
         updateInfo()
     }
-    
+
     private func setSuggestedPunch() -> TimePunch.PunchType? {
         if let punches = shift.punches?.array as! [TimePunch]? {
             let hasFirstBreak = punches.contains(where: { $0.punchType == .StartBreak }),
             hasLunch = punches.contains(where: { $0.punchType == .StartLunch }),
             hasSecondBreak = punches.reduce(0) { $1.punchType == .StartBreak ? $0+1 : $0 } > 1,
             hasEndShift = punches.contains(where: { $0.punchType == .EndShift })
-            
+
             if shift.lastPunch!.punchType == .StartBreak {
                 return .EndBreak
             } else if shift.lastPunch!.punchType == .StartLunch {
@@ -170,7 +170,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             return .StartShift
         }
     }
-    
+
     private func updateInfo() {
         if let punch = lastPunch {
             if punch.punchType != .EndShift {
@@ -199,25 +199,25 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                 labelCaption.text = nil
             }
             labelSum.text = "Sum: \(String(shift.continuousOnTheClockDuration!))"
-            
+
             suggestedPunch = setSuggestedPunch()
         } else {
             labelFifthHour.text = "Add a Punch"
             labelCaption.text = nil
             labelLastPunch.text = "Last Punch:"
             labelSum.text = "Sum:"
-            
+
             suggestedPunch = .StartShift
         }
     }
-    
-    ///nofications for the fifth hour
+
+    /// nofications for the fifth hour
     private func updateNotifications(forAddedPunch insertPunch: TimePunch? = nil, forDeletedPunch deletePunch: TimePunch? = nil) {
         if let punch = insertPunch {
             if punch.punchType == .StartShift || punch.punchType == .EndLunch {
-                AppDelegate.userNotificationCenter.getNotificationSettings { (setting) in
+                AppDelegate.userNotificationCenter.getNotificationSettings { [weak shift] (setting) in
                     if setting.alertSetting == .enabled {
-                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: punch)
+                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: punch, forShift: shift!)
                     }
                 }
             } else if punch.punchType == .StartLunch || punch.punchType == .EndShift {
@@ -227,7 +227,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             if punch.punchType == .StartLunch || punch.punchType == .EndShift {
                 AppDelegate.userNotificationCenter.getNotificationSettings { [weak shift] (setting) in
                     if setting.alertSetting == .enabled {
-                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: shift!.onTheClockPunch!)
+                        AppDelegate.userNotificationCenter.addLocalNotification(forPunch: shift!.onTheClockPunch!, forShift: shift!)
                     }
                 }
             } else if punch.punchType == .StartShift || punch.punchType == .EndLunch {
@@ -237,7 +237,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             preconditionFailure("cannont have both punches set to nil to update the notification center")
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -252,36 +252,39 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             }
         }
     }
-    
+
     // MARK: Text View Delegate
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         labelNotes.isHidden = true
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         shift.notes = textView.text
         AppDelegate.sharedInstance.saveContext()
-        
+
         if textView.text == "" {
             labelNotes.isHidden = false
         } else {
             labelNotes.isHidden = true
         }
     }
-    
+
     // MARK: Date Picker Delegate
-    
+
     func datePicker(_ picker: DatePickerViewController, didFinishWithDate date: Date?, withTimeInterval interval: TimeInterval?) {
         if let indexPath = tableView.indexPathForSelectedRow {
             let punch = fetchedResultsController.object(at: indexPath)
             punch.timeStamp = date! as NSDate
             AppDelegate.sharedInstance.saveContext()
+            if punch.punchType == .StartShift || punch.punchType == .EndLunch { //Updates notifications based on the new date set
+                AppDelegate.userNotificationCenter.addLocalNotification(forPunch: punch, forShift: shift)
+            }
         }
     }
-        
+
     // MARK: - IBACTIONS
-    
+
     private func insert(punch: TimePunch.PunchType) {
         let newPunch = TimePunch(punch: punch, inContext: AppDelegate.viewContext, forShift: shift)
         shift.addToPunches(newPunch)
@@ -289,7 +292,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         updateNotifications(forAddedPunch: newPunch)
         updateInfo()
     }
-    
+
     @IBAction func pressAdd(_ sender: Any) {
         let alert = UIAlertController(title: "Adding a Punch", message: "select a punch type", preferredStyle: .actionSheet)
         if let punch = lastPunch {
@@ -323,12 +326,12 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         alert.addAction(UIAlertAction(title: "Override", style: .destructive, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    
+
     @IBOutlet weak var buttonDate: UIButton!
     @IBAction func pressDate(_ sender: Any) {
-        
+
     }
-    
+
     @IBOutlet weak var buttonPunch: UIBarButtonItem!
     private var suggestedPunch: TimePunch.PunchType? = .StartShift {
         didSet {
@@ -344,32 +347,32 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             insert(punch: punch)
         }
     }
-    
+
     // MARK: - LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         tableView.setEditing(true, animated: false)
-        
+
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (timer) in
             self!.updateInfo()
         })
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         timer.invalidate()
     }
-    
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
-    
+
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         AppDelegate.userNotificationCenter.getPendingNotificationRequests(completionHandler: { (notes) in
             for note in notes {
@@ -383,7 +386,7 @@ extension ShiftViewController {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
-    
+
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert: tableView.insertSections([sectionIndex], with: .fade)
@@ -391,7 +394,7 @@ extension ShiftViewController {
         default: break
         }
     }
-    
+
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
@@ -405,7 +408,7 @@ extension ShiftViewController {
             tableView.insertRows(at: [newIndexPath!], with: .fade)
         }
     }
-    
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }

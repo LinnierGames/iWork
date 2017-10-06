@@ -78,17 +78,31 @@ private typealias UserNotifications = UNUserNotificationCenter
 extension UserNotifications {
     
     /// used to mark the fifth hour fire date in user notifications
-    public func addLocalNotification(forPunch punch: TimePunch) {
+    func addLocalNotification(forPunch punch: TimePunch, forShift shift: Shift) {
+        //TODO: only add if each notification is still current, not in the past
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour_title", arguments: nil)
+        content.subtitle = AppDelegate.sharedInstance.currentEmployer.name!
         content.categoryIdentifier = "UTILS_PUNCH_CLOCK"
         content.sound = UNNotificationSound.default()
+        content.userInfo = ["shift": shift.objectID.uriRepresentation().absoluteString]
         
         let fifthHour = String(punch.timeStamp!.addingTimeInterval(CTDateComponentHour*5), dateStyle: .none, timeStyle: .long)
         
+        let dateInfo60 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*4), forComponents: [.day, .month, .year, .hour, .minute, .second])
+        content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["1h", fifthHour])
+        var trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo60, repeats: false)
+        
+        // Create the request object.
+        self.add(UNNotificationRequest(identifier: "note_fifth_hour-60", content: content, trigger: trigger)) { (error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
+        
         let dateInfo30 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*5-CTDateComponentMinute*30), forComponents: [.day, .month, .year, .hour, .minute, .second])
         content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["30m", fifthHour])
-        var trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo30, repeats: false)
+        trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo30, repeats: false)
         
         // Create the request object.
         self.add(UNNotificationRequest(identifier: "note_fifth_hour-30", content: content, trigger: trigger)) { (error) in
@@ -142,7 +156,10 @@ extension UserNotifications {
         }
     }
     
-    public func removePendingFifthHourNotificationRequests() {
-        self.removePendingNotificationRequests(withIdentifiers: ["note_fifth_hour-30","note_fifth_hour-15","note_fifth_hour-10","note_fifth_hour-5","note_fifth_hour-1"])
+    /// Clears all consecutive notifcations, if any
+    func removePendingFifthHourNotificationRequests() {
+        let identifiers = ["note_fifth_hour-60","note_fifth_hour-30","note_fifth_hour-15","note_fifth_hour-10","note_fifth_hour-5","note_fifth_hour-1"]
+        self.removePendingNotificationRequests(withIdentifiers: identifiers)
+        self.removeDeliveredNotifications(withIdentifiers: identifiers)
     }
 }

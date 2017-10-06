@@ -25,7 +25,7 @@
         <relationship name="holidayDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dates" inverseName="employer" inverseEntity="Dates" syncable="YES"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Roles" inverseName="employer" inverseEntity="Roles" syncable="YES"/>
         <relationship name="selectedRole" maxCount="1" deletionRule="Nullify" destinationEntity="Roles" inverseName="isSelected" inverseEntity="Roles" syncable="YES"/>
-        <relationship name="shifts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Shifts" inverseName="employer" inverseEntity="Shifts" syncable="YES"/>
+        <relationship name="shifts" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Shifts" inverseName="employer" inverseEntity="Shifts" syncable="YES"/>
     </entity>
     <entity name="Folders" representedClassName="Folder" parentEntity="DirectoryInfos" syncable="YES" codeGenerationType="class"/>
     <entity name="Projects" representedClassName="Project" parentEntity="Tasks" syncable="YES" codeGenerationType="class">

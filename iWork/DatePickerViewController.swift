@@ -23,18 +23,18 @@ struct DatePickerOptions {
     var dateRanges: Range<Date>?
     /** apply the times from the date ranges as the min and max of the timer picker */
     var timeRanges: Bool
-    
+
     /** allow time to be set */
     var canSetTime: Bool
     /** allow time to be none */
     var timeRequired: Bool
     /** an array of TimeIntervals, from today's date */
     var timePresets: [TimeInterval]
-    
+
     var pickerMode: UIDatePickerMode
-    
+
     var tag: Int8?
-    
+
     init() {
         canSetDate = true
         canSetTime = true
@@ -48,9 +48,9 @@ struct DatePickerOptions {
 }
 
 class DatePickerViewController: UIViewController {
-    
+
     var options = DatePickerOptions()
-    
+
     var date: Date? {
         didSet {
             if date == nil {
@@ -62,14 +62,14 @@ class DatePickerViewController: UIViewController {
             updateUI()
         }
     }
-    
+
     private var timeInterval: TimeInterval? {
         get {
             if date != nil {
                 if isTimeSet {
                     let calendar = Calendar.current
                     let component = calendar.dateComponents( [.hour, .minute, .second], from: self.date!)
-                    
+
                     return component.timeInterval
                 } else {
                     return nil
@@ -79,20 +79,20 @@ class DatePickerViewController: UIViewController {
             }
         }
     }
-    
+
     /** if true, the time from the .date will be set to the time picker */
     var isTimeSet: Bool = false
-    
+
     private var pickerMode: UIDatePickerMode? {
         return datePicker?.datePickerMode
     }
-    
+
     var delegate: DatePickerDelegate?
-    
+
     // MARK: - RETURN VALUES
-    
+
     // MARK: - VOID METHODS
-    
+
     private func updateUI() {
         if date == nil {
             buttonDate?.setTitle("Add a Date", for: .normal)
@@ -110,7 +110,7 @@ class DatePickerViewController: UIViewController {
                 datePicker?.alpha = 1
             }
         }
-        
+
         if timeInterval == nil {
             buttonTime?.setTitle("Time", for: .normal)
             buttonTime?.tintColor = UIColor.disabledState
@@ -118,16 +118,16 @@ class DatePickerViewController: UIViewController {
             buttonTime?.setTitle(String(date!, dateStyle: .none, timeStyle: .short), for: .normal)
             buttonTime?.tintColor = UIColor.defaultButtonTint
         }
-        
+
         updateBarButtons()
     }
-    
+
     //TODO: validate date mins/maxs so the presets don't get added if out of range
     private func updateBarButtons() {
         if barButtons == nil || datePicker == nil {
             return
         }
-        
+
         if pickerMode == .date {
             var buttonTag = 0
             self.toolbarItems!.removeAll()
@@ -149,7 +149,7 @@ class DatePickerViewController: UIViewController {
                 let barButton = UIBarButtonItem(title: buttonTitle, style: .plain, target: self, action: #selector(pressToolbarButton(_:)))
                 barButton.tag = buttonTag
                 self.toolbarItems!.append(barButton)
-                
+
                 let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
                 self.toolbarItems!.append(spacer)
                 if preset == options.datePresets.last! {
@@ -170,7 +170,7 @@ class DatePickerViewController: UIViewController {
                 let barButton = UIBarButtonItem(title: buttonTitle, style: .plain, target: self, action: #selector(pressToolbarButton(_:)))
                 barButton.tag = buttonTag
                 self.toolbarItems!.append(barButton)
-                
+
                 let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
                 self.toolbarItems!.append(spacer)
                 if preset == options.timePresets.last! {
@@ -185,15 +185,15 @@ class DatePickerViewController: UIViewController {
             }
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        
+
     }
-    
+
     // MARK: - IBACTIONS
-    
+
     @IBOutlet weak var buttonDate: UIButton! {
         didSet {
             buttonDate.isHidden = options.canSetDate.inverse
@@ -207,7 +207,7 @@ class DatePickerViewController: UIViewController {
             updateUI()
         }
     }
-    
+
     @IBOutlet weak var buttonTime: UIButton! {
         didSet {
             buttonTime.isHidden = options.canSetTime.inverse
@@ -221,7 +221,7 @@ class DatePickerViewController: UIViewController {
         }
         updateUI()
     }
-    
+
     @IBOutlet weak var datePicker: UIDatePicker! {
         didSet {
             datePicker.datePickerMode = options.pickerMode
@@ -254,10 +254,10 @@ class DatePickerViewController: UIViewController {
             break
         }
     }
-    
+
     @IBOutlet private var barButtons: [UIBarButtonItem]! {
         didSet {
-            
+
         }
     }
     @IBAction func pressToolbarButton(_ sender: UIBarButtonItem) {
@@ -270,7 +270,7 @@ class DatePickerViewController: UIViewController {
                 _date.day = todaysDate.day
                 _date.month = todaysDate.month
                 _date.year = todaysDate.year
-                
+
                 return Calendar.current.date(from: _date)!
             }
             if sender.tag != -1 {
@@ -285,9 +285,9 @@ class DatePickerViewController: UIViewController {
                 var _date = DateComponents(date: date!, forComponents: [.day, .month, .year])
                 _date.hour = 0
                 _date.minute = 0
-                
+
                 isTimeSet = true
-                
+
                 return Calendar.current.date(from: _date)!.addingTimeInterval(offset)
             }
             if sender.tag != -1 {
@@ -298,22 +298,20 @@ class DatePickerViewController: UIViewController {
             }
         }
     }
-    
+
     @IBAction private func pressCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func pressDone(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         self.delegate?.datePicker(self, didFinishWithDate: self.date, withTimeInterval: self.timeInterval)
-        
-    }
-    
+		}
+
     // MARK: - LIFE CYCLE
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear( animated)
         updateUI()
     }
 }
-
