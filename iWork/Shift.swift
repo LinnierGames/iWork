@@ -20,7 +20,7 @@ extension Shift {
     public var lastPunch: TimePunch? {
         return self.punches?.array.last as! TimePunch?
     }
-    
+
 
     public var week: Int {
         return DateComponents(date: date! as Date, forComponents: [.weekOfYear]).weekOfYear!
