@@ -86,6 +86,8 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             self!.fetchedResultsController.object(at: indexPath).timeStamp = NSDate()
             AppDelegate.sharedInstance.saveContext()
         })]
+        
+        // You cannot delete the starting shift if it is not the only punch made
         if fetchedResultsController.object(at: indexPath).punchType != .StartShift || fetchedResultsController.fetchedObjects!.count == 1 {
             actions.insert(UITableViewRowAction(style: .destructive, title: "Remove", handler: { [weak self] (action, indexPath) in
                 let punch = self!.fetchedResultsController.object(at: indexPath)

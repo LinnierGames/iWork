@@ -16,9 +16,10 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
     // MARK: Table view data source
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let shift = fetchedResultsController.shift(at: IndexPath(row: 0, section: section))
         var weekSum: TimeInterval = 0
+        let nShifts: Int
         if let shifts = fetchedResultsController.sections?[section].objects as! [Shift]? {
+            nShifts = shifts.count
             for shift in shifts {
                 if let duration = shift.onTheClockDuration {
                     weekSum += duration
@@ -27,10 +28,12 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
                 }
             }
         } else {
+            nShifts = 0
             weekSum = 0
         }
+        let shift = fetchedResultsController.shift(at: IndexPath(row: 0, section: section))
 
-        return "Week \(shift.week): \(String(weekSum))"
+        return "Week \(shift.week): \(nShifts) shift\(nShifts == 1 ? "" : "s") for \(String(weekSum))"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -106,6 +109,21 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "show shift", sender: fetchedResultsController.object(at: indexPath))
+    }
+    
+    // MARK: Fetched Reqeust Controller
+    
+    
+    // TODO : Update when a time stamp is updated such as the .date
+    override func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        super.controller(controller, didChange: anObject, at: indexPath, for: type, newIndexPath: newIndexPath)
+        if let updateIndexPath = indexPath ?? newIndexPath {
+            if let sectionHeader = tableView.headerLabel(forSection: updateIndexPath.section) {
+                sectionHeader.text = tableView(tableView, titleForHeaderInSection: updateIndexPath.section)
+                sectionHeader.updateConstraints()
+                sectionHeader.setNeedsLayout()
+            }
+        }
     }
 
     // MARK: - IBACTIONS

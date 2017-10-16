@@ -672,7 +672,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 let labelVersion = UITextView(frame: CGRect(x: 0, y: 0, width: 0, height: 64))
                 labelVersion.translatesAutoresizingMaskIntoConstraints = false
 
-                labelVersion.text = "iWork (Linnier__Games)\nv\(version) (\(build))"
+                labelVersion.text = "iWork (Linnier__Games)\nv\(version) (\(build))\ndev branch"
                 labelVersion.textAlignment = .center
                 labelVersion.textColor = UIColor.lightGray
                 labelVersion.isEditable = false
