@@ -40,10 +40,10 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         let cell = tableView.returnCell(atIndexPath: indexPath)
 
         let shift = fetchedResultsController.shift(at: indexPath)
-        cell.textLabel!.text = String(shift.date!, dateStyle: .full)
+        cell.textLabel!.text = String(date: shift.date!, dateStyle: .full)
         cell.accessoryType = .detailDisclosureButton
         if shift.isCompletedShift ?? false {
-            cell.detailTextLabel!.text = "Sum: \(String(shift.onTheClockDuration!))"
+            cell.detailTextLabel!.text = "Sum: \(String(timeInterval: shift.onTheClockDuration!))"
         } else {
             if shift.punches!.count > 0 {
                 cell.detailTextLabel!.text = "Loading"
@@ -53,7 +53,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
                         if shift!.isCompletedShift! {
                             timer.invalidate()
                         } else {
-                            cell?.detailTextLabel!.text = "Sum: \(String(shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType)"
+                            cell?.detailTextLabel!.text = "Sum: \(String(timeInterval: shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType)"
                         }
                     } else {
                         timer.invalidate()

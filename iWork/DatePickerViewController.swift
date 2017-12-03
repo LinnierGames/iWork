@@ -100,7 +100,7 @@ class DatePickerViewController: UIViewController {
             datePicker?.isUserInteractionEnabled = false
             datePicker?.alpha = UIColor.disabledStateOpacity
         } else {
-            buttonDate?.setTitle(String(date!, dateStyle: .medium), for: .normal)
+            buttonDate?.setTitle(String(date: date!, dateStyle: .medium), for: .normal)
             buttonDate?.tintColor = UIColor.defaultButtonTint
             if pickerMode == .time, isTimeSet == false {
                 datePicker?.isUserInteractionEnabled = false
@@ -115,7 +115,7 @@ class DatePickerViewController: UIViewController {
             buttonTime?.setTitle("Time", for: .normal)
             buttonTime?.tintColor = UIColor.disabledState
         } else {
-            buttonTime?.setTitle(String(date!, dateStyle: .none, timeStyle: .short), for: .normal)
+            buttonTime?.setTitle(String(date: date!, dateStyle: .none, timeStyle: .short), for: .normal)
             buttonTime?.tintColor = UIColor.defaultButtonTint
         }
 
@@ -166,7 +166,7 @@ class DatePickerViewController: UIViewController {
             var buttonTag = 0
             self.toolbarItems!.removeAll()
             for preset in options.timePresets {
-                let buttonTitle = String(Date(timeIntervalSinceToday: preset), dateStyle: .none, timeStyle: .short)
+                let buttonTitle = String(date: Date(timeIntervalSinceMidnight: preset), dateStyle: .none, timeStyle: .short)
                 let barButton = UIBarButtonItem(title: buttonTitle, style: .plain, target: self, action: #selector(pressToolbarButton(_:)))
                 barButton.tag = buttonTag
                 self.toolbarItems!.append(barButton)

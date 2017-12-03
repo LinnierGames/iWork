@@ -208,7 +208,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Employer.IndexPaths.EmployerStartDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
-                cell.detailTextLabel!.text = String(AppDelegate.sharedInstance.currentEmployer.startDate!)
+                cell.detailTextLabel!.text = String(date: AppDelegate.sharedInstance.currentEmployer.startDate!)
                 cell.accessoryType = .disclosureIndicator
 
                 return cell
@@ -216,7 +216,7 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "End Date"
                 if let endDate = AppDelegate.sharedInstance.currentEmployer.endDate {
-                    cell.detailTextLabel!.text = String(endDate)
+                    cell.detailTextLabel!.text = String(date: endDate)
                     cell.detailTextLabel!.textColor = UIColor.black
                 } else {
                     cell.detailTextLabel!.text = "None"
@@ -276,14 +276,14 @@ class SettingsTableViewController: FetchedResultsTableViewController, UITextFiel
             case Table.Role.IndexPaths.RoleStartDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "Start Date"
-                cell.detailTextLabel!.text = String(AppDelegate.sharedInstance.currentRole.startDate!)
+                cell.detailTextLabel!.text = String(date: AppDelegate.sharedInstance.currentRole.startDate!)
 
                 return cell
             case Table.Role.IndexPaths.RoleEndDateRow:
                 let cell = tableView.returnCell(forIdentifier: "subtitleRight", atIndexPath: indexPath)
                 cell.textLabel!.text = "End Date"
                 if let endDate = AppDelegate.sharedInstance.currentRole.endDate {
-                    cell.detailTextLabel!.text = String(endDate)
+                    cell.detailTextLabel!.text = String(date: endDate)
                     cell.detailTextLabel!.textColor = UIColor.black
                 } else {
                     cell.detailTextLabel!.text = "None"
