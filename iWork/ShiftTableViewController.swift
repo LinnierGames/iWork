@@ -108,7 +108,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         cell.textLabel!.text = String(describing: punch.punchType)
         let time = String(date: punch.timeStamp!, dateStyle: .none, timeStyle: .medium)
         if let duration = punch.duration {
-            let stringTimeVariance = String(duration)
+            let stringTimeVariance = String(timeInterval: duration)
             let cellDetailText = NSMutableAttributedString(string: "\(time) was \(stringTimeVariance)")
             if duration >= TimeInterval(CTDateComponentHour*4+CTDateComponentMinute*30) { //4hours and 30minutes
                 cellDetailText.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: time.count+5, length: stringTimeVariance.count))

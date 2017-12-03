@@ -33,7 +33,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         }
         let shift = fetchedResultsController.shift(at: IndexPath(row: 0, section: section))
 
-        return "Week \(shift.week): \(nShifts) shift\(nShifts == 1 ? "" : "s") for \(String(weekSum))"
+        return "Week \(shift.week): \(nShifts) shift\(nShifts == 1 ? "" : "s") for \(String(timeInterval: weekSum))"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
