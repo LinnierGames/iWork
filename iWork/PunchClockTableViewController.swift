@@ -33,7 +33,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         }
         let shift = fetchedResultsController.shift(at: IndexPath(row: 0, section: section))
 
-        return "Week \(shift.week): \(nShifts) shift\(nShifts == 1 ? "" : "s") for \(String(weekSum))"
+        return "Week \(shift.week): \(nShifts) shift\(nShifts == 1 ? "" : "s") for \(String(timeInterval: weekSum))"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,7 +43,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         cell.textLabel!.text = String(date: shift.date!, dateStyle: .full)
         cell.accessoryType = .detailDisclosureButton
         if shift.isCompletedShift ?? false {
-            cell.detailTextLabel!.text = "Sum: \(String(shift.onTheClockDuration!))"
+            cell.detailTextLabel!.text = "Sum: \(String(timeInterval: shift.onTheClockDuration!))"
         } else {
             if shift.punches!.count > 0 {
                 cell.detailTextLabel!.text = "Loading"
@@ -53,7 +53,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
                         if shift!.isCompletedShift! {
                             timer.invalidate()
                         } else {
-                            cell?.detailTextLabel!.text = "Sum: \(String(shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType)"
+                            cell?.detailTextLabel!.text = "Sum: \(String(timeInterval: shift!.continuousOnTheClockDuration!)) last punch: \(lastPunch.punchType)"
                         }
                     } else {
                         timer.invalidate()

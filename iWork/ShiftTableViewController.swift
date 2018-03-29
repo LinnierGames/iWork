@@ -86,7 +86,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             self!.fetchedResultsController.object(at: indexPath).timeStamp = NSDate()
             AppDelegate.sharedInstance.saveContext()
         })]
-        
+
         // You cannot delete the starting shift if it is not the only punch made
         if fetchedResultsController.object(at: indexPath).punchType != .StartShift || fetchedResultsController.fetchedObjects!.count == 1 {
             actions.insert(UITableViewRowAction(style: .destructive, title: "Remove", handler: { [weak self] (action, indexPath) in
@@ -108,10 +108,10 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         cell.textLabel!.text = String(describing: punch.punchType)
         let time = String(date: punch.timeStamp!, dateStyle: .none, timeStyle: .medium)
         if let duration = punch.duration {
-            let stringTimeVariance = String(duration)
+            let stringTimeVariance = String(timeInterval: duration)
             let cellDetailText = NSMutableAttributedString(string: "\(time) was \(stringTimeVariance)")
             if duration >= TimeInterval(CTDateComponentHour*4+CTDateComponentMinute*30) { //4hours and 30minutes
-                cellDetailText.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: time.characters.count+5, length: stringTimeVariance.characters.count))
+                cellDetailText.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: time.count+5, length: stringTimeVariance.count))
             }
             cell.detailTextLabel!.attributedText = cellDetailText
         } else {
@@ -177,7 +177,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
         if let punch = lastPunch {
             if punch.punchType != .EndShift {
                 let sum = Date().timeIntervalSince(punch.timeStamp! as Date)
-                labelLastPunch.text = "Last Punch: \(String(describing: punch.punchType)), \(String(sum)) ago"
+                labelLastPunch.text = "Last Punch: \(String(describing: punch.punchType)), \(String(timeInterval: sum)) ago"
             } else {
                 labelLastPunch.text = "Last Punch: End Shift"
             }
@@ -189,7 +189,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                     } else {
                         labelFifthHour.textColor = UIColor.black
                     }
-                    labelFifthHour.text = "\(String(intervalTillFithHour)) left"
+                    labelFifthHour.text = "\(String(timeInterval: intervalTillFithHour)) left"
                     labelCaption.text = "until you hit a 5th hour at \(String(date: shift.fithHour!, dateStyle: .none, timeStyle: .long))"
                 } else {
                     labelFifthHour.text = "You've worked over 5 hours"
@@ -200,7 +200,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                 labelFifthHour.textColor = UIColor.black
                 labelCaption.text = nil
             }
-            labelSum.text = "Sum: \(String(shift.continuousOnTheClockDuration!))"
+            labelSum.text = "Sum: \(String(timeInterval: shift.continuousOnTheClockDuration!))"
 
             suggestedPunch = setSuggestedPunch()
         } else {
