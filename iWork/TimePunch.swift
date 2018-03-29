@@ -87,7 +87,7 @@ extension UserNotifications {
         content.sound = UNNotificationSound.default()
         content.userInfo = ["shift": shift.objectID.uriRepresentation().absoluteString]
 
-        let fifthHour = String(punch.timeStamp!.addingTimeInterval(CTDateComponentHour*5), dateStyle: .none, timeStyle: .long)
+        let fifthHour = String(date: punch.timeStamp!.addingTimeInterval(CTDateComponentHour*5), dateStyle: .none, timeStyle: .long)
 
         let dateInfo60 = DateComponents(date: (punch.timeStamp! as Date).addingTimeInterval(CTDateComponentHour*4), forComponents: [.day, .month, .year, .hour, .minute, .second])
         content.body = NSString.localizedUserNotificationString(forKey: "punch_fifth_hour", arguments: ["1h", fifthHour])

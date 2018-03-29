@@ -106,7 +106,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
 
         let punch = fetchedResultsController.object(at: indexPath)
         cell.textLabel!.text = String(describing: punch.punchType)
-        let time = String(punch.timeStamp!, dateStyle: .none, timeStyle: .medium)
+        let time = String(date: punch.timeStamp!, dateStyle: .none, timeStyle: .medium)
         if let duration = punch.duration {
             let stringTimeVariance = String(duration)
             let cellDetailText = NSMutableAttributedString(string: "\(time) was \(stringTimeVariance)")
@@ -132,7 +132,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
             managedObjectContext: AppDelegate.viewContext,
             sectionNameKeyPath: nil, cacheName: nil
         )
-        buttonDate.setTitle(String(shift.date!, dateStyle: .full), for: .normal)
+        buttonDate.setTitle(String(date: shift.date!, dateStyle: .full), for: .normal)
         updateInfo()
     }
 
@@ -190,7 +190,7 @@ class ShiftViewController: UIViewController, UITextViewDelegate, UITableViewData
                         labelFifthHour.textColor = UIColor.black
                     }
                     labelFifthHour.text = "\(String(intervalTillFithHour)) left"
-                    labelCaption.text = "until you hit a 5th hour at \(String(shift.fithHour!, dateStyle: .none, timeStyle: .long))"
+                    labelCaption.text = "until you hit a 5th hour at \(String(date: shift.fithHour!, dateStyle: .none, timeStyle: .long))"
                 } else {
                     labelFifthHour.text = "You've worked over 5 hours"
                     labelCaption.text = nil

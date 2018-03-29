@@ -40,7 +40,7 @@ class PunchClockTableViewController: FetchedResultsTableViewController {
         let cell = tableView.returnCell(atIndexPath: indexPath)
 
         let shift = fetchedResultsController.shift(at: indexPath)
-        cell.textLabel!.text = String(shift.date!, dateStyle: .full)
+        cell.textLabel!.text = String(date: shift.date!, dateStyle: .full)
         cell.accessoryType = .detailDisclosureButton
         if shift.isCompletedShift ?? false {
             cell.detailTextLabel!.text = "Sum: \(String(shift.onTheClockDuration!))"

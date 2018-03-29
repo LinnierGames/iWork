@@ -23,10 +23,10 @@
 		E94F4F0D1F08B130001DB22F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0C1F08B130001DB22F /* Constants.swift */; };
 		E94F4F101F08B177001DB22F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F0F1F08B177001DB22F /* Task.swift */; };
 		E94F4F121F08B244001DB22F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F111F08B244001DB22F /* Folder.swift */; };
+		E97AE20A206DA8960014CE18 /* UniversalExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97AE209206DA8960014CE18 /* UniversalExtentions.swift */; };
 		E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */; };
 		E98259121F245392003CB2DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98259111F245392003CB2DD /* Localizable.strings */; };
 		E98E9ED11F842FF300B684D9 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98E9ED01F842FF300B684D9 /* FetchedResultsTableViewController.swift */; };
-		E98E9ED31F842FFA00B684D9 /* UniversalExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98E9ED21F842FF900B684D9 /* UniversalExtentions.swift */; };
 		E99349931F09B78000A27473 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349921F09B78000A27473 /* Project.swift */; };
 		E99349971F09CB2200A27473 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349961F09CB2200A27473 /* Role.swift */; };
 		E99349991F0C160500A27473 /* TaskNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99349981F0C160500A27473 /* TaskNavigationController.swift */; };
@@ -85,10 +85,10 @@
 		E94F4F0C1F08B130001DB22F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E94F4F0F1F08B177001DB22F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E94F4F111F08B244001DB22F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		E97AE209206DA8960014CE18 /* UniversalExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UniversalExtentions.swift; path = "../../../../Swift Source Files/UniversalExtentions.swift"; sourceTree = "<group>"; };
 		E982590F1F22DBBE003CB2DD /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		E98259111F245392003CB2DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		E98E9ED01F842FF300B684D9 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FetchedResultsTableViewController.swift; path = "../../../../Swift Source Files/FetchedResultsTableViewController.swift"; sourceTree = "<group>"; };
-		E98E9ED21F842FF900B684D9 /* UniversalExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UniversalExtentions.swift; path = "../../../../Swift Source Files/UniversalExtentions.swift"; sourceTree = "<group>"; };
 		E99349921F09B78000A27473 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E99349961F09CB2200A27473 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		E99349981F0C160500A27473 /* TaskNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNavigationController.swift; sourceTree = "<group>"; };
@@ -155,10 +155,7 @@
 		E94F4ECB1F088E8E001DB22F /* iWork */ = {
 			isa = PBXGroup;
 			children = (
-				E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */,
-				E94F4F011F08A994001DB22F /* Categories.swift */,
-				E98E9ED21F842FF900B684D9 /* UniversalExtentions.swift */,
-				E94F4F0C1F08B130001DB22F /* Constants.swift */,
+				E951A1212069A71E007B8AF4 /* Helper Controllers */,
 				E94F4F0B1F08B0F7001DB22F /* Task Manager */,
 				E9D43E901F15BDB60067FF44 /* Utitlities */,
 				E99349A41F0C841B00A27473 /* Settings */,
@@ -216,6 +213,17 @@
 				E9D43E961F15C3B50067FF44 /* Punch Clock */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E951A1212069A71E007B8AF4 /* Helper Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E94F4ECC1F088E8E001DB22F /* AppDelegate.swift */,
+				E94F4F011F08A994001DB22F /* Categories.swift */,
+				E97AE209206DA8960014CE18 /* UniversalExtentions.swift */,
+				E94F4F0C1F08B130001DB22F /* Constants.swift */,
+			);
+			name = "Helper Controllers";
 			sourceTree = "<group>";
 		};
 		E99349A11F0C5D9200A27473 /* UICustom */ = {
@@ -441,7 +449,7 @@
 				E99349A01F0C5D8C00A27473 /* CustomTableViewCells.swift in Sources */,
 				E98259101F22DBBE003CB2DD /* LaunchScreenViewController.swift in Sources */,
 				E9D43E951F15C3A90067FF44 /* Shift.swift in Sources */,
-				E98E9ED31F842FFA00B684D9 /* UniversalExtentions.swift in Sources */,
+				E97AE20A206DA8960014CE18 /* UniversalExtentions.swift in Sources */,
 				E94F4ECD1F088E8E001DB22F /* AppDelegate.swift in Sources */,
 				E94F4F001F08A4EC001DB22F /* Directory.swift in Sources */,
 				E98E9ED11F842FF300B684D9 /* FetchedResultsTableViewController.swift in Sources */,
